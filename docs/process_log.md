@@ -86,4 +86,13 @@ Division of labor shifted by agreement: René drives concepts/verification, agen
 - **`tools/dev_connect.ps1` + `.bat`**: one-click tunnel restore (finds adb, dedupes stale wireless devices, sets `adb reverse`, verifies laptop-side 54321). Root cause of today's `Connection refused`: assumption that USB needs no tunnel — it does; reverses are registered per device connection and die on transport switch.
 - Earlier agent-made commits were **reverted** at René's request (he commits himself); tree left fully staged.
 
+### Session 3 (continued 2) — onboarding model implemented (ADR 004)
+Decision 004 ratified: sales-led org provisioning, admin-managed membership, no public self-signup. Implemented:
+- **Login gated**: "Create account" removed; "Need access? Ask your admin" dialog instead. GoTrue `enable_signup = false` in `config.toml` (server-side enforcement — the UI change is cosmetic, the backend rule is the real gate). Requires `supabase stop` + `supabase start` to take effect (data persists).
+- **`tools/provision_org.ps1`**: one command creates org + confirmed admin + membership in a single transaction (docker exec → psql). Local/dev technique (direct `auth.users` insert, like seed); production variant should create users via GoTrue Admin API. Template for the future Stripe-webhook handler.
+- **Refactor**: `main.dart` split into `main.dart` (bootstrap + `AuthGate`) + `screens/login_screen.dart` + `screens/notes_screen.dart` (`MyHomePage` → `NotesScreen`). No logic changes.
+- **Deliberately deferred** (thesis-clock reasoning): in-app admin-invite machinery (memberships write-path policies / server function). Not needed for the field evaluation — script-provisioned accounts suffice; the memberships-RLS-recursion design problem is documented in ADR 004 consequences and will be tackled only if time allows after `observations`.
+
+**Verified on device (later that day):** stack restart with `enable_signup = false` works; gated login + "ask your admin" dialog work; `provision_org.ps1` provisions a fresh org+admin that logs in fully isolated (RLS-correct). `docs/architecture.md` written (first as-built snapshot); CLAUDE.md §9 refreshed to current state.
+
 **Result: ISOLATION TEST PASSED (2026-07-21).** On-device verification: `usera@test.at` sees exactly the two Org Alpha notes and can write; `userb@test.at` sees exactly the one Org Beta note. Same table, same database, zero crossover — the CLAUDE.md §6 sovereignty claim is demonstrated, not asserted. Marked as **Milestone 1** (git tag `m1-sovereignty-slice`). Open follow-ups: org onboarding flow (auto-create vs. invite — product decision), registration UX, `notes` → `observations`.

@@ -104,16 +104,17 @@ Keep a clean seam between two parts:
 
 ---
 
-## 9. Current status (build status as of 2026-06-26; reviewed 2026-07-21)
+## 9. Current status (build status as of 2026-07-21)
 
 - ✅ Flutter 3.44.1 working on Windows; Android toolchain green.
 - ✅ Docker Desktop running; **local Supabase up via `supabase start`** (Postgres+PostGIS, Auth, Storage, APIs, Studio at `:54323`).
-- ✅ Default Flutter app **deployed to physical phone** (Samsung Galaxy S22, `SM S901U1`) over USB; **hot reload working** (`r` in terminal).
-- 📁 Project folder / future repo: `C:\Users\renes\repos\conservation_app`.
-- ✅ **app ↔ Supabase connected** (2026-06-26): `supabase_flutter` initialised in `main()`; `adb reverse` tunnel + debug cleartext; first migration created `public.notes`; **insert round-trip works** (app → DB, verified in Studio). A temporary `grant … to anon` is in place to allow the no-auth loop.
-- ⏭️ **Next:** list/read notes in-app (close the loop); then GoTrue auth + `organizations`/`memberships` + **org-scoped RLS** (replacing the temporary `anon` grant). See `docs/process_log.md` for the full session log.
-- ⚠️ **Repository hygiene — do this before any new feature.** As of 2026-07-21 the repository has **zero commits** (`git log` → *"your current branch 'master' does not have any commits yet"*). All work so far is unversioned and unprotected, and a copy operation has already come close to losing it. Commit the current state, then commit in small working steps. `git log` is also free, dated process evidence for the thesis — see §11.
-- 🐢 Working mode is deliberately **slow and step by step** until the base is complete. That is fine and intentional. Once the base stands, documentation output ramps up sharply (§11).
+- ✅ App running on physical phone (Samsung Galaxy S22, `SM S901U1`); dev networking via `adb reverse` (restore anytime with `tools/dev_connect.ps1`).
+- ✅ **app ↔ Supabase connected** (2026-06-26): `supabase_flutter` initialised in `main()`; `notes` round-trip (insert + list) works end-to-end.
+- ✅ **Milestone 1 — auth + org-scoped RLS base, verified on device (2026-07-21):** GoTrue email login (public self-signup **disabled**, ADR 004); `organizations` + `memberships` (bridge table, roles); deny-by-default **RLS** with membership-subquery policies; temporary `anon` grant removed; **two-user/two-org isolation test passed**. App split into `lib/screens/` (login, notes).
+- ✅ **Dev tooling:** `supabase/seed.sql` (reproducible test world on every `db reset`: `usera@test.at`/`userb@test.at`, `password123`, Org Alpha/Beta, sample notes), `tools/provision_org.ps1` (concierge org+admin provisioning per ADR 004), `tools/dev_connect.ps1` (tunnel restore).
+- ✅ **Repository versioned & pushed** (2026-07-21): public GitHub repo, initial commit tagged `m1-sovereignty-slice`. Rule stands: commit in small working steps — `git log` is free, dated process evidence (§11).
+- 📄 Docs live: `docs/architecture.md` (as-built snapshot), `docs/decisions/001–004`, `docs/process_log.md` (sessions 1–3).
+- ⏭️ **Next:** enable **PostGIS** + `observations` table (Darwin Core fields + JSONB `attributes`, same RLS pattern) → map view + location + point capture → photo + Storage → Pl@ntNet adapter behind `IdentificationService`. Deliberately deferred: in-app admin-invite machinery (ADR 004), Stripe (§5).
 
 ---
 
