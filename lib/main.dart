@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'screens/home_shell.dart';
 import 'screens/login_screen.dart';
-import 'screens/notes_screen.dart';
+import 'screens/set_password_screen.dart';
+import 'services/org_context.dart';
 import 'theme.dart';
 import 'util.dart';
 
@@ -21,8 +23,30 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // One instance for the whole app: which park we are recording under is
+  // global state by nature, and passing it down explicitly keeps it visible
+  // rather than hiding it in a service locator.
+  late final OrgContext _orgContext;
+
+  @override
+  void initState() {
+    super.initState();
+    _orgContext = OrgContext(Supabase.instance.client);
+  }
+
+  @override
+  void dispose() {
+    _orgContext.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +58,68 @@ class MyApp extends StatelessWidget {
       theme: theme.light(), // used in light mode
       darkTheme: theme.dark(), // used in dark mode
       themeMode: ThemeMode.system, // follow the phone's light/dark setting
-      home: const AuthGate(),
+      home: AuthGate(orgContext: _orgContext),
     );
   }
 }
 
-/// Decides which screen to show based on the auth session.
-/// Listens to onAuthStateChange, so it rebuilds on every sign-in/sign-out.
-class AuthGate extends StatelessWidget {
-  const AuthGate({super.key});
+/// Decides which screen to show, in three steps:
+///
+///   1. no session            -> LoginScreen
+///   2. session, no password  -> SetPasswordScreen   (arrived via an invitation)
+///   3. session, password set -> bootstrap the park context, then HomeShell
+///
+/// Step 2 exists because there is no self-service sign-up (ADR 004). An admin
+/// adds a colleague by e-mail, GoTrue mails a one-time link, and following it
+/// produces a session for someone who has never chosen a password. GoTrue does
+/// not expose "does this user have a password", so the app records the fact in
+/// the user's own metadata when they set one (ADR 006).
+class AuthGate extends StatefulWidget {
+  const AuthGate({super.key, required this.orgContext});
+
+  final OrgContext orgContext;
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  final supabase = Supabase.instance.client;
+  String? _bootstrappedFor;
 
   @override
   Widget build(BuildContext context) {
-    final supabase = Supabase.instance.client;
     return StreamBuilder<AuthState>(
       stream: supabase.auth.onAuthStateChange,
       builder: (context, snapshot) {
         final session = supabase.auth.currentSession;
-        if (session == null) {
+        final user = supabase.auth.currentUser;
+
+        if (session == null || user == null) {
+          _bootstrappedFor = null;
           return const LoginScreen();
         }
-        return const NotesScreen(title: 'Notes');
+
+        // Only someone who arrived through an invitation is sent here. The
+        // `invited` flag is written by GoTrue's admin invite call; the
+        // `password_set` flag is written by SetPasswordScreen itself. Testing
+        // both means an account that existed before this flow — the seeded
+        // dev users, for instance — is never trapped on the screen.
+        final invited = user.userMetadata?['invited'] == true;
+        final passwordSet = user.userMetadata?['password_set'] == true;
+        if (invited && !passwordSet) {
+          return const SetPasswordScreen(isFirstTime: true);
+        }
+
+        // Claim invitations and load the park list exactly once per session.
+        if (_bootstrappedFor != user.id) {
+          _bootstrappedFor = user.id;
+          // Fire and forget: OrgContext notifies its listeners when done, and
+          // the screens below render their own loading state.
+          widget.orgContext.bootstrap();
+        }
+
+        return HomeShell(orgContext: widget.orgContext);
       },
     );
   }

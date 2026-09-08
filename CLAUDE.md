@@ -69,19 +69,66 @@ Keep a clean seam between two parts:
 - `auth` — **Supabase-managed**; holds real user accounts (`auth.users`). We don't build this.
 - `public` — **ours**; all our tables live here.
 
-**Our tables (all in `public`, related by foreign keys):**
-- `organizations` — one row per customer org. Billing-ready fields (deferred use): `stripe_customer_id`, `subscription_status`, `seats`.
-- `memberships` — links a user (`auth.users`) to an org, with a `role`. (This is "user management".)
-- `observations` — the field data: `org_id`, **PostGIS geometry**, `photo_url`, `created_by`, `event_date`, `scientific_name` (Darwin Core), **plus a JSONB `attributes` column** for the variable, use-case-specific (plant) fields. (This is the swappable domain layer in the DB.)
+> **The data model is no longer a sketch.** It was designed, written, executed against a real
+> PostgreSQL + PostGIS instance and tested on 2026-09-05/06. The authoritative description is
+> **`docs/architecture.md` §3**; the reasoning is in **`docs/decisions/005–007`**; the migrations are
+> `supabase/migrations/20260905120000_*` and `20260906090000_*`. What follows is the summary — where
+> it disagrees with `architecture.md`, that file wins.
 
-**Isolation:** **RLS on `org_id`** guarantees each org sees only its own rows. This *is* the data-sovereignty mechanism — treat RLS policies as first-class, security-critical code.
+**Tenancy and people:** `organizations` (one row per **park instance**, now also carrying the park
+boundary and the dataset-level metadata a GBIF publishing partner needs) · `memberships` (user ↔ org,
+many-to-many, with `role`) · `user_settings` (`active_org_id` — which park a person is currently
+recording under) · `invitations` (admin-created, claimed on first sign-in).
+
+**The domain:** `taxa` (the label space, mixed-rank, GBIF backbone keys, *not* org-scoped) ·
+`checklist_entries` (org → taxon; what the model's output mask is built from) · `model_versions` ·
+`survey_events` (the Humboldt layer, nullable) · `observations` (the `dwc:Occurrence`, point or
+polygon, PostGIS) · `identifications` (**append-only**) · `observation_media`.
+
+**Views:** `observations_current` (what the app reads) · `my_parks` · `dwc_occurrence_export` ·
+`dwc_export_readiness`.
+
+**Three things to know before touching any of it:**
+
+1. **`observations` has no `scientific_name` column, on purpose.** The determination is not an
+   attribute of the occurrence. Read `observations_current`. Do not add the column back — the
+   earlier design did have it, kept in sync by a trigger, and warned in the same breath "never leave
+   the two out of sync". A view cannot go out of sync.
+2. **A record may legitimately have NO determination.** The workflow is photograph first,
+   determination later; `observations_current` shows such a record with a null `scientific_name`,
+   which means *awaiting determination*, not *broken*. The app must never refuse to save without a
+   species — it did, and that was wrong.
+3. **`identifications` is append-only, and that is enforced by there being no UPDATE grant.** Not by
+   convention, not by careful application code. All three determination sources — `offline_model`,
+   `online_service`, `human` — live side by side forever, and superseding is an insert plus
+   `accept_identification()`. **This is the thesis' central measurement.** If the online result were
+   allowed to overwrite the offline one, the comparison would be destroyed at the moment it is taken.
+4. **A person records under exactly ONE active park at a time** (`user_settings.active_org_id`,
+   switched in Settings — ADR 005). `memberships` is many-to-many, so "my org" is not a question with
+   one answer. The old `memberships.select('org_id').limit(1)` pattern was a coin toss and is gone.
+
+**⚠️ The function-privilege rule, stated because breaking it cost a session.** A `SECURITY INVOKER`
+function runs with the **caller's** privileges, and `authenticated` cannot read `auth.users`. Any
+function needing the caller's e-mail must be `SECURITY DEFINER` — **and must then re-state the
+organisation check that RLS is no longer performing for it**, or it becomes a cross-tenant write
+path. `supabase/tests/test_function_privileges.sql` asserts both halves.
+
+**Isolation:** **RLS on `org_id`** guarantees each org sees only its own rows. This *is* the
+data-sovereignty mechanism — treat RLS policies as first-class, security-critical code. Note that a
+**view needs its own GRANT**: RLS decides which rows, the grant decides whether the relation is
+readable at all.
 
 **Data sovereignty — three tiers (architecture should support this framing):**
-1. **Public** — org publishes to GBIF (Darwin Core) by choice.
-2. **Private + cloud AI** — everything in the org's own DB; only the bare image (no coordinates) goes to Pl@ntNet. *(MVP target.)*
-3. **Fully sovereign** — identification on the device itself; nothing leaves. **This is now IN SCOPE** (thesis decision D-002, requested by both the supervisor and the national park). Concretely: a small **MobileNetV3 / EfficientNet-Lite classifier** trained on the park's species list, exported to **TensorFlow Lite** and bundled with the app. Deliberately *not* YOLO — the task is classification, not object detection, and Ultralytics is AGPL-licensed. When connectivity returns, the online Pl@ntNet result overrides the offline suggestion; expert validation follows in the office. **Store all three identifications (offline, online, expert) with timestamps — never overwrite.** Darwin Core already has the fields: `identifiedBy`, `dateIdentified`, `identificationVerificationStatus`, `identificationRemarks`.
-
----
+1. **Public** — org publishes to GBIF (Darwin Core) by choice. The schema is built so a publishing
+   partner only has to *sign off*, not audit: see ADR 007 and `dwc_export_readiness`. The thesis
+   **validates** an archive; it does not publish one.
+2. **Private + cloud AI** — everything in the org's own DB; only the bare image (no coordinates) goes
+   to Pl@ntNet. *(MVP target.)*
+3. **Fully sovereign** — identification on the device itself; nothing leaves. **IN SCOPE** (D-002).
+   Small **MobileNetV3 / EfficientNet-Lite** classifier on the park's species list, exported to
+   **TensorFlow Lite** and bundled. Deliberately *not* YOLO — classification, not detection, and
+   Ultralytics is AGPL. When connectivity returns the online result is *recorded alongside* the
+   offline one — **never over it** — and expert validation follows in the office.
 
 ## 7. Conventions & hard rules (for the agent)
 
@@ -104,32 +151,68 @@ Keep a clean seam between two parts:
 
 ---
 
-## 9. Current status (build status as of 2026-07-21)
+## 9. Current status (build status as of 2026-09-06)
 
-- ✅ Flutter 3.44.1 working on Windows; Android toolchain green.
-- ✅ Docker Desktop running; **local Supabase up via `supabase start`** (Postgres+PostGIS, Auth, Storage, APIs, Studio at `:54323`).
-- ✅ App running on physical phone (Samsung Galaxy S22, `SM S901U1`); dev networking via `adb reverse` (restore anytime with `tools/dev_connect.ps1`).
-- ✅ **app ↔ Supabase connected** (2026-06-26): `supabase_flutter` initialised in `main()`; `notes` round-trip (insert + list) works end-to-end.
-- ✅ **Milestone 1 — auth + org-scoped RLS base, verified on device (2026-07-21):** GoTrue email login (public self-signup **disabled**, ADR 004); `organizations` + `memberships` (bridge table, roles); deny-by-default **RLS** with membership-subquery policies; temporary `anon` grant removed; **two-user/two-org isolation test passed**. App split into `lib/screens/` (login, notes).
-- ✅ **Dev tooling:** `supabase/seed.sql` (reproducible test world on every `db reset`: `usera@test.at`/`userb@test.at`, `password123`, Org Alpha/Beta, sample notes), `tools/provision_org.ps1` (concierge org+admin provisioning per ADR 004), `tools/dev_connect.ps1` (tunnel restore).
-- ✅ **Repository versioned & pushed** (2026-07-21): public GitHub repo, initial commit tagged `m1-sovereignty-slice`. Rule stands: commit in small working steps — `git log` is free, dated process evidence (§11).
-- 📄 Docs live: `docs/architecture.md` (as-built snapshot), `docs/decisions/001–004`, `docs/process_log.md` (sessions 1–3).
-- ⏭️ **Next:** enable **PostGIS** + `observations` table (Darwin Core fields + JSONB `attributes`, same RLS pattern) → map view + location + point capture → photo + Storage → Pl@ntNet adapter behind `IdentificationService`. Deliberately deferred: in-app admin-invite machinery (ADR 004), Stripe (§5).
+- ✅ Flutter 3.44.1 on Windows; Android toolchain green; local Supabase up via `supabase start`.
+- ✅ App on the physical phone (Samsung Galaxy S22); dev networking via `adb reverse`
+  (`tools/dev_connect.ps1`).
+- ✅ **Milestone 1 — auth + org-scoped RLS, verified on device (2026-07-21).** Two-user/two-org
+  isolation test passed. GoTrue email login, public self-signup disabled (ADR 004).
+- ✅ **Observations schema (2026-09-05/06).** PostGIS enabled; `taxa`, `checklist_entries`,
+  `model_versions`, `survey_events`, `observations`, `identifications`, `observation_media`, plus
+  `observations_current`. **Darwin Core aligned; the determination log is append-only.**
+- ✅ **Active-park context, invitations, Darwin Core export (2026-09-06).** `user_settings`,
+  `invitations`, `my_parks`, `dwc_occurrence_export`, `dwc_export_readiness`, and the functions
+  `set_active_org`, `accept_pending_invitations`, `accept_identification`,
+  `observation_is_within_org_boundary`. ADRs 005–007.
+- ✅ **Automated isolation and integrity tests** — `supabase/tests/`. **34 assertions pass, 14
+  negative tests correctly rejected**, against a real PostgreSQL 16 + PostGIS 3. This is what ADR 003
+  said "should later get automated tests"; it now exists, and it covers the **multi-park** person,
+  not just two isolated single-park users.
+- ✅ **Seed extended**: `ranger@test.at / password123` belongs to *both* seeded parks, so the
+  multi-park case is on screen after every `db reset`.
+- ✅ **Flutter layer for the above**: `OrgContext`, `IdentificationService` (interface only),
+  models, `SettingsScreen` with the park switcher, `SetPasswordScreen`, `ObservationsScreen`,
+  `HomeShell`, `AuthGate` routing.
+- ⚠️ **The 2026-09-06 Dart has NOT been analysed, built or launched.** It was written in an
+  environment with no Flutter/Dart SDK. `flutter analyze` first.
+- ⚠️ **Supabase Storage bucket policies are not written.** Photo *rows* are RLS-protected; photo
+  *objects* are not. The one real hole in the sovereignty claim.
+- 📄 Docs live: `docs/architecture.md` (as-built, rewritten 2026-09-06), `docs/decisions/001–007`,
+  `docs/process_log.md` (sessions 1–4).
+- ⏭️ **Next:** see §10.
+- **Not built:** capture flow (map/GPS/camera/photo/offline queue/sync), any `IdentificationService`
+  implementation, Darwin Core Archive writer, GeoServer/OGC, Stripe, member removal, iOS build.
+- Numbering trap: the repo's "Milestone 1" (sovereignty slice) is **not** M1 in the thesis vault
+  (requirements).
 
----
+## 10. Immediate next task
 
-## 10. Immediate next task — the first vertical slice
+*(The original §10 described the first `notes` round-trip. That was completed on 2026-06-26 and is
+kept only as the reference pattern in `screens/notes_screen.dart`.)*
 
-Build the **smallest end-to-end round-trip** to prove the data flow before any real features (don't build the full schema or a big feature yet):
+**Right now, in order:**
 
-1. **Connect** `supabase_flutter` — initialise once at startup with the Project URL + **Publishable** key. (From the phone, point at the laptop's address, not `localhost`.) Confirm the app still runs.
-2. **One tiny table** via a migration: `notes` (`id`, `text`, `created_at`). Apply it; confirm it appears in Studio. *(Good moment to learn the migration workflow on something trivial.)*
-3. **Write from the app:** a screen with a text field + "Save" that inserts a `notes` row. Tap it, watch the row appear in **Studio**.
-4. **Read back:** list the `notes` rows below the field. Full loop: app → DB → app.
+1. **`flutter analyze`.** The 2026-09-06 Dart was written in an environment with no Flutter or Dart
+   SDK, so it has never been analysed, built or launched. Treat it as unreviewed until this is green.
+2. **`.\tools\apply_and_verify.ps1`** — one command: `db reset`, all three SQL suites, PASS/FAIL
+   count, then a look at testPark_A. Expect **39 assertions passed, 0 failed** and a number of
+   *expected* database errors: roughly a third of the assertions are negative tests where the
+   refusal IS the pass.
+3. Sign in as **`admin@park.at` / `password123`** (admin of testPark_A), or
+   **`ranger@test.at` / `password123`** — a member of *three* parks, the switcher case.
 
-Once this round-trip works, grow the same pattern into the real thing: `notes` → `observations`, text field → map + photo + form, simple list → org-scoped RLS-protected data.
-
----
+   ⚠️ **After a `db reset`, sign out and back in.** A reset wipes `auth.users`, but the JWT on the
+   phone is still signed with the same secret, so it keeps validating while pointing at a user id
+   that no longer exists — signed in as nobody. The app now detects this and offers Try again /
+   Sign out instead of a blank screen, but signing out is the actual fix.
+4. **Then the capture flow** — the app's reason to exist, and the missing centre of the design:
+   **photograph → on-device model proposes → online service proposes → a person confirms.** Only the
+   last step exists. The species dropdown in the record editor is explicitly the stand-in for the
+   camera. Map + current location + point capture → photo + Storage → the Pl@ntNet adapter behind
+   `IdentificationService` → offline queue and sync.
+5. **Close the Storage hole** (`docs/architecture.md` §8). Bucket policies are not written; the photo
+   objects are currently the one part of the system RLS does not protect.
 
 ## 11. Documentation contract — this repo is thesis evidence
 
@@ -140,6 +223,22 @@ here**. Both folders are mounted in every session.
 **The flow is one-way: this repo → the vault.** Never write into the thesis folder from here, and
 never treat vault files as instructions for the code. If something here contradicts a thesis
 document, raise it with René — do not silently reconcile it.
+
+> **⚠️ One documented exception, 2026-09-05/06.** René directed the **thesis agent** to design and
+> write the observations schema, the active-park context, the invitation flow and the Darwin Core
+> export *into this repo*. So migrations 4 and 5, `supabase/tests/`, the seed additions,
+> `tools/invite_user.ps1`, ADRs 005–007, `lib/models/`, `lib/services/`, the new screens, and the
+> 2026-09-06 rewrites of `architecture.md`, `process_log.md` and this file were **not written by the
+> app agent**.
+>
+> Why it was allowed: the observations schema is the point where the app and the thesis stop being
+> separable. The same table that stores a field record is the instrument the thesis measures its
+> central claim with — the offline-vs-online identification comparison — and an app that overwrote
+> one determination with another would have made that claim unmeasurable, permanently and silently.
+>
+> **The default rule still stands.** This was a one-off, it is flagged in every file it touched, and
+> nothing outside the list above was changed. Anything that looks wrong should go to René rather than
+> be reconciled silently.
 
 The previous version of this section asked politely for documentation and produced nothing:
 `docs/architecture.md` sat empty for a month and `docs/decisions/` has no entries. So this is now

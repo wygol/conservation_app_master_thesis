@@ -78,21 +78,35 @@ flowchart TB
 - `storage`, `realtime`, … — also Supabase-managed.
 - `public` — **yours**; all your own tables live here.
 
-**Your tables (all in `public`, related by foreign keys):**
+> **⚠️ This section was a three-line sketch and is now superseded.** The data model was designed,
+> executed and tested on 2026-09-05/06. Read **`docs/architecture.md` §3** for what actually exists
+> and **`docs/decisions/005–007`** for why. Ten tables, four views, four functions — not the three
+> tables sketched here.
 
-| Table | Purpose | Key fields |
-|---|---|---|
-| `organizations` | one row per customer org | `id`, `name`, + later `stripe_customer_id`, `subscription_status`, `seats` |
-| `memberships` | links a user to an org (your "user management") | `user_id` → `auth.users`, `org_id` → `organizations`, `role` |
-| `observations` | the field data (the "plant wrapping") | `id`, `org_id`, `geometry` (PostGIS), `photo_url`, `created_by`, `event_date`, `scientific_name` (Darwin Core), `attributes` (JSONB for variable, use-case-specific fields) |
+The shape, in one paragraph: **tenancy** is `organizations` (a park instance) + `memberships`
+(many-to-many, so one ranger can work for two parks) + `user_settings.active_org_id` (which park
+they are recording under right now) + `invitations`. **The domain** is `observations` (the
+`dwc:Occurrence`, PostGIS point or polygon), `identifications` (**append-only** — the on-device
+model's answer, the online service's answer and the expert's all survive side by side, forever),
+`observation_media`, `taxa`, `checklist_entries`, `survey_events` and `model_versions`.
 
-**Not** separate databases or separate schemas — one database, one schema you work in (`public`), several tables tied together by foreign keys. **Row-Level Security on `org_id`** is what guarantees each org sees only its own rows.
+The one thing worth carrying in your head: **`observations` has no `scientific_name` column.** The
+determination is not an attribute of the occurrence — it is a separate, versioned, contestable
+thing, and the whole thesis rests on the three determinations not overwriting each other. The app
+reads `observations_current`, a view that resolves whichever determination is currently accepted.
 
----
+**Not** separate databases or separate schemas — one database, one schema you work in (`public`),
+tables tied together by foreign keys. **Row-Level Security on `org_id`** is what guarantees each org
+sees only its own rows.
 
 ## 5. Data Sovereignty — three tiers
 
 1. **Public** — the org publishes its own observations to GBIF (Darwin Core), by deliberate choice.
+   *(As of 2026-09-06 the schema supports this properly: `dwc_occurrence_export` produces rows whose
+   column names are Darwin Core term names verbatim, and its contract is that **everything in it is
+   publishable as it stands** — a publishing partner only has to sign off, not audit.
+   `dwc_export_readiness` names what is missing per record. The thesis **validates** an archive; it
+   does not publish one. See ADR 007.)*
 2. **Private + cloud AI** — everything stays in the org's own DB; only the bare image (no coordinates) goes to Pl@ntNet.
 3. **Fully sovereign** — a self-hosted identification model; nothing leaves the org (future work).
 
@@ -112,7 +126,11 @@ Self-hosted Supabase on **EU infrastructure (Elestio + Hetzner)** = EU jurisdict
 
 0. **Foundations** — Flutter toolchain, GitHub repo, `CLAUDE.md`, Supabase CLI for local dev + migrations.
 1. **Prove the loop** — `flutter create` + run on device; `supabase start` runs the backend locally. Don't build features until both are green.
-2. **Schema + multi-tenancy** — `organizations`, `memberships`, `observations` (PostGIS + JSONB), RLS policies. Wire `supabase_flutter`, implement auth, prove one real round-trip. *(The defensible heart of the thesis.)*
+2. ~~**Schema + multi-tenancy**~~ — **done 2026-09-06.** `organizations`, `memberships`,
+   `user_settings`, `invitations`, `observations`, `identifications`, `observation_media`, `taxa`,
+   `checklist_entries`, `survey_events`, `model_versions` (PostGIS + JSONB), RLS on all of them, and
+   34 passing automated isolation/integrity assertions. Auth and the round-trip were done in
+   session 3. *(The defensible heart of the thesis.)*
 3. **Capture flow** — map, GPS, point/polygon, photo, form, offline queue + sync, Pl@ntNet via the adapter. *(The app's reason to exist.)*
 4. **Org / user management** — invitations, admin screen, roles, seat checks. *(Minimal for the thesis: a provable RLS isolation + two demo orgs is enough; polished self-service is commercial polish.)*
 5. **Sovereign deploy + GIS interop** — Elestio Supabase on Hetzner EU, apply migrations, point the app at it; GeoServer exposing PostGIS via OGC; optional GeoLibre dashboard. *(Where you demonstrate the sovereignty thesis.)*
