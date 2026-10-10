@@ -37,6 +37,16 @@ dependencies:
   google_fonts: ^8.1.0
   supabase_flutter: ^2.15.0
 
+  # On-device inference (ADR 009). Pinned EXACTLY: the measurement round must
+  # name one runtime version. 0.12.1 bundles LiteRT 1.4.0 on Android; the app
+  # raises it to 1.4.2 in android/app/build.gradle.kts (ADR 010). Keep in sync
+  # with kTfliteFlutterVersion / kLiteRtArtifact in lib/ml/measurement_protocol.dart.
+  tflite_flutter: 0.12.1
+  # SHA-256 of the shipped model/labels and of each preprocessing stage.
+  crypto: ^3.0.3
+  # dart:ffi helpers for CPU pinning (sched_setaffinity) in the measurement round.
+  ffi: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,6 +68,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    # The thesis' offline model (Arm 2, weight-only INT8) and its label order.
+    - assets/model/
+    # Correctness fixtures of the measurement round: the thesis reference
+    # (phone_reference.json + ref_0N.jpg), stage expectations and the synthetic
+    # 12 MP memory stimulus. Measurement-only; ~3.9 MB of the APK.
+    - assets/model_check/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

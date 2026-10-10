@@ -1,0 +1,15 @@
+﻿Analyzing conservation_app...                                   
+
+   info - The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/services.dart'. Try removing the import directive - lib\ml\java_litert_bridge.dart:5:8 - unnecessary_import
+   info - The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart'. Try removing the import directive - lib\ml\measurement_protocol.dart:26:8 - unnecessary_import
+   info - Use an initializing formal to assign a parameter to a field. Try using an initialing formal ('this._interpreter') to initialize the field - lib\ml\tflite_classifier.dart:40:9 - prefer_initializing_formals
+   info - Use an initializing formal to assign a parameter to a field. Try using an initialing formal ('this._options') to initialize the field - lib\ml\tflite_classifier.dart:41:9 - prefer_initializing_formals
+   info - Use an initializing formal to assign a parameter to a field. Try using an initialing formal ('this._xnnpack') to initialize the field - lib\ml\tflite_classifier.dart:42:9 - prefer_initializing_formals
+   info - Unnecessary use of multiple underscores. Try using '_' - lib\screens\members_screen.dart:147:43 - unnecessary_underscores
+   info - The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/services.dart'. Try removing the import directive - lib\screens\model_lab_screen.dart:1:8 - unnecessary_import
+   info - Unnecessary use of multiple underscores. Try using '_' - lib\screens\observations_screen.dart:247:29 - unnecessary_underscores
+   info - Use the null-aware marker '?' rather than a null check via an 'if'. Try using '?' - lib\screens\record_editor_screen.dart:524:9 - use_null_aware_elements
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement - lib\screens\settings_screen.dart:55:23 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement - lib\screens\settings_screen.dart:61:23 - deprecated_member_use
+
+11 issues found. (ran in 80.8s)

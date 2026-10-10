@@ -1,7 +1,9 @@
 # Architecture — as built
 
-*State as of 2026-09-08. This file describes what exists right now — not the plan (see CLAUDE.md for
-that). Updated whenever the structure changes; current beats complete.*
+*State as of 2026-10-10 (on-device model added for the measurement round on 2026-10-09; runtime raised to
+LiteRT 1.4.2 on 2026-10-10, ADR 010; §2 and §6 updated by the app agent). This file describes what exists
+right now — not the plan (see CLAUDE.md for that).
+Updated whenever the structure changes; current beats complete.*
 
 > **Provenance note.** The 2026-09-06 additions were written by the **thesis agent** at René's
 > direction, not by the app agent. See the banner at the top of the 2026-09-06 entry in
@@ -17,10 +19,14 @@ flowchart TB
         APP["Flutter app"]
         AG["main.dart → AuthGate<br/>session? → password set? → HomeShell"]
         OC["services/OrgContext<br/>the ACTIVE PARK"]
-        IS["services/IdentificationService<br/>(interface only, no implementation yet)"]
-        SC["screens/: login · set_password · home_shell<br/>observations · settings · notes"]
+        IS["services/IdentificationService<br/>offline implementation (uncalibrated, no threshold);<br/>online: not built"]
+        SC["screens/: login · set_password · home_shell<br/>observations · model_lab (Identify) · settings"]
+        ML["ml/: OfflineModel (LiteRT via tflite_flutter, loaded once)<br/>Pillow-exact preprocessing · measurement protocol"]
+        KT["Kotlin: LiteRtJavaBench<br/>(Java API, XNNPACK off — measurement reference)"]
         APP --- AG --- OC --- SC
         SC -.-> IS
+        IS --> ML
+        SC -.-> KT
     end
 
     subgraph LAPTOP["Windows laptop — local dev"]
@@ -55,16 +61,24 @@ flowchart TB
 |---|---|
 | `lib/main.dart` | Bootstrap + `AuthGate`. Three states: no session → Login; session but invited and no password yet → SetPassword; otherwise bootstrap `OrgContext` once and show `HomeShell`. |
 | `lib/services/org_context.dart` | **The active park.** `ChangeNotifier`. On sign-in: claim invitations, load `my_parks`, resolve which is active (persisting a fallback if the server has none). `switchTo()` calls `set_active_org`. Also distinguishes "still loading" from "signed in but belonging to no park": a session outlives a `db reset`, so the app can be authenticated as a user id that no longer exists, and the records screen offers Try again / Sign out rather than a blank list. |
-| `lib/services/identification_service.dart` | The **core/domain seam** as code: `IdentificationService`, `IdentificationResult`, `IdentificationCandidate`. Deliberately unimplemented — `UnconfiguredIdentificationService` throws. |
+| `lib/services/identification_service.dart` | The **core/domain seam** as code: `IdentificationService`, `IdentificationResult`, `IdentificationCandidate`. `UnconfiguredIdentificationService` (throws) remains the stand-in for the online path. |
+| `lib/services/offline_model_identification_service.dart` | **First real implementation of the seam** (source `offline_model`, provider `thesis-offline`): top-5 from the bundled model, scores an explicitly **uncalibrated** softmax (T = 1), no threshold, no decision, no checklist mask, first photograph only. Not yet wired into the record editor. |
+| `lib/ml/offline_model.dart` | The bundled model (`assets/model/`, Arm 2 weight-only INT8, 1,004 classes) — loaded once per process, interpreter kept alive; verifies its SHA-256 and that outputs = rows of `labels.csv`. |
+| `lib/ml/pillow_resize.dart`, `lib/ml/preprocess.dart` | The thesis reference preprocessing re-implemented **bit-exactly**: engine decode at full resolution → Pillow `BILINEAR` resize (port of `Resample.c`, Python rounding) → centre crop → /255 (ADR 009). Stage digests for diagnostics. |
+| `lib/ml/labels.dart`, `inference_math.dart` | `labels.csv` (RFC 4180, row order enforced = output order); softmax, top-k, latency statistics. |
+| `lib/ml/tflite_classifier.dart` | One LiteRT interpreter (tflite_flutter 0.12.1 on LiteRT **1.4.2** — the app raises the plugin's 1.4.0, whose C API loads offset-stored weights as empty tensors, ADR 010): 1 thread, optional explicit XNNPACK; `invoke()` timed alone. Domain-agnostic. |
+| `lib/ml/measurement_protocol.dart` (+ `native_probe.dart`, `memory_sampler.dart`, `java_litert_bridge.dart`) | The **measurement round** (O3a–O3c): correctness vs `phone_reference.json` with stage diagnostics, memory phases, latency configurations C1/C2/C3 pinned to the X2 and an A710 core via `sched_setaffinity`, 12 MP memory reading; report to logcat in checksummed chunks. |
+| `android/.../LiteRtJavaBench.kt` | LiteRT **Java API** with `setUseXNNPACK(false)` on a dedicated thread (MethodChannel `conservation_app/litert_java_bench`) — the guaranteed no-delegate reference (ADR 009). |
+| `lib/screens/model_lab_screen.dart` | The **Identify** tab: model card (on-device hashes), correctness check, full measurement, offline identification of a reference photo. Reachable without login (from the login screen) because it needs no backend; with `--dart-define=MODEL_LAB_AUTORUN=true` it is the app's home and runs the protocol by itself. |
 | `lib/models/models.dart` | `Park`, `ObservationSummary`, `SurveyEvent`, `Invitation`. Hand-written; each owns one `fromMap`, the only place a column name is a string. |
-| `lib/screens/home_shell.dart` | Three destinations: Records · Notes · Settings. |
+| `lib/screens/home_shell.dart` | Three destinations: Records · Identify · Settings (Notes left the bar 2026-10-09). |
 | `lib/screens/observations_screen.dart` | The active park's records from `observations_current`, badged by which of the three determination paths produced the name. Park name always visible under the title. |
 | `lib/screens/settings_screen.dart` | **The park switcher** (ADR 005) + People + admin invite management + change password + sign out. |
 | `lib/screens/record_editor_screen.dart` | **Create and edit a record.** The species picker is **optional** and is explicitly the stand-in for the photograph — the intended workflow is photograph first, determination later. Coordinates typed in (no GPS plugin yet); the three determinations shown read-only on an existing record. |
 | `lib/screens/members_screen.dart` | Who is in the park, with each person's record count. Admins invite, change roles and remove — removal never deletes records. |
 | `lib/screens/set_password_screen.dart` | Where an invited person chooses their password; also reachable from Settings as an ordinary change. |
 | `lib/screens/login_screen.dart` | Sign-in only. No self-signup (ADR 004). |
-| `lib/screens/notes_screen.dart` | The original placeholder domain. Superseded in practice by `observations`; kept because it is the working reference for the read/write pattern. |
+| `lib/screens/notes_screen.dart` | The original placeholder domain. Superseded in practice by `observations`; no longer in the navigation bar, kept because it is the working reference for the read/write pattern. |
 
 State management is plain `setState` plus one `ChangeNotifier`. Deliberate: the smallest thing that
 works, no framework lock-in.
@@ -197,6 +211,22 @@ This includes the two-user/two-org isolation of 2026-07-21, now automated, exten
   `admin@park.at` (**admin of testPark_A**) · `ranger@park.at` (member of testPark_A) ·
   `usera@test.at` (admin Alpha) · `userb@test.at` (admin Beta) ·
   **`ranger@test.at` — member of THREE parks**, the switcher case, on screen after every reset.
+- **On-device model (ADR 009):** `assets/model/` = the thesis file + `labels.csv` (hashes checked on
+  device); `assets/model_check/` = the thesis' `phone_reference.json` + `ref_0N.jpg`, Pillow stage
+  expectations and a synthetic 12 MP JPEG (generators in `tools/model_check/`).
+  - `flutter test test/ml` — pins the Dart resize port to Pillow (hash-exact), labels and statistics.
+  - **`tools/measure_model.ps1`** (or `.bat`) — the whole measurement round in one command, phone on
+    USB, no backend: analyze → unit tests → release build → O3a from the APK → install → autorun
+    protocol → `dumpsys meminfo` sampling → report reassembly → XNNPACK attribution → (conditional)
+    TFLite Benchmark Tool. Raw output: `docs/measurements/<date>_arm2_phone/raw/<timestamp>/`.
+  - `tools/model_check/desk_study.py` — the desktop study behind ADR 009 (output in
+    `docs/measurements/2026-10-09_desk_study/`).
+  - `tools/model_check/inspect_buffers.py` — reads a `.tflite` directly (no TensorFlow needed) and shows
+    which constants are stored inline and which at an offset after the FlatBuffer; the evidence behind
+    ADR 010.
+  - **Runtime pin (ADR 010):** `android/app/build.gradle.kts` declares `litert` and `litert-gpu` 1.4.2,
+    which Gradle also applies to tflite_flutter's own 1.4.0 declarations — one native runtime for both
+    bindings. The model file is the thesis file unchanged.
 
 ## 7. What is deliberately NOT built yet
 
@@ -207,8 +237,10 @@ This includes the two-user/two-org isolation of 2026-07-21, now automated, exten
 - **An expert role.** `memberships.role` is `admin | member`. Whether determination should be gated
   by a third role, or instead by *which* determinations may be written `verified` rather than
   `unverified`, is an open question — see the 2026-09-08 process-log entry.
-- **No identification implementation.** The interface exists; neither the Pl@ntNet adapter nor the
-  TFLite model behind it does.
+- **Identification is half there.** The offline model runs on the device behind the seam
+  (`OfflineModelIdentificationService`) and in the Identify tab — **for measurement, not yet in the
+  capture flow**: no calibration temperature, no per-species thresholds (both come from the thesis),
+  no taxa mapping, not wired into the record editor. The Pl@ntNet (online) adapter does not exist.
 - **No Darwin Core Archive writer.** `dwc_occurrence_export` produces the rows; nothing yet writes
   `occurrence.tsv` + `meta.xml` + EML and zips them.
 - No GeoServer/WMS/WFS, no Stripe, no member removal or role change, no iOS build.

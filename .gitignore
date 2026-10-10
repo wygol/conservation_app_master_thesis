@@ -48,3 +48,7 @@ app.*.map.json
 .env
 .env.*
 !.env.example
+
+# Measurement round (ADR 009): downloaded Benchmark Tool binary and full device logs
+# (they contain other apps' messages). Results worth keeping go to docs/measurements/.
+tools/.cache/

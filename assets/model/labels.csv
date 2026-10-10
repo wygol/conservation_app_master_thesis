@@ -1,0 +1,1005 @@
+model_index,class_id,label,rank,genus,family,genus_index,family_index
+0,2650133,Ophioglossum vulgatum L.,species,Ophioglossum,Ophioglossaceae,325,63
+1,2650165,Botrychium lunaria (L.) Sw.,species,Botrychium,Ophioglossaceae,73,63
+2,2650625,Asplenium ruta-muraria L.,species,Asplenium,Aspleniaceae,50,10
+3,2650669,Asplenium scolopendrium subsp. scolopendrium,species,Asplenium,Aspleniaceae,50,10
+4,2650716,Asplenium viride Huds.,species,Asplenium,Aspleniaceae,50,10
+5,2650818,Cystopteris fragilis (L.) Bernh.,species,Cystopteris,Cystopteridaceae,142,33
+6,2650832,Gymnocarpium dryopteris (L.) Newman,species,Gymnocarpium,Cystopteridaceae,215,33
+7,2650841,Gymnocarpium robertianum (Hoffm.) Newman,species,Gymnocarpium,Cystopteridaceae,215,33
+8,2650999,Matteuccia struthiopteris (L.) Tod.,species,Matteuccia,Onocleaceae,295,62
+9,2651113,Polystichum lonchitis (L.) Roth,species,Polystichum,Dryopteridaceae,367,36
+10,2651330,Phegopteris connectilis (Michx.) Watt,species,Phegopteris,Thelypteridaceae,349,94
+11,2651495,Oreopteris limbosperma (All.) Holub,species,Oreopteris,Thelypteridaceae,329,94
+12,2684178,Thuja occidentalis L.,species,Thuja,Cupressaceae,464,31
+13,2684709,Juniperus communis L.,species,Juniperus,Cupressaceae,252,31
+14,2685484,Abies alba Mill.,species,Abies,Pinaceae,0,70
+15,2686212,Larix decidua Mill.,species,Larix,Pinaceae,258,70
+16,2687920,Equisetum variegatum Schleich. ex F.Weber & D.Mohr,species,Equisetum,Equisetaceae,172,38
+17,2687927,Equisetum hyemale L.,species,Equisetum,Equisetaceae,172,38
+18,2687929,Equisetum sylvaticum L.,species,Equisetum,Equisetaceae,172,38
+19,2687932,Equisetum palustre L.,species,Equisetum,Equisetaceae,172,38
+20,2687937,Equisetum fluviatile L.,species,Equisetum,Equisetaceae,172,38
+21,2687943,Equisetum telmateia Ehrh.,species,Equisetum,Equisetaceae,172,38
+22,2688197,Selaginella selaginoides (L.) Schrank & C.F.P.Mart.,species,Selaginella,Selaginellaceae,423,89
+23,2688345,Lycopodiella inundata (L.) Holub,species,Lycopodiella,Lycopodiaceae,284,55
+24,2688393,Lycopodium clavatum L.,species,Lycopodium,Lycopodiaceae,285,55
+25,2688420,Diphasiastrum alpinum (L.) Holub,species,Diphasiastrum,Lycopodiaceae,156,55
+26,2700859,Luzula sylvatica (Huds.) Gaudin,species,Luzula,Juncaceae,283,49
+27,2700874,Luzula luzuloides (Lam.) Dandy & Wilmott,species,Luzula,Juncaceae,283,49
+28,2702266,Sparganium emersum Rehmann,species,Sparganium,Typhaceae,442,98
+29,2702808,Echinochloa crus-galli (L.) P.Beauv.,species,Echinochloa,Poaceae,164,72
+30,2703766,Bromus ramosus Huds.,species,Bromus,Poaceae,77,72
+31,2703777,Bromus hordeaceus L.,species,Bromus,Poaceae,77,72
+32,2703793,Avenula pubescens (Huds.) Dumort.,species,Avenula,Poaceae,59,72
+33,2704179,Poa annua L.,species,Poa,Poaceae,361,72
+34,2704389,Trisetum flavescens (L.) P.Beauv.,species,Trisetum,Poaceae,476,72
+35,2704688,Puccinellia distans (Jacq.) Parl.,species,Puccinellia,Poaceae,380,72
+36,2704922,Festuca rubra L.,species,Festuca,Poaceae,189,72
+37,2705162,Panicum capillare L.,species,Panicum,Poaceae,337,72
+38,2705315,Catabrosa aquatica (L.) P.Beauv.,species,Catabrosa,Poaceae,95,72
+39,2705449,Eragrostis minor Host,species,Eragrostis,Poaceae,173,72
+40,2706052,Hordeum jubatum L.,species,Hordeum,Poaceae,236,72
+41,2706241,Lolium perenne L.,species,Lolium,Poaceae,277,72
+42,2710326,Carex myosuroides Vill.,species,Carex,Cyperaceae,90,32
+43,2710391,Carex simpliciuscula Wahlenb.,species,Carex,Cyperaceae,90,32
+44,2710941,Schoenoplectus lacustris (L.) Palla,species,Schoenoplectus,Cyperaceae,414,32
+45,2716489,Cyperus fuscus L.,species,Cyperus,Cyperaceae,140,32
+46,2721119,Rhynchospora alba (L.) Vahl,species,Rhynchospora,Cyperaceae,395,32
+47,2722950,Carex ornithopoda Willd.,species,Carex,Cyperaceae,90,32
+48,2726880,Carex flava L.,species,Carex,Cyperaceae,90,32
+49,2731327,Cladium mariscus (L.) Pohl,species,Cladium,Cyperaceae,115,32
+50,2739622,Colchicum autumnale L.,species,Colchicum,Colchicaceae,118,27
+51,2742119,Veratrum album L.,species,Veratrum,Melanthiaceae,487,58
+52,2747567,Crocus vernus (L.) Hill,species,Crocus,Iridaceae,131,47
+53,2750279,Gladiolus palustris Gaudin,species,Gladiolus,Iridaceae,207,47
+54,2752734,Streptopus amplexifolius (L.) DC.,species,Streptopus,Liliaceae,449,53
+55,2753079,Lilium bulbiferum L.,species,Lilium,Liliaceae,272,53
+56,2753146,Lilium martagon L.,species,Lilium,Liliaceae,272,53
+57,2767506,Scilla bifolia L.,species,Scilla,Asparagaceae,416,9
+58,2769317,Maianthemum bifolium (L.) F.W.Schmidt,species,Maianthemum,Asparagaceae,290,9
+59,2770004,Polygonatum verticillatum (L.) All.,species,Polygonatum,Asparagaceae,364,9
+60,2770022,Polygonatum multiflorum (L.) All.,species,Polygonatum,Asparagaceae,364,9
+61,2770228,Polygonatum odoratum (Mill.) Druce,species,Polygonatum,Asparagaceae,364,9
+62,2773942,Anthericum ramosum L.,species,Anthericum,Asparagaceae,31,9
+63,2784401,Traunsteinera globosa (L.) Rchb.,species,Traunsteinera,Orchidaceae,472,64
+64,2787993,Pseudorchis albida (L.) Á.Löve & D.Löve,species,Pseudorchis,Orchidaceae,378,64
+65,2791364,Chamorchis alpina (L.) Rich.,species,Chamorchis,Orchidaceae,106,64
+66,2792588,Ophrys insectifera L.,species,Ophrys,Orchidaceae,326,64
+67,2795845,Cephalanthera rubra (L.) Rich.,species,Cephalanthera,Orchidaceae,98,64
+68,2795869,Cephalanthera longifolia (L.) Fritsch,species,Cephalanthera,Orchidaceae,98,64
+69,2795952,Cephalanthera damasonium (Mill.) Druce,species,Cephalanthera,Orchidaceae,98,64
+70,2797313,Corallorhiza trifida Châtel.,species,Corallorhiza,Orchidaceae,123,64
+71,2797913,Platanthera chlorantha (Custer) Rchb.,species,Platanthera,Orchidaceae,359,64
+72,2805343,Spiranthes aestivalis (Poir.) Rich.,species,Spiranthes,Orchidaceae,445,64
+73,2808211,Malaxis monophyllos (L.) Sw.,species,Malaxis,Orchidaceae,291,64
+74,2810155,Dactylorhiza majalis subsp. lapponica (Laest. ex Hartm.) H.Sund.,species,Dactylorhiza,Orchidaceae,145,64
+75,2810284,"Dactylorhiza viridis (L.) R.M.Bateman, Pridgeon & M.W.Chase",species,Dactylorhiza,Orchidaceae,145,64
+76,2812375,"Neotinea ustulata (L.) R.M.Bateman, Pridgeon & M.W.Chase",species,Neotinea,Orchidaceae,317,64
+77,2816176,Neottia nidus-avis (L.) Rich.,species,Neottia,Orchidaceae,318,64
+78,2816213,Neottia cordata (L.) Rich.,species,Neottia,Orchidaceae,318,64
+79,2816250,Neottia ovata (L.) Bluff & Fingerh.,species,Neottia,Orchidaceae,318,64
+80,2820517,Cypripedium calceolus L.,species,Cypripedium,Orchidaceae,141,64
+81,2840474,Gymnadenia odoratissima (L.) Rich.,species,Gymnadenia,Orchidaceae,214,64
+82,2840590,Gymnadenia nigra (L.) Rchb.f.,species,Gymnadenia,Orchidaceae,214,64
+83,2840596,Gymnadenia miniata (Crantz) Hayek,species,Gymnadenia,Orchidaceae,214,64
+84,2840931,Goodyera repens (L.) R.Br.,species,Goodyera,Orchidaceae,212,64
+85,2849252,Epipogium aphyllum Sw.,species,Epipogium,Orchidaceae,171,64
+86,2849427,Orchis mascula (L.) L.,species,Orchis,Orchidaceae,327,64
+87,2849584,Orchis spitzelii Saut. ex W.D.J.Koch,species,Orchis,Orchidaceae,327,64
+88,2855356,Galanthus nivalis L.,species,Galanthus,Amaryllidaceae,198,2
+89,2855719,Allium senescens L.,species,Allium,Amaryllidaceae,18,2
+90,2855825,Allium moly L.,species,Allium,Amaryllidaceae,18,2
+91,2855860,Allium schoenoprasum L.,species,Allium,Amaryllidaceae,18,2
+92,2855968,Allium carinatum L.,species,Allium,Amaryllidaceae,18,2
+93,2857132,Allium victorialis L.,species,Allium,Amaryllidaceae,18,2
+94,2857601,Allium ursinum L.,species,Allium,Amaryllidaceae,18,2
+95,2857616,Allium sphaerocephalon L.,species,Allium,Amaryllidaceae,18,2
+96,2860409,Leucojum vernum L.,species,Leucojum,Amaryllidaceae,269,2
+97,2864397,Tofieldia calyculata (L.) Wahlenb.,species,Tofieldia,Tofieldiaceae,467,97
+98,2864429,Tofieldia pusilla (Michx.) Pers.,species,Tofieldia,Tofieldiaceae,467,97
+99,2865100,Alisma plantago-aquatica L.,species,Alisma,Alismataceae,15,0
+100,2865260,Scheuchzeria palustris L.,species,Scheuchzeria,Scheuchzeriaceae,413,87
+101,2865280,Triglochin palustris L.,species,Triglochin,Juncaginaceae,475,50
+102,2867589,Lemna minor L.,species,Lemna,Araceae,264,6
+103,2873861,Linum usitatissimum L.,species,Linum,Linaceae,274,54
+104,2873865,Linum catharticum L.,species,Linum,Linaceae,274,54
+105,2873878,Linum perenne subsp. perenne,species,Linum,Linaceae,274,54
+106,2875818,Carpinus betulus L.,species,Carpinus,Betulaceae,92,15
+107,2875979,Corylus avellana L.,species,Corylus,Betulaceae,127,15
+108,2876213,Alnus glutinosa (L.) Gaertn.,species,Alnus,Betulaceae,19,15
+109,2878688,Quercus robur L.,species,Quercus,Fagaceae,386,42
+110,2880130,Quercus petraea (Matt.) Liebl.,species,Quercus,Fagaceae,386,42
+111,2882316,Fagus sylvatica L.,species,Fagus,Fagaceae,187,42
+112,2882482,Calluna vulgaris (L.) Hull,species,Calluna,Ericaceae,84,39
+113,2882833,Vaccinium myrtillus L.,species,Vaccinium,Ericaceae,484,39
+114,2882835,Vaccinium vitis-idaea L.,species,Vaccinium,Ericaceae,484,39
+115,2882940,Vaccinium oxycoccos L.,species,Vaccinium,Ericaceae,484,39
+116,2883073,Rhododendron ferrugineum L.,species,Rhododendron,Ericaceae,393,39
+117,2888269,Pyrola rotundifolia L.,species,Pyrola,Ericaceae,384,39
+118,2888272,Pyrola minor L.,species,Pyrola,Ericaceae,384,39
+119,2888292,Pyrola media Sw.,species,Pyrola,Ericaceae,384,39
+120,2888298,Moneses uniflora (L.) A.Gray,species,Moneses,Ericaceae,309,39
+121,2888310,Orthilia secunda (L.) House,species,Orthilia,Ericaceae,332,39
+122,2888342,Hypopitys monotropa Crantz,species,Hypopitys,Ericaceae,244,39
+123,2888443,Papaver rhoeas L.,species,Papaver,Papaveraceae,338,67
+124,2888456,Papaver alpinum subsp. alpinum,species,Papaver,Papaveraceae,338,67
+125,2888513,Pseudofumaria lutea (L.) Borkh.,species,Pseudofumaria,Papaveraceae,377,67
+126,2888605,Viburnum opulus L.,species,Viburnum,Viburnaceae,491,102
+127,2888615,Viburnum lantana L.,species,Viburnum,Viburnaceae,491,102
+128,2888722,Sambucus ebulus L.,species,Sambucus,Viburnaceae,406,102
+129,2888723,Sambucus racemosa L.,species,Sambucus,Viburnaceae,406,102
+130,2888728,Sambucus nigra L.,species,Sambucus,Viburnaceae,406,102
+131,2888762,Valeriana dioica L.,species,Valeriana,Caprifoliaceae,485,23
+132,2888763,Valeriana officinalis L.,species,Valeriana,Caprifoliaceae,485,23
+133,2888778,Valerianella locusta (L.) Laterr.,species,Valerianella,Caprifoliaceae,486,23
+134,2888794,Adoxa moschatellina L.,species,Adoxa,Viburnaceae,7,102
+135,2888802,Scabiosa columbaria L.,species,Scabiosa,Caprifoliaceae,412,23
+136,2888808,Knautia arvensis (L.) Coult.,species,Knautia,Caprifoliaceae,255,23
+137,2888811,Succisa pratensis Moench,species,Succisa,Caprifoliaceae,451,23
+138,2888948,Rumex alpinus L.,species,Rumex,Polygonaceae,401,74
+139,2888951,Rumex acetosa L.,species,Rumex,Polygonaceae,401,74
+140,2888961,Rumex scutatus L.,species,Rumex,Polygonaceae,401,74
+141,2888963,Rumex conglomeratus Murray,species,Rumex,Polygonaceae,401,74
+142,2888995,Rumex acetosella L.,species,Rumex,Polygonaceae,401,74
+143,2889011,Rumex obtusifolius L.,species,Rumex,Polygonaceae,401,74
+144,2889173,Reynoutria japonica Houtt.,species,Reynoutria,Polygonaceae,390,74
+145,2889262,Persicaria lapathifolia subsp. lapathifolia,species,Persicaria,Polygonaceae,344,74
+146,2889299,Bistorta vivipara (L.) Delarbre,species,Bistorta,Polygonaceae,69,74
+147,2889358,Oxyria digyna (L.) Hill,species,Oxyria,Polygonaceae,334,74
+148,2889828,Viscum album L.,species,Viscum,Viscaceae,496,104
+149,2890040,Geranium dissectum L.,species,Geranium,Geraniaceae,205,44
+150,2890122,Geranium pyrenaicum Burm.f.,species,Geranium,Geraniaceae,205,44
+151,2890212,Geranium pusillum L.,species,Geranium,Geraniaceae,205,44
+152,2890536,Geranium palustre L.,species,Geranium,Geraniaceae,205,44
+153,2890603,Geranium columbinum L.,species,Geranium,Geraniaceae,205,44
+154,2890668,Geranium robertianum L.,species,Geranium,Geraniaceae,205,44
+155,2891079,Geranium macrorrhizum L.,species,Geranium,Geraniaceae,205,44
+156,2891147,Geranium sylvaticum L.,species,Geranium,Geraniaceae,205,44
+157,2891390,Geranium phaeum L.,species,Geranium,Geraniaceae,205,44
+158,2891770,Impatiens glandulifera Royle,species,Impatiens,Balsaminaceae,246,13
+159,2891779,Impatiens noli-tangere L.,species,Impatiens,Balsaminaceae,246,13
+160,2891782,Impatiens parviflora DC.,species,Impatiens,Balsaminaceae,246,13
+161,2913079,Galium megalospermum All.,species,Galium,Rubiaceae,201,83
+162,2913130,Galium palustre L.,species,Galium,Rubiaceae,201,83
+163,2913288,Galium sylvaticum L.,species,Galium,Rubiaceae,201,83
+164,2913548,Galium aparine L.,species,Galium,Rubiaceae,201,83
+165,2913556,Galium uliginosum L.,species,Galium,Rubiaceae,201,83
+166,2913931,Galium album Mill.,species,Galium,Rubiaceae,201,83
+167,2914110,Galium rotundifolium L.,species,Galium,Rubiaceae,201,83
+168,2914338,Galium boreale L.,species,Galium,Rubiaceae,201,83
+169,2914642,Galium odoratum (L.) Scop.,species,Galium,Rubiaceae,201,83
+170,2914949,Galium noricum Ehrend.,species,Galium,Rubiaceae,201,83
+171,2915025,Galium anisophyllon Vill.,species,Galium,Rubiaceae,201,83
+172,2925529,Verbena officinalis L.,species,Verbena,Verbenaceae,489,101
+173,2925815,Cynoglossum officinale L.,species,Cynoglossum,Boraginaceae,138,17
+174,2925892,Echium vulgare L.,species,Echium,Boraginaceae,165,17
+175,2925944,Hackelia deflexa (Wahlenb.) Opiz,species,Hackelia,Boraginaceae,217,17
+176,2926065,Symphytum tuberosum L.,species,Symphytum,Boraginaceae,453,17
+177,2926086,Lithospermum officinale L.,species,Lithospermum,Boraginaceae,276,17
+178,2926110,Borago officinalis L.,species,Borago,Boraginaceae,72,17
+179,2926557,Glechoma hederacea L.,species,Glechoma,Lamiaceae,208,51
+180,2926612,Origanum vulgare L.,species,Origanum,Lamiaceae,330,51
+181,2926682,Lamium purpureum L.,species,Lamium,Lamiaceae,256,51
+182,2926683,Lamium album L.,species,Lamium,Lamiaceae,256,51
+183,2926684,Lamium maculatum (L.) L.,species,Lamium,Lamiaceae,256,51
+184,2926759,Scutellaria galericulata L.,species,Scutellaria,Lamiaceae,421,51
+185,2926945,Clinopodium vulgare L.,species,Clinopodium,Lamiaceae,117,51
+186,2926995,Salvia verticillata L.,species,Salvia,Lamiaceae,405,51
+187,2927007,Salvia pratensis L.,species,Salvia,Lamiaceae,405,51
+188,2927026,Salvia glutinosa L.,species,Salvia,Lamiaceae,405,51
+189,2927078,Ajuga reptans L.,species,Ajuga,Lamiaceae,13,51
+190,2927079,Ajuga genevensis L.,species,Ajuga,Lamiaceae,13,51
+191,2927118,Clinopodium acinos (L.) Kuntze,species,Clinopodium,Lamiaceae,117,51
+192,2927192,Mentha arvensis L.,species,Mentha,Lamiaceae,302,51
+193,2927208,Mentha aquatica L.,species,Mentha,Lamiaceae,302,51
+194,2927280,Betonica officinalis L.,species,Betonica,Lamiaceae,65,51
+195,2927282,Stachys sylvatica L.,species,Stachys,Lamiaceae,446,51
+196,2927298,Stachys recta L.,species,Stachys,Lamiaceae,446,51
+197,2927305,Lavandula angustifolia Mill.,species,Lavandula,Lamiaceae,262,51
+198,2927324,Lamium galeobdolon (L.) L.,species,Lamium,Lamiaceae,256,51
+199,2927493,Cuscuta europaea L.,species,Cuscuta,Convolvulaceae,133,28
+200,2927518,Cuscuta epithymum (L.) L.,species,Cuscuta,Convolvulaceae,133,28
+201,2928390,Convolvulus arvensis L.,species,Convolvulus,Convolvulaceae,122,28
+202,2928751,Datura stramonium L.,species,Datura,Solanaceae,148,90
+203,2932737,Solanum dulcamara L.,species,Solanum,Solanaceae,437,90
+204,2960823,Hedysarum hedysaroides (L.) Schinz & Thell.,species,Hedysarum,Fabaceae,219,41
+205,2965201,Medicago lupulina L.,species,Medicago,Fabaceae,296,41
+206,2965354,Medicago falcata L.,species,Medicago,Fabaceae,296,41
+207,2971042,Melilotus altissimus Thuill.,species,Melilotus,Fabaceae,299,41
+208,2971095,Melilotus albus Medik.,species,Melilotus,Fabaceae,299,41
+209,2972595,Onobrychis viciifolia Scop.,species,Onobrychis,Fabaceae,323,41
+210,2974786,Vicia sepium L.,species,Vicia,Fabaceae,492,41
+211,2974793,Vicia sylvatica L.,species,Vicia,Fabaceae,492,41
+212,2975083,Vicia tetrasperma (L.) Schreb.,species,Vicia,Fabaceae,492,41
+213,2975287,Vicia cracca L.,species,Vicia,Fabaceae,492,41
+214,2975328,Vicia hirsuta (L.) Gray,species,Vicia,Fabaceae,492,41
+215,2977149,Ononis spinosa subsp. procurrens (Wallr.) Briq.,species,Ononis,Fabaceae,324,41
+216,2984535,Humulus lupulus L.,species,Humulus,Cannabaceae,239,22
+217,2984671,Buxus sempervirens L.,species,Buxus,Buxaceae,81,20
+218,2985865,Hylotelephium telephium subsp. telephium,species,Hylotelephium,Crassulaceae,241,30
+219,2986184,Ribes alpinum L.,species,Ribes,Grossulariaceae,396,45
+220,2986185,Ribes uva-crispa L.,species,Ribes,Grossulariaceae,396,45
+221,2987999,Filipendula ulmaria (L.) Maxim.,species,Filipendula,Rosaceae,191,82
+222,3001509,Malus sylvestris Mill.,species,Malus,Rosaceae,292,82
+223,3001956,Agrimonia eupatoria L.,species,Agrimonia,Rosaceae,11,82
+224,3002154,Rosa micrantha Borrer ex Sm.,species,Rosa,Rosaceae,399,82
+225,3002461,Rosa canina L.,species,Rosa,Rosaceae,399,82
+226,3003708,Rosa dumalis Bechst.,species,Rosa,Rosaceae,399,82
+227,3006974,Rosa pendulina L.,species,Rosa,Rosaceae,399,82
+228,3007054,Rosa arvensis Huds.,species,Rosa,Rosaceae,399,82
+229,3007783,Rosa corymbifera Borkh.,species,Rosa,Rosaceae,399,82
+230,3009199,Rosa pseudoscabriuscula (R.Keller) Henker & G.Schulze,species,Rosa,Rosaceae,399,82
+231,3020532,Comarum palustre L.,species,Comarum,Rosaceae,119,82
+232,3020791,Prunus avium (L.) L.,species,Prunus,Rosaceae,376,82
+233,3021037,Prunus padus L.,species,Prunus,Rosaceae,376,82
+234,3023221,Prunus spinosa L.,species,Prunus,Rosaceae,376,82
+235,3023878,Amelanchier ovalis Medik.,species,Amelanchier,Rosaceae,23,82
+236,3025029,Sibbaldia procumbens L.,species,Sibbaldia,Rosaceae,430,82
+237,3025576,Cotoneaster integerrimus Medik.,species,Cotoneaster,Rosaceae,128,82
+238,3025617,Cotoneaster horizontalis Decne.,species,Cotoneaster,Rosaceae,128,82
+239,3026049,Cotoneaster dammeri C.K.Schneid.,species,Cotoneaster,Rosaceae,128,82
+240,3029627,Sanguisorba officinalis L.,species,Sanguisorba,Rosaceae,407,82
+241,3029817,Fragaria vesca L.,species,Fragaria,Rosaceae,192,82
+242,3032585,Parnassia palustris L.,species,Parnassia,Parnassiaceae,340,68
+243,3032812,Saxifraga umbrosa L.,species,Saxifraga,Saxifragaceae,411,86
+244,3032833,Saxifraga tridactylites L.,species,Saxifraga,Saxifragaceae,411,86
+245,3032837,Saxifraga paniculata Mill.,species,Saxifraga,Saxifragaceae,411,86
+246,3033107,Helleborus niger L.,species,Helleborus,Ranunculaceae,224,79
+247,3033108,Helleborus viridis L.,species,Helleborus,Ranunculaceae,224,79
+248,3033129,Thalictrum minus L.,species,Thalictrum,Ranunculaceae,460,79
+249,3033227,Eranthis hyemalis (L.) Salisb.,species,Eranthis,Ranunculaceae,174,79
+250,3033263,Anemone nemorosa L.,species,Anemone,Ranunculaceae,27,79
+251,3033266,Anemone ranunculoides L.,species,Anemone,Ranunculaceae,27,79
+252,3033289,Trollius europaeus L.,species,Trollius,Ranunculaceae,477,79
+253,3033312,Ranunculus flammula L.,species,Ranunculus,Ranunculaceae,388,79
+254,3033329,Ranunculus bulbosus L.,species,Ranunculus,Ranunculaceae,388,79
+255,3033339,Ranunculus repens L.,species,Ranunculus,Ranunculaceae,388,79
+256,3033363,Ranunculus acris L.,species,Ranunculus,Ranunculaceae,388,79
+257,3033377,Ranunculus trichophyllus Chaix,species,Ranunculus,Ranunculaceae,388,79
+258,3033382,Ranunculus circinatus Sibth.,species,Ranunculus,Ranunculaceae,388,79
+259,3033558,Clematis vitalba L.,species,Clematis,Ranunculaceae,116,79
+260,3033599,Clematis alpina (L.) Mill.,species,Clematis,Ranunculaceae,116,79
+261,3033665,Aconitum napellus L.,species,Aconitum,Ranunculaceae,4,79
+262,3033675,Aconitum lycoctonum L.,species,Aconitum,Ranunculaceae,4,79
+263,3033865,Mahonia aquifolium (Pursh) Nutt.,species,Mahonia,Berberidaceae,289,14
+264,3033894,Berberis vulgaris L.,species,Berberis,Berberidaceae,63,14
+265,3034620,Aegopodium podagraria L.,species,Aegopodium,Apiaceae,8,3
+266,3034646,Anethum graveolens L.,species,Anethum,Apiaceae,28,3
+267,3034699,Berula erecta (Huds.) Coville,species,Berula,Apiaceae,64,3
+268,3034714,Carum carvi L.,species,Carum,Apiaceae,93,3
+269,3034742,Daucus carota L.,species,Daucus,Apiaceae,149,3
+270,3034820,Torilis japonica (Houtt.) DC.,species,Torilis,Apiaceae,469,3
+271,3034830,Heracleum sphondylium subsp. sibiricum (L.) Simonk.,species,Heracleum,Apiaceae,226,3
+272,3034915,Astrantia major L.,species,Astrantia,Apiaceae,53,3
+273,3039203,Parthenocissus inserta (A.Kern.) Fritsch,species,Parthenocissus,Vitaceae,341,105
+274,3039285,Hippophae rhamnoides L.,species,Hippophae,Elaeagnaceae,231,37
+275,3039454,Frangula alnus Mill.,species,Frangula,Rhamnaceae,193,81
+276,3039491,Rhamnus cathartica L.,species,Rhamnus,Rhamnaceae,391,81
+277,3040227,Populus nigra L.,species,Populus,Salicaceae,368,84
+278,3040249,Populus tremula L.,species,Populus,Salicaceae,368,84
+279,3040252,Reseda lutea L.,species,Reseda,Resedaceae,389,80
+280,3041022,"Armoracia rusticana P.Gaertn., B.Mey. & Scherb.",species,Armoracia,Brassicaceae,43,18
+281,3041800,Biscutella laevigata L.,species,Biscutella,Brassicaceae,68,18
+282,3042636,Brassica napus L.,species,Brassica,Brassicaceae,75,18
+283,3044318,Descurainia sophia (L.) Webb ex Prantl,species,Descurainia,Brassicaceae,151,18
+284,3045243,Noccaea rotundifolia (L.) Moench,species,Noccaea,Brassicaceae,319,18
+285,3045797,Cardamine trifolia L.,species,Cardamine,Brassicaceae,88,18
+286,3045931,Cardamine bulbifera (L.) Crantz,species,Cardamine,Brassicaceae,88,18
+287,3046044,Cardamine amara L.,species,Cardamine,Brassicaceae,88,18
+288,3046076,Cardamine flexuosa With.,species,Cardamine,Brassicaceae,88,18
+289,3046155,Cardamine bellidifolia L.,species,Cardamine,Brassicaceae,88,18
+290,3046187,Cardamine impatiens L.,species,Cardamine,Brassicaceae,88,18
+291,3046224,Cardamine enneaphyllos (L.) Crantz,species,Cardamine,Brassicaceae,88,18
+292,3046258,Cardamine hirsuta L.,species,Cardamine,Brassicaceae,88,18
+293,3046736,Sisymbrium altissimum L.,species,Sisymbrium,Brassicaceae,436,18
+294,3046890,Sisymbrium officinale (L.) Scop.,species,Sisymbrium,Brassicaceae,436,18
+295,3047598,Sinapis arvensis,species,Sinapis,Brassicaceae,435,18
+296,3048266,Erysimum cheiranthoides L.,species,Erysimum,Brassicaceae,180,18
+297,3049449,Draba tomentosa Clairv.,species,Draba,Brassicaceae,160,18
+298,3049799,Draba aizoides L.,species,Draba,Brassicaceae,160,18
+299,3050750,Petrocallis pyrenaica (L.) W.T.Aiton,species,Petrocallis,Brassicaceae,346,18
+300,3052436,Arabidopsis thaliana (L.) Heynh.,species,Arabidopsis,Brassicaceae,37,18
+301,3052509,Arabidopsis arenosa (L.) Lawalrée,species,Arabidopsis,Brassicaceae,37,18
+302,3052680,Thlaspi arvense L.,species,Thlaspi,Brassicaceae,463,18
+303,3053144,Rorippa islandica (Oeder) Borbás,species,Rorippa,Brassicaceae,398,18
+304,3053168,Rorippa palustris (L.) Besser,species,Rorippa,Brassicaceae,398,18
+305,3053376,Rorippa sylvestris (L.) Besser,species,Rorippa,Brassicaceae,398,18
+306,3054368,Juglans regia L.,species,Juglans,Juglandaceae,250,48
+307,3063016,Mercurialis perennis L.,species,Mercurialis,Euphorbiaceae,304,40
+308,3065239,Euphorbia amygdaloides L.,species,Euphorbia,Euphorbiaceae,184,40
+309,3066367,Euphorbia helioscopia L.,species,Euphorbia,Euphorbiaceae,184,40
+310,3066386,Euphorbia peplus L.,species,Euphorbia,Euphorbiaceae,184,40
+311,3069053,Euphorbia verrucosa L.,species,Euphorbia,Euphorbiaceae,184,40
+312,3069475,Euphorbia dulcis L.,species,Euphorbia,Euphorbiaceae,184,40
+313,3069593,Euphorbia exigua L.,species,Euphorbia,Euphorbiaceae,184,40
+314,3070024,Euphorbia stricta L.,species,Euphorbia,Euphorbiaceae,184,40
+315,3070106,Euphorbia cyparissias L.,species,Euphorbia,Euphorbiaceae,184,40
+316,3082234,Cornus sanguinea L.,species,Cornus,Cornaceae,124,29
+317,3082263,Cornus mas L.,species,Cornus,Cornaceae,124,29
+318,3083838,Chenopodium album L.,species,Chenopodium,Amaranthaceae,108,1
+319,3084719,Portulaca oleracea L.,species,Portulaca,Portulacaceae,369,76
+320,3085360,Saponaria officinalis L.,species,Saponaria,Caryophyllaceae,409,24
+321,3085370,Moehringia trinervia (L.) Clairv.,species,Moehringia,Caryophyllaceae,307,24
+322,3085388,Sagina nodosa (L.) Fenzl,species,Sagina,Caryophyllaceae,403,24
+323,3085402,Sagina procumbens subsp. procumbens,species,Sagina,Caryophyllaceae,403,24
+324,3085424,Dianthus deltoides L.,species,Dianthus,Caryophyllaceae,152,24
+325,3085433,Cerastium arvense L.,species,Cerastium,Caryophyllaceae,99,24
+326,3085440,Cerastium glomeratum Thuill.,species,Cerastium,Caryophyllaceae,99,24
+327,3085458,Cerastium fontanum Baumg.,species,Cerastium,Caryophyllaceae,99,24
+328,3085633,Spergularia rubra (L.) J.Presl & C.Presl,species,Spergularia,Caryophyllaceae,443,24
+329,3085797,Herniaria hirsuta L.,species,Herniaria,Caryophyllaceae,228,24
+330,3085798,Herniaria glabra L.,species,Herniaria,Caryophyllaceae,228,24
+331,3087634,Cicerbita alpina (L.) Wallr.,species,Cicerbita,Asteraceae,111,11
+332,3088296,Petasites paradoxus (Retz.) Baumg.,species,Petasites,Asteraceae,345,11
+333,3090783,Prenanthes purpurea L.,species,Prenanthes,Asteraceae,373,11
+334,3092576,Silphium perfoliatum L.,species,Silphium,Asteraceae,434,11
+335,3093337,Picris hieracioides L.,species,Picris,Asteraceae,354,11
+336,3093702,Hypochaeris radicata L.,species,Hypochaeris,Asteraceae,243,11
+337,3094355,Aposeris foetida (L.) Less.,species,Aposeris,Asteraceae,35,11
+338,3095609,Pulicaria dysenterica (L.) Bernh.,species,Pulicaria,Asteraceae,381,11
+339,3097186,Tolpis staticifolia (All.) Sch.Bip.,species,Tolpis,Asteraceae,468,11
+340,3103058,Omalotheca hoppeana (W.D.J.Koch) Sch.Bip. & F.W.Schultz,species,Omalotheca,Asteraceae,322,11
+341,3103791,Matricaria discoidea DC.,species,Matricaria,Asteraceae,294,11
+342,3104537,Omalotheca supina (L.) DC.,species,Omalotheca,Asteraceae,322,11
+343,3105380,Carlina vulgaris L.,species,Carlina,Asteraceae,91,11
+344,3105782,Sonchus asper (L.) Hill,species,Sonchus,Asteraceae,440,11
+345,3105813,Sonchus arvensis L.,species,Sonchus,Asteraceae,440,11
+346,3107361,"Senecio ovatus (G.Gaertn., E.Mey. & Scherb.) Willd.",species,Senecio,Asteraceae,425,11
+347,3107708,Senecio doronicum (L.) L.,species,Senecio,Asteraceae,425,11
+348,3107839,Senecio nemorensis L.,species,Senecio,Asteraceae,425,11
+349,3107855,Senecio viscosus L.,species,Senecio,Asteraceae,425,11
+350,3108983,Senecio vulgaris L.,species,Senecio,Asteraceae,425,11
+351,3109086,Senecio inaequidens DC.,species,Senecio,Asteraceae,425,11
+352,3109117,Senecio squalidus L.,species,Senecio,Asteraceae,425,11
+353,3111049,Scorzonera humilis L.,species,Scorzonera,Asteraceae,418,11
+354,3112799,Cirsium acaule subsp. acaule,species,Cirsium,Asteraceae,114,11
+355,3112801,Cirsium vulgare (Savi) Ten.,species,Cirsium,Asteraceae,114,11
+356,3113239,Cirsium palustre (L.) Scop.,species,Cirsium,Asteraceae,114,11
+357,3113414,Cirsium arvense (L.) Scop.,species,Cirsium,Asteraceae,114,11
+358,3113637,Cirsium rivulare (Jacq.) All.,species,Cirsium,Asteraceae,114,11
+359,3113650,Cirsium oleraceum (L.) Scop.,species,Cirsium,Asteraceae,114,11
+360,3113745,Cirsium heterophyllum (L.) Hill,species,Cirsium,Asteraceae,114,11
+361,3114563,Carduus defloratus L.,species,Carduus,Asteraceae,89,11
+362,3117424,Bellis perennis L.,species,Bellis,Asteraceae,62,11
+363,3117449,Erigeron annuus (L.) Pers.,species,Erigeron,Asteraceae,176,11
+364,3120060,Achillea millefolium L.,species,Achillea,Asteraceae,2,11
+365,3120117,Achillea clavennae L.,species,Achillea,Asteraceae,2,11
+366,3120203,Achillea atrata L.,species,Achillea,Asteraceae,2,11
+367,3120790,Artemisia verlotiorum Lamotte,species,Artemisia,Asteraceae,46,11
+368,3120946,Artemisia vulgaris L.,species,Artemisia,Asteraceae,46,11
+369,3128547,Centaurea jacea L.,species,Centaurea,Asteraceae,96,11
+370,3130936,Tephroseris helenitis subsp. helenitis,species,Tephroseris,Asteraceae,458,11
+371,3133502,Scorzoneroides montana subsp. montana,species,Scorzoneroides,Asteraceae,419,11
+372,3133512,Scorzoneroides autumnalis subsp. autumnalis,species,Scorzoneroides,Asteraceae,419,11
+373,3133515,Scorzoneroides helvetica (Mérat) Holub,species,Scorzoneroides,Asteraceae,419,11
+374,3133689,Homogyne discolor (Jacq.) Cass.,species,Homogyne,Asteraceae,234,11
+375,3133692,Homogyne alpina (L.) Cass.,species,Homogyne,Asteraceae,234,11
+376,3133702,Adenostyles alliariae (Gouan) A.Kern.,species,Adenostyles,Asteraceae,6,11
+377,3133705,Adenostyles alpina subsp. alpina,species,Adenostyles,Asteraceae,6,11
+378,3134857,Lapsana communis L.,species,Lapsana,Asteraceae,257,11
+379,3137493,Leontodon incanus (L.) Schrank,species,Leontodon,Asteraceae,265,11
+380,3137498,Leontodon hispidus subsp. dubius (Hoppe) Pawlowska,species,Leontodon,Asteraceae,265,11
+381,3139040,Mycelis muralis (L.) Dumort.,species,Mycelis,Asteraceae,312,11
+382,3140685,Leontopodium nivale subsp. alpinum (Cass.) Greuter,species,Leontopodium,Asteraceae,266,11
+383,3142953,Doronicum glaciale (Wulfen) Nyman,species,Doronicum,Asteraceae,159,11
+384,3142996,Doronicum grandiflorum Lam.,species,Doronicum,Asteraceae,159,11
+385,3143034,Doronicum columnae Ten.,species,Doronicum,Asteraceae,159,11
+386,3146791,Erigeron canadensis L.,species,Erigeron,Asteraceae,176,11
+387,3147080,Erigeron acris L.,species,Erigeron,Asteraceae,176,11
+388,3147132,Erigeron glabratus (Phil.),species,Erigeron,Asteraceae,176,11
+389,3147144,Erigeron uniflorus L.,species,Erigeron,Asteraceae,176,11
+390,3149879,Tussilago farfara L.,species,Tussilago,Asteraceae,479,11
+391,3152047,Tilia cordata Mill.,species,Tilia,Malvaceae,466,57
+392,3152048,Tilia platyphyllos Scop.,species,Tilia,Malvaceae,466,57
+393,3152373,Malva neglecta Wallr.,species,Malva,Malvaceae,293,57
+394,3152379,Malva moschata L.,species,Malva,Malvaceae,293,57
+395,3166655,Phyteuma orbiculare L.,species,Phyteuma,Campanulaceae,352,21
+396,3166841,Phyteuma spicatum L.,species,Phyteuma,Campanulaceae,352,21
+397,3169131,Euonymus europaeus,species,Euonymus,Celastraceae,182,25
+398,3169315,Cyclamen purpurascens Mill.,species,Cyclamen,Primulaceae,134,78
+399,3169340,Lysimachia punctata L.,species,Lysimachia,Primulaceae,287,78
+400,3169379,Lysimachia nummularia L.,species,Lysimachia,Primulaceae,287,78
+401,3169386,Lysimachia vulgaris L.,species,Lysimachia,Primulaceae,287,78
+402,3169707,Vinca minor L.,species,Vinca,Apocynaceae,493,4
+403,3170097,Gentiana nivalis L.,species,Gentiana,Gentianaceae,203,43
+404,3170115,Gentiana cruciata L.,species,Gentiana,Gentianaceae,203,43
+405,3170807,Bartsia alpina L.,species,Bartsia,Orobanchaceae,61,65
+406,3170866,Scrophularia umbrosa Dumort.,species,Scrophularia,Scrophulariaceae,420,88
+407,3170886,Scrophularia nodosa L.,species,Scrophularia,Scrophulariaceae,420,88
+408,3171669,Chaenorhinum minus (L.) Lange,species,Chaenorhinum,Plantaginaceae,102,71
+409,3171697,Pedicularis verticillata subsp. verticillata,species,Pedicularis,Orobanchaceae,343,65
+410,3171734,Pedicularis palustris L.,species,Pedicularis,Orobanchaceae,343,65
+411,3171945,Verbascum nigrum L.,species,Verbascum,Scrophulariaceae,488,88
+412,3171949,Verbascum thapsus L.,species,Verbascum,Scrophulariaceae,488,88
+413,3172043,Rhinanthus minor subsp. minor,species,Rhinanthus,Orobanchaceae,392,65
+414,3172045,Rhinanthus alectorolophus (Scop.) Pollich,species,Rhinanthus,Orobanchaceae,392,65
+415,3172048,Veronica arvensis L.,species,Veronica,Plantaginaceae,490,71
+416,3172049,Veronica officinalis L.,species,Veronica,Plantaginaceae,490,71
+417,3172050,Veronica alpina L.,species,Veronica,Plantaginaceae,490,71
+418,3172054,Veronica fruticans Jacq.,species,Veronica,Plantaginaceae,490,71
+419,3172057,Veronica serpyllifolia L.,species,Veronica,Plantaginaceae,490,71
+420,3172062,Veronica beccabunga L.,species,Veronica,Plantaginaceae,490,71
+421,3172070,Veronica hederifolia L.,species,Veronica,Plantaginaceae,490,71
+422,3172077,Veronica persica Poir.,species,Veronica,Plantaginaceae,490,71
+423,3172086,Veronica anagallis-aquatica L.,species,Veronica,Plantaginaceae,490,71
+424,3172100,Veronica filiformis Sm.,species,Veronica,Plantaginaceae,490,71
+425,3172104,Veronica peregrina L.,species,Veronica,Plantaginaceae,490,71
+426,3172300,Ligustrum vulgare L.,species,Ligustrum,Oleaceae,271,60
+427,3172358,Fraxinus excelsior L.,species,Fraxinus,Oleaceae,194,60
+428,3172414,Utricularia minor L.,species,Utricularia,Lentibulariaceae,483,52
+429,3188736,Lythrum salicaria L.,species,Lythrum,Lythraceae,288,56
+430,3188794,Circaea lutetiana L.,species,Circaea,Onagraceae,113,61
+431,3188797,Circaea alpina L.,species,Circaea,Onagraceae,113,61
+432,3188924,Oenothera biennis L.,species,Oenothera,Onagraceae,321,61
+433,3189068,Epilobium anagallidifolium Lam.,species,Epilobium,Onagraceae,169,61
+434,3189080,Epilobium palustre L.,species,Epilobium,Onagraceae,169,61
+435,3189157,Epilobium parviflorum Schreb.,species,Epilobium,Onagraceae,169,61
+436,3189158,Epilobium alsinifolium Vill.,species,Epilobium,Onagraceae,169,61
+437,3189172,Epilobium hirsutum L.,species,Epilobium,Onagraceae,169,61
+438,3189486,Hypericum perforatum L.,species,Hypericum,Hypericaceae,242,46
+439,3189747,Plantago media L.,species,Plantago,Plantaginaceae,358,71
+440,3189767,Plantago major L.,species,Plantago,Plantaginaceae,358,71
+441,3189815,Aesculus hippocastanum L.,species,Aesculus,Sapindaceae,9,85
+442,3189846,Acer platanoides L.,species,Acer,Sapindaceae,1,85
+443,3189863,Acer campestre L.,species,Acer,Sapindaceae,1,85
+444,3189870,Acer pseudoplatanus L.,species,Acer,Sapindaceae,1,85
+445,3191030,Drosera rotundifolia L.,species,Drosera,Droseraceae,161,35
+446,3191157,Drosera intermedia Hayne,species,Drosera,Droseraceae,161,35
+447,3191374,Polygala vulgaris L.,species,Polygala,Polygalaceae,362,73
+448,3632864,Pleurospermum austriacum (L.) Hoffm.,species,Pleurospermum,Apiaceae,360,3
+449,3636564,Pachypleurum mutellinoides (Crantz) Holub,species,Pachypleurum,Apiaceae,336,3
+450,3642531,Chaerophyllum aureum L.,species,Chaerophyllum,Apiaceae,103,3
+451,3663919,Epilobium alpestre (Jacq.) Krock.,species,Epilobium,Onagraceae,169,61
+452,3664083,Epilobium montanum L.,species,Epilobium,Onagraceae,169,61
+453,3666788,Epilobium collinum C.C.Gmel.,species,Epilobium,Onagraceae,169,61
+454,3666800,Epilobium roseum (Schreb.) Schreb.,species,Epilobium,Onagraceae,169,61
+455,3686235,Staphylea pinnata L.,species,Staphylea,Staphyleaceae,447,91
+456,3714477,Hypericum montanum L.,species,Hypericum,Hypericaceae,242,46
+457,3724054,Pedicularis foliosa L.,species,Pedicularis,Orobanchaceae,343,65
+458,3724824,Tozzia alpina L.,species,Tozzia,Orobanchaceae,470,65
+459,3725062,Veronica teucrium L.,species,Veronica,Plantaginaceae,490,71
+460,3730664,Orobanche teucrii Holandre,species,Orobanche,Orobanchaceae,331,65
+461,3731357,Veronica fruticulosa L.,species,Veronica,Plantaginaceae,490,71
+462,3734339,Veronica aphylla L.,species,Veronica,Plantaginaceae,490,71
+463,3734492,Orobanche caryophyllacea Sm.,species,Orobanche,Orobanchaceae,331,65
+464,3738478,Lathraea squamaria L.,species,Lathraea,Orobanchaceae,260,65
+465,3752673,Saxifraga caesia L.,species,Saxifraga,Saxifragaceae,411,86
+466,3753798,Saxifraga androsacea L.,species,Saxifraga,Saxifragaceae,411,86
+467,3797084,Alkekengi officinarum Moench,species,Alkekengi,Solanaceae,16,90
+468,3802655,Atropa belladonna,species,Atropa,Solanaceae,57,90
+469,3810607,Moehringia ciliata (Scop.) Dalla Torre,species,Moehringia,Caryophyllaceae,307,24
+470,3839551,Gentiana orbicularis Schur,species,Gentiana,Gentianaceae,203,43
+471,3840575,Comastoma tenellum (Rottb.) Toyok.,species,Comastoma,Gentianaceae,120,43
+472,3921447,Aquilegia atrata Koch,species,Aquilegia,Ranunculaceae,36,79
+473,3927618,Anemone baldensis L.,species,Anemone,Ranunculaceae,27,79
+474,3928139,Ranunculus aconitifolius L.,species,Ranunculus,Ranunculaceae,388,79
+475,3928615,Pulsatilla vernalis (L.) Mill.,species,Pulsatilla,Ranunculaceae,383,79
+476,3928928,Ranunculus platanifolius L.,species,Ranunculus,Ranunculaceae,388,79
+477,3931260,Aquilegia einseleana F.W.Schultz,species,Aquilegia,Ranunculaceae,36,79
+478,3992189,Spinulum annotinum subsp. annotinum,species,Spinulum,Lycopodiaceae,444,55
+479,4005499,Soldanella alpicola F.K.Mey.,species,Soldanella,Primulaceae,438,78
+480,4006455,Androsace helvetica (L.) All.,species,Androsace,Primulaceae,25,78
+481,4009380,Groenlandia densa (L.) Fourr.,species,Groenlandia,Potamogetonaceae,213,77
+482,4016963,Cystopteris sudetica A.Braun & Milde,species,Cystopteris,Cystopteridaceae,142,33
+483,4036273,Rumex arifolius All.,species,Rumex,Polygonaceae,401,74
+484,4049081,Linum viscosum L.,species,Linum,Linaceae,274,54
+485,4051746,Polygaloides chamaebuxus (L.) O.Schwarz,species,Polygaloides,Polygalaceae,363,73
+486,4051803,Polygala amara subsp. amara,species,Polygala,Polygalaceae,362,73
+487,4095164,Valeriana supina Ard.,species,Valeriana,Caprifoliaceae,485,23
+488,4113725,Festuca amethystina L.,species,Festuca,Poaceae,189,72
+489,4119612,Festuca nigrescens Lam.,species,Festuca,Poaceae,189,72
+490,4142326,Achnatherum calamagrostis (L.) P.Beauv.,species,Achnatherum,Poaceae,3,72
+491,4149465,Avenella flexuosa (L.) Drejer,species,Avenella,Poaceae,58,72
+492,4152592,Helictotrichon parlatorei (J.Woods) Pilg.,species,Helictotrichon,Poaceae,222,72
+493,4174017,Rhododendron hirsutum L.,species,Rhododendron,Ericaceae,393,39
+494,4201607,Phedimus spurius subsp. spurius,species,Phedimus,Crassulaceae,348,30
+495,4256468,Asplenium seelosii Leyb.,species,Asplenium,Aspleniaceae,50,10
+496,4258666,Asplenium fissum Kit.,species,Asplenium,Aspleniaceae,50,10
+497,4889932,Dryas octopetala L.,species,Dryas,Rosaceae,162,82
+498,5274951,Polypodium vulgare L.,species,Polypodium,Polypodiaceae,366,75
+499,5275012,Pteridium aquilinum (L.) Kuhn,species,Pteridium,Dennstaedtiaceae,379,34
+500,5275044,Athyrium filix-femina (L.) Roth,species,Athyrium,Athyriaceae,56,12
+501,5275102,Dryopteris expansa (C.Presl) Fraser-Jenk. & Jermy,species,Dryopteris,Dryopteridaceae,163,36
+502,5275103,Dryopteris dilatata (Hoffm.) A.Gray,species,Dryopteris,Dryopteridaceae,163,36
+503,5275132,Dryopteris filix-mas (L.) Schott,species,Dryopteris,Dryopteridaceae,163,36
+504,5275149,Dryopteris carthusiana (Vill.) H.P.Fuchs,species,Dryopteris,Dryopteridaceae,163,36
+505,5275316,Thelypteris palustris Schott,species,Thelypteris,Thelypteridaceae,461,94
+506,5275365,Struthiopteris spicant (L.) Weiss,species,Struthiopteris,Blechnaceae,450,16
+507,5284517,Taxus baccata L.,species,Taxus,Taxaceae,456,93
+508,5284884,Picea abies (L.) H.Karst.,species,Picea,Pinaceae,353,70
+509,5285134,Pinus cembra L.,species,Pinus,Pinaceae,357,70
+510,5285385,Pinus mugo Turra,species,Pinus,Pinaceae,357,70
+511,5285637,Pinus sylvestris L.,species,Pinus,Pinaceae,357,70
+512,5289423,Typha latifolia L.,species,Typha,Typhaceae,480,98
+513,5289666,Setaria faberi R.A.W.Herrm.,species,Setaria,Poaceae,428,72
+514,5289684,Setaria viridis (L.) P.Beauv.,species,Setaria,Poaceae,428,72
+515,5289693,Setaria pumila (Poir.) Roem. & Schult.,species,Setaria,Poaceae,428,72
+516,5289756,Phalaris arundinacea L.,species,Phalaris,Poaceae,347,72
+517,5289972,Digitaria sanguinalis (L.) Scop.,species,Digitaria,Poaceae,155,72
+518,5290003,Digitaria ischaemum (Schreb.) Muhl.,species,Digitaria,Poaceae,155,72
+519,5290083,Alopecurus aequalis,species,Alopecurus,Poaceae,20,72
+520,5290149,Phragmites australis (Cav.) Trin. ex Steud.,species,Phragmites,Poaceae,351,72
+521,5295911,Paris quadrifolia L.,species,Paris,Melanthiaceae,339,58
+522,5298231,Iris pseudacorus L.,species,Iris,Iridaceae,248,47
+523,5299766,Gagea serotina (L.) Ker Gawl.,species,Gagea,Liliaceae,197,53
+524,5300245,Gagea lutea (L.) Ker Gawl.,species,Gagea,Liliaceae,197,53
+525,5300535,Fritillaria meleagris L.,species,Fritillaria,Liliaceae,195,53
+526,5301162,Potamogeton crispus L.,species,Potamogeton,Potamogetonaceae,370,77
+527,5301175,Potamogeton alpinus Balb.,species,Potamogeton,Potamogetonaceae,370,77
+528,5310578,Herminium monorchis (L.) R.Br.,species,Herminium,Orchidaceae,227,64
+529,5318958,Epipactis atrorubens (Hoffm.) Besser,species,Epipactis,Orchidaceae,170,64
+530,5319226,Epipactis palustris (L.) Crantz,species,Epipactis,Orchidaceae,170,64
+531,5330580,Arum maculatum L.,species,Arum,Araceae,47,6
+532,5331181,Viola odorata L.,species,Viola,Violaceae,495,103
+533,5331235,Viola arvensis Murray,species,Viola,Violaceae,495,103
+534,5331325,Viola biflora L.,species,Viola,Violaceae,495,103
+535,5331347,Viola tricolor L.,species,Viola,Violaceae,495,103
+536,5331355,Viola palustris L.,species,Viola,Violaceae,495,103
+537,5331916,Betula pendula Roth,species,Betula,Betulaceae,66,15
+538,5333294,Castanea sativa Mill.,species,Castanea,Fagaceae,94,42
+539,5333413,Andromeda polifolia L.,species,Andromeda,Ericaceae,24,39
+540,5334186,Chelidonium majus L.,species,Chelidonium,Papaveraceae,107,67
+541,5334217,Fumaria officinalis L.,species,Fumaria,Papaveraceae,196,67
+542,5334227,Lonicera caprifolium L.,species,Lonicera,Caprifoliaceae,279,23
+543,5334259,Lonicera xylosteum L.,species,Lonicera,Caprifoliaceae,279,23
+544,5334269,Lonicera caerulea L.,species,Lonicera,Caprifoliaceae,279,23
+545,5338920,Cruciata laevipes Opiz,species,Cruciata,Rubiaceae,132,83
+546,5339050,Sherardia arvensis L.,species,Sherardia,Rubiaceae,429,83
+547,5341170,Myosotis arvensis (L.) Hill,species,Myosotis,Boraginaceae,313,17
+548,5341175,Myosotis sylvatica subsp. sylvatica,species,Myosotis,Boraginaceae,313,17
+549,5341184,Myosotis scorpioides L.,species,Myosotis,Boraginaceae,313,17
+550,5341187,Myosotis alpestris F.W.Schmidt,species,Myosotis,Boraginaceae,313,17
+551,5341204,Pulmonaria officinalis subsp. officinalis,species,Pulmonaria,Boraginaceae,382,17
+552,5341297,Prunella vulgaris L.,species,Prunella,Lamiaceae,375,51
+553,5341300,Galeopsis tetrahit L.,species,Galeopsis,Lamiaceae,199,51
+554,5341305,Galeopsis speciosa Mill.,species,Galeopsis,Lamiaceae,199,51
+555,5341306,Galeopsis angustifolia Ehrh. ex Hoffm.,species,Galeopsis,Lamiaceae,199,51
+556,5341443,Thymus pulegioides L.,species,Thymus,Lamiaceae,465,51
+557,5341449,Thymus praecox subsp. polytrichus (A.Kern. ex Borbás) Jalas,species,Thymus,Lamiaceae,465,51
+558,5341478,Lycopus europaeus L.,species,Lycopus,Lamiaceae,286,51
+559,5341501,Melissa officinalis L.,species,Melissa,Lamiaceae,300,51
+560,5341511,Menyanthes trifoliata L.,species,Menyanthes,Menyanthaceae,303,59
+561,5343710,Astragalus frigidus (L.) A.Gray,species,Astragalus,Fabaceae,52,41
+562,5345013,Astragalus penduliflorus Lam.,species,Astragalus,Fabaceae,52,41
+563,5346998,Astragalus glycyphyllos L.,species,Astragalus,Fabaceae,52,41
+564,5347612,Genista tinctoria L.,species,Genista,Fabaceae,202,41
+565,5347824,Genista germanica L.,species,Genista,Fabaceae,202,41
+566,5348664,Coronilla vaginalis Lam.,species,Coronilla,Fabaceae,125,41
+567,5350005,Coronilla varia L.,species,Coronilla,Fabaceae,125,41
+568,5352251,Robinia pseudoacacia L.,species,Robinia,Fabaceae,397,41
+569,5352367,Anthyllis vulneraria L.,species,Anthyllis,Fabaceae,34,41
+570,5353705,Hippocrepis emerus (L.) Lassen,species,Hippocrepis,Fabaceae,230,41
+571,5353750,Hippocrepis comosa L.,species,Hippocrepis,Fabaceae,230,41
+572,5354525,Chamaecytisus supinus (L.) Link,species,Chamaecytisus,Fabaceae,104,41
+573,5356505,Lathyrus laevigatus (Waldst. & Kit.) Gren.,species,Lathyrus,Fabaceae,261,41
+574,5356517,Lathyrus latifolius subsp. latifolius,species,Lathyrus,Fabaceae,261,41
+575,5356623,Lathyrus sylvestris L.,species,Lathyrus,Fabaceae,261,41
+576,5356662,Lathyrus niger (L.) Bernh.,species,Lathyrus,Fabaceae,261,41
+577,5356701,Lathyrus pratensis L.,species,Lathyrus,Fabaceae,261,41
+578,5356704,Lathyrus vernus (L.) Bernh.,species,Lathyrus,Fabaceae,261,41
+579,5356805,Cytisus nigricans L.,species,Cytisus,Fabaceae,143,41
+580,5357013,Lotus corniculatus L.,species,Lotus,Fabaceae,281,41
+581,5358701,Trifolium thalii Vill.,species,Trifolium,Fabaceae,474,41
+582,5358748,Trifolium repens L.,species,Trifolium,Fabaceae,474,41
+583,5358812,Trifolium medium L.,species,Trifolium,Fabaceae,474,41
+584,5359018,Trifolium badium Schreb.,species,Trifolium,Fabaceae,474,41
+585,5359047,Trifolium montanum L.,species,Trifolium,Fabaceae,474,41
+586,5359429,Trifolium dubium Sibth.,species,Trifolium,Fabaceae,474,41
+587,5359477,Trifolium campestre Schreb.,species,Trifolium,Fabaceae,474,41
+588,5361143,Oxytropis montana (L.) DC.,species,Oxytropis,Fabaceae,335,41
+589,5361866,Ulmus glabra Huds.,species,Ulmus,Ulmaceae,481,99
+590,5362007,Sedum acre L.,species,Sedum,Crassulaceae,422,30
+591,5362008,Sedum album L.,species,Sedum,Crassulaceae,422,30
+592,5362136,Aruncus dioicus (Walter) Fernald,species,Aruncus,Rosaceae,48,82
+593,5362573,Pyrus communis L.,species,Pyrus,Rosaceae,385,82
+594,5364245,Poterium sanguisorba subsp. sanguisorba,species,Poterium,Rosaceae,372,82
+595,5365496,Potentilla aurea L.,species,Potentilla,Rosaceae,371,82
+596,5365576,Potentilla erecta (L.) Raeusch.,species,Potentilla,Rosaceae,371,82
+597,5365717,Potentilla indica (Andrews) Th.Wolf,species,Potentilla,Rosaceae,371,82
+598,5366215,Potentilla crantzii subsp. crantzii,species,Potentilla,Rosaceae,371,82
+599,5366297,Potentilla clusiana Jacq.,species,Potentilla,Rosaceae,371,82
+600,5366782,Potentilla brauneana Hoppe,species,Potentilla,Rosaceae,371,82
+601,5366922,Potentilla sterilis (L.) Garcke,species,Potentilla,Rosaceae,371,82
+602,5367246,Argentina anserina subsp. anserina,species,Argentina,Rosaceae,42,82
+603,5367273,Potentilla reptans L.,species,Potentilla,Rosaceae,371,82
+604,5367397,Potentilla caulescens L.,species,Potentilla,Rosaceae,371,82
+605,5369652,Geum urbanum L.,species,Geum,Rosaceae,206,82
+606,5369701,Geum rivale L.,species,Geum,Rosaceae,206,82
+607,5369806,Geum montanum L.,species,Geum,Rosaceae,206,82
+608,5371473,Actaea spicata L.,species,Actaea,Ranunculaceae,5,79
+609,5371685,Caltha palustris L.,species,Caltha,Ranunculaceae,85,79
+610,5371699,Hepatica nobilis Schreb.,species,Hepatica,Ranunculaceae,225,79
+611,5371742,Anthriscus sylvestris (L.) Hoffm.,species,Anthriscus,Apiaceae,33,3
+612,5371772,Levisticum officinale W.D.J.Koch,species,Levisticum,Apiaceae,270,3
+613,5371781,Selinum carvifolia (L.) L.,species,Selinum,Apiaceae,424,3
+614,5371818,Angelica sylvestris L.,species,Angelica,Apiaceae,29,3
+615,5371825,Aethusa cynapium L.,species,Aethusa,Apiaceae,10,3
+616,5371874,Pimpinella major (L.) Huds.,species,Pimpinella,Apiaceae,355,3
+617,5372484,Callitriche palustris L.,species,Callitriche,Plantaginaceae,83,71
+618,5372503,Hippuris vulgaris L.,species,Hippuris,Plantaginaceae,232,71
+619,5372513,Salix alba L.,species,Salix,Salicaceae,404,84
+620,5372554,Salix hastata L.,species,Salix,Salicaceae,404,84
+621,5372605,Salix cinerea L.,species,Salix,Salicaceae,404,84
+622,5372655,Salix eleagnos Scop.,species,Salix,Salicaceae,404,84
+623,5372693,Salix reticulata L.,species,Salix,Salicaceae,404,84
+624,5372800,Salix purpurea L.,species,Salix,Salicaceae,404,84
+625,5372875,Salix myrsinifolia subsp. myrsinifolia,species,Salix,Salicaceae,404,84
+626,5372876,Salix aurita L.,species,Salix,Salicaceae,404,84
+627,5372933,Salix viminalis L.,species,Salix,Salicaceae,404,84
+628,5372952,Salix caprea L.,species,Salix,Salicaceae,404,84
+629,5373083,Salix herbacea L.,species,Salix,Salicaceae,404,84
+630,5373322,Lunaria rediviva L.,species,Lunaria,Brassicaceae,282,18
+631,5374828,Kernera saxatilis (L.) Sweet,species,Kernera,Brassicaceae,254,18
+632,5374838,Arabis sagittata var. sagittata,species,Arabis,Brassicaceae,38,18
+633,5374901,Arabis soyeri subsp. subcoriacea (Gren.) Breistr.,species,Arabis,Brassicaceae,38,18
+634,5374909,Arabis caerulea All.,species,Arabis,Brassicaceae,38,18
+635,5374982,Arabis ciliata Clairv.,species,Arabis,Brassicaceae,38,18
+636,5375020,Arabis alpina L.,species,Arabis,Brassicaceae,38,18
+637,5375388,Capsella bursa-pastoris (L.) Medik.,species,Capsella,Brassicaceae,87,18
+638,5375547,Erucastrum gallicum (Willd.) O.E.Schulz,species,Erucastrum,Brassicaceae,179,18
+639,5376075,Alliaria petiolata (M.Bieb.) Cavara & Grande,species,Alliaria,Brassicaceae,17,18
+640,5376139,Hornungia alpina (L.) O.Appel,species,Hornungia,Brassicaceae,238,18
+641,5376426,Diplotaxis tenuifolia (L.) DC.,species,Diplotaxis,Brassicaceae,157,18
+642,5376616,Lepidium ruderale L.,species,Lepidium,Brassicaceae,267,18
+643,5376648,Lepidium virginicum L.,species,Lepidium,Brassicaceae,267,18
+644,5384464,Gypsophila repens L.,species,Gypsophila,Caryophyllaceae,216,24
+645,5384501,Stellaria aquatica (L.) Scop.,species,Stellaria,Caryophyllaceae,448,24
+646,5384604,Stellaria media (L.) Vill.,species,Stellaria,Caryophyllaceae,448,24
+647,5384606,Stellaria alsine Grimm,species,Stellaria,Caryophyllaceae,448,24
+648,5384616,Stellaria graminea L.,species,Stellaria,Caryophyllaceae,448,24
+649,5384738,Silene flos-cuculi (L.) Greuter & Burdet,species,Silene,Caryophyllaceae,432,24
+650,5384754,Silene acaulis (L.) Jacq.,species,Silene,Caryophyllaceae,432,24
+651,5384781,Silene nutans L.,species,Silene,Caryophyllaceae,432,24
+652,5384795,Silene dioica (L.) Clairv.,species,Silene,Caryophyllaceae,432,24
+653,5385604,Antennaria dioica (L.) Gaertn.,species,Antennaria,Asteraceae,30,11
+654,5386897,Tragopogon pratensis L.,species,Tragopogon,Asteraceae,471,11
+655,5387328,Trommsdorffia maculata subsp. maculata,species,Trommsdorffia,Asteraceae,478,11
+656,5387396,Aster alpinus L.,species,Aster,Asteraceae,51,11
+657,5388598,Jacobaea alpina subsp. alpina,species,Jacobaea,Asteraceae,249,11
+658,5388835,Serratula tinctoria L.,species,Serratula,Asteraceae,426,11
+659,5389029,Solidago canadensis L.,species,Solidago,Asteraceae,439,11
+660,5389173,Telekia speciosa (Schreb.) Baumg.,species,Telekia,Asteraceae,457,11
+661,5390848,Gnaphalium uliginosum L.,species,Gnaphalium,Asteraceae,211,11
+662,5391074,Buphthalmum salicifolium L.,species,Buphthalmum,Asteraceae,79,11
+663,5391710,Bidens cernua L.,species,Bidens,Asteraceae,67,11
+664,5391862,Bidens tripartita L.,species,Bidens,Asteraceae,67,11
+665,5392252,Cichorium intybus L.,species,Cichorium,Asteraceae,112,11
+666,5393080,Arctium tomentosum Mill.,species,Arctium,Asteraceae,39,11
+667,5393103,Arctium minus (Hill) Bernh.,species,Arctium,Asteraceae,39,11
+668,5400975,Leucanthemum halleri (Vitman) Ducommun,species,Leucanthemum,Asteraceae,268,11
+669,5401008,Leucanthemum ircutianum subsp. ircutianum,species,Leucanthemum,Asteraceae,268,11
+670,5402943,Eupatorium cannabinum L.,species,Eupatorium,Asteraceae,183,11
+671,5403296,Crepis paludosa (L.) Moench,species,Crepis,Asteraceae,130,11
+672,5403304,Crepis capillaris (L.) Wallr.,species,Crepis,Asteraceae,130,11
+673,5403329,Crepis jacquinii Tausch,species,Crepis,Asteraceae,130,11
+674,5403355,Crepis aurea (L.) Cass.,species,Crepis,Asteraceae,130,11
+675,5403358,Crepis pyrenaica (L.) Greuter,species,Crepis,Asteraceae,130,11
+676,5403531,Crepis biennis L.,species,Crepis,Asteraceae,130,11
+677,5403589,Crepis alpestris (Jacq.) Tausch,species,Crepis,Asteraceae,130,11
+678,5403596,Crepis mollis (Jacq.) Asch.,species,Crepis,Asteraceae,130,11
+679,5403602,Crepis terglouensis (Hacq.) A.Kern.,species,Crepis,Asteraceae,130,11
+680,5404169,Saussurea pygmaea (Jacq.) Spreng.,species,Saussurea,Asteraceae,410,11
+681,5404542,Saussurea alpina (L.) DC.,species,Saussurea,Asteraceae,410,11
+682,5405976,Arnica montana L.,species,Arnica,Asteraceae,44,11
+683,5409877,Campanula alpina Jacq.,species,Campanula,Campanulaceae,86,21
+684,5409933,Campanula glomerata subsp. glomerata,species,Campanula,Campanulaceae,86,21
+685,5409958,Campanula barbata L.,species,Campanula,Campanulaceae,86,21
+686,5410194,Campanula cochleariifolia Lam.,species,Campanula,Campanulaceae,86,21
+687,5410226,Campanula scheuchzeri Vill.,species,Campanula,Campanulaceae,86,21
+688,5410436,Campanula rapunculoides L.,species,Campanula,Campanulaceae,86,21
+689,5410564,Campanula patula L.,species,Campanula,Campanulaceae,86,21
+690,5410907,Campanula rotundifolia L.,species,Campanula,Campanulaceae,86,21
+691,5411475,Campanula persicifolia L.,species,Campanula,Campanulaceae,86,21
+692,5412014,Campanula trachelium L.,species,Campanula,Campanulaceae,86,21
+693,5414222,Ilex aquifolium L.,species,Ilex,Aquifoliaceae,245,5
+694,5414326,Primula elatior (L.) L.,species,Primula,Primulaceae,374,78
+695,5414335,Primula vulgaris subsp. vulgaris,species,Primula,Primulaceae,374,78
+696,5414457,Centaurium erythraea Rafn,species,Centaurium,Gentianaceae,97,43
+697,5414548,Vincetoxicum hirundinaria Medik.,species,Vincetoxicum,Apocynaceae,494,4
+698,5414992,Digitalis grandiflora Mill.,species,Digitalis,Plantaginaceae,154,71
+699,5415020,Linaria vulgaris Mill.,species,Linaria,Plantaginaceae,273,71
+700,5415024,Odontites vulgaris Moench,species,Odontites,Orobanchaceae,320,65
+701,5415039,Syringa vulgaris,species,Syringa,Oleaceae,454,60
+702,5415065,Pinguicula vulgaris L.,species,Pinguicula,Lentibulariaceae,356,52
+703,5420852,Daphne mezereum L.,species,Daphne,Thymelaeaceae,147,96
+704,5523781,Daphne blagayana Freyer,species,Daphne,Thymelaeaceae,147,96
+705,5523875,Daphne striata Tratt.,species,Daphne,Thymelaeaceae,147,96
+706,5530881,Corydalis cava (L.) Schweigg. & Körte,species,Corydalis,Papaveraceae,126,67
+707,5531229,Corydalis intermedia (L.) Mérat,species,Corydalis,Papaveraceae,126,67
+708,5537918,Siler montanum subsp. montanum,species,Siler,Apiaceae,433,3
+709,5538108,Imperatoria ostruthium L.,species,Imperatoria,Apiaceae,247,3
+710,5540777,Cervaria rivini Gaertn.,species,Cervaria,Apiaceae,101,3
+711,5560037,Linaria alpina (L.) Mill.,species,Linaria,Plantaginaceae,273,71
+712,5567578,Micranthes stellaris subsp. stellaris,species,Micranthes,Saxifragaceae,305,86
+713,5578472,Globularia bisnagarica L.,species,Globularia,Plantaginaceae,209,71
+714,5579175,Thesium pyrenaicum Pourr.,species,Thesium,Thesiaceae,462,95
+715,5581905,Salix serpillifolia,species,Salix,Salicaceae,404,84
+716,5583213,Salix appendiculata Vill.,species,Salix,Salicaceae,404,84
+717,5583602,Salix waldsteiniana Willd.,species,Salix,Salicaceae,404,84
+718,5583850,Salix glabra Scop.,species,Salix,Salicaceae,404,84
+719,5605805,Horminum pyrenaicum L.,species,Horminum,Lamiaceae,237,51
+720,5640455,Primula minima L.,species,Primula,Primulaceae,374,78
+721,5663962,Viola reichenbachiana Jord. ex Boreau,species,Viola,Violaceae,495,103
+722,5664290,Viola hirta L.,species,Viola,Violaceae,495,103
+723,5667864,Pinguicula alpina L.,species,Pinguicula,Lentibulariaceae,356,52
+724,5674152,Hordelymus europaeus (L.) Jess. ex Harz,species,Hordelymus,Poaceae,235,72
+725,5682465,Erica carnea L.,species,Erica,Ericaceae,175,39
+726,5684464,Rhodothamnus chamaecistus (L.) Rchb.,species,Rhodothamnus,Ericaceae,394,39
+727,5708780,Barbarea vulgaris (L.) W.T.Aiton,species,Barbarea,Brassicaceae,60,18
+728,5927687,Dichodon cerastoides (L.) Rchb.,species,Dichodon,Caryophyllaceae,153,24
+729,6026401,Laserpitium latifolium L.,species,Laserpitium,Apiaceae,259,3
+730,6026947,Bupleurum ranunculoides L.,species,Bupleurum,Apiaceae,80,3
+731,6027128,Sanicula europaea L.,species,Sanicula,Apiaceae,408,3
+732,6027328,Chaerophyllum hirsutum L.,species,Chaerophyllum,Apiaceae,103,3
+733,6027388,Silaum silaus (L.) Schinz & Thell.,species,Silaum,Apiaceae,431,3
+734,6109534,Amaranthus retroflexus L.,species,Amaranthus,Amaranthaceae,21,1
+735,6109637,Cynodon dactylon (L.) Pers.,species,Cynodon,Poaceae,137,72
+736,6363434,Stellaria nemorum L.,species,Stellaria,Caryophyllaceae,448,24
+737,6363496,Dianthus superbus L.,species,Dianthus,Caryophyllaceae,152,24
+738,6364031,Cerastium holosteoides Fr.,species,Cerastium,Caryophyllaceae,99,24
+739,6369729,Lonicera alpigena L.,species,Lonicera,Caprifoliaceae,279,23
+740,6371028,Rhamnus saxatilis Jacq.,species,Rhamnus,Rhamnaceae,391,81
+741,6375524,Ranunculus reptans L.,species,Ranunculus,Ranunculaceae,388,79
+742,6376340,Thalictrum aquilegiifolium L.,species,Thalictrum,Ranunculaceae,460,79
+743,6391194,Persicaria maculosa Gray,species,Persicaria,Polygonaceae,344,74
+744,6391461,Fallopia convolvulus (L.) Á.Löve,species,Fallopia,Polygonaceae,188,74
+745,6411747,Teucrium chamaedrys L.,species,Teucrium,Lamiaceae,459,51
+746,6428353,Chamaenerion angustifolium subsp. angustifolium,species,Chamaenerion,Onagraceae,105,61
+747,6436469,Hypericum tetrapterum Fr.,species,Hypericum,Hypericaceae,242,46
+748,6437017,Hypericum maculatum Crantz,species,Hypericum,Hypericaceae,242,46
+749,6443709,Tragopogon dubius Scop.,species,Tragopogon,Asteraceae,471,11
+750,6446296,Centaurea pseudophrygia C.A.Mey.,species,Centaurea,Asteraceae,96,11
+751,6446462,Solidago virgaurea L.,species,Solidago,Asteraceae,439,11
+752,7172720,Sedum dasyphyllum L.,species,Sedum,Crassulaceae,422,30
+753,7265184,Globularia cordifolia L.,species,Globularia,Plantaginaceae,209,71
+754,7265189,Globularia nudicaulis L.,species,Globularia,Plantaginaceae,209,71
+755,7267358,Moehringia muscosa L.,species,Moehringia,Caryophyllaceae,307,24
+756,7267415,Heliosperma pusillum,species,Heliosperma,Caryophyllaceae,223,24
+757,7270031,Gentiana clusii E.P.Perrier & Songeon,species,Gentiana,Gentianaceae,203,43
+758,7270316,Gentiana bavarica L.,species,Gentiana,Gentianaceae,203,43
+759,7270381,Gentiana asclepiadea L.,species,Gentiana,Gentianaceae,203,43
+760,7270598,Gentiana pneumonanthe L.,species,Gentiana,Gentianaceae,203,43
+761,7270648,Gentianopsis ciliata subsp. ciliata,species,Gentianopsis,Gentianaceae,204,43
+762,7277610,Ranunculus alpestris L.,species,Ranunculus,Ranunculaceae,388,79
+763,7277720,Thalictrum lucidum L.,species,Thalictrum,Ranunculaceae,460,79
+764,7278071,Pulsatilla alpina (L.) Delarbre,species,Pulsatilla,Ranunculaceae,383,79
+765,7278285,Aconitum tauricum Wulfen,species,Aconitum,Ranunculaceae,4,79
+766,7293605,Polygala amarella Crantz,species,Polygala,Polygalaceae,362,73
+767,7293616,Polygala comosa Schkuhr,species,Polygala,Polygalaceae,362,73
+768,7294722,Cerinthe minor L.,species,Cerinthe,Boraginaceae,100,17
+769,7296242,Viola rupestris F.W.Schmidt,species,Viola,Violaceae,495,103
+770,7296247,Viola collina Besser,species,Viola,Violaceae,495,103
+771,7296321,Viola riviniana Rchb.,species,Viola,Violaceae,495,103
+772,7296427,Viola pyrenaica Ramond ex DC.,species,Viola,Violaceae,495,103
+773,7297904,Utricularia ×australis R.Br.,species,Utricularia,Lentibulariaceae,483,52
+774,7298997,Valeriana tripteris L.,species,Valeriana,Caprifoliaceae,485,23
+775,7301056,Knautia dipsacifolia (Host) Kreutzer,species,Knautia,Caprifoliaceae,255,23
+776,7306396,Betonica alopecuros L.,species,Betonica,Lamiaceae,65,51
+777,7306931,Stachys alpina L.,species,Stachys,Lamiaceae,446,51
+778,7307319,Clinopodium alpinum (L.) Kuntze,species,Clinopodium,Lamiaceae,117,51
+779,7308294,Teucrium montanum L.,species,Teucrium,Lamiaceae,459,51
+780,7313595,Asarum europaeum L.,species,Asarum,Aristolochiaceae,49,8
+781,7318319,Mutellina adonidifolia (J.Gay) Gutermann,species,Mutellina,Apiaceae,311,3
+782,7319100,Dryopteris villarii (Bellardi) Woyn. ex Schinz & Thell.,species,Dryopteris,Dryopteridaceae,163,36
+783,7319269,Polystichum aculeatum (L.) Roth,species,Polystichum,Dryopteridaceae,367,36
+784,7322563,Epilobium tetragonum L.,species,Epilobium,Onagraceae,169,61
+785,7331633,Melampyrum sylvaticum L.,species,Melampyrum,Orobanchaceae,297,65
+786,7332320,Orobanche reticulata subsp. pallidiflora (Wimm. & Grab.) Hayek,species,Orobanche,Orobanchaceae,331,65
+787,7333112,Pedicularis recutita L.,species,Pedicularis,Orobanchaceae,343,65
+788,7333429,Rhinanthus glacialis subsp. glacialis,species,Rhinanthus,Orobanchaceae,392,65
+789,7334631,Hylotelephium maximum (L.) Holub,species,Hylotelephium,Crassulaceae,241,30
+790,7339315,Chrysosplenium alternifolium L.,species,Chrysosplenium,Saxifragaceae,110,86
+791,7339396,Saxifraga rotundifolia L.,species,Saxifraga,Saxifragaceae,411,86
+792,7339580,Saxifraga moschata Wulfen,species,Saxifraga,Saxifragaceae,411,86
+793,7344732,Helictochloa versicolor (Vill.) Romero Zarco,species,Helictochloa,Poaceae,221,72
+794,7346102,Erythranthe guttata (DC.) G.L.Nesom,species,Erythranthe,Phrymaceae,181,69
+795,7389416,Doronicum austriacum Jacq.,species,Doronicum,Asteraceae,159,11
+796,7395695,Helianthemum alpestre (Jacq.) DC.,species,Helianthemum,Cistaceae,220,26
+797,7407111,Thesium rostratum Mert. & Koch,species,Thesium,Thesiaceae,462,95
+798,7408221,Lomatogonium carinthiacum (Wulfen) Rchb.,species,Lomatogonium,Gentianaceae,278,43
+799,7415437,Pedicularis rostratocapitata Crantz,species,Pedicularis,Orobanchaceae,343,65
+800,7433196,Euonymus latifolius,species,Euonymus,Celastraceae,182,25
+801,7439391,Centaurium pulchellum (Sw.) Druce,species,Centaurium,Gentianaceae,97,43
+802,7440277,Gentiana pannonica Scop.,species,Gentiana,Gentianaceae,203,43
+803,7452468,Selaginella helvetica (L.) Spring,species,Selaginella,Selaginellaceae,423,89
+804,7456530,Saxifraga aphylla Sternb.,species,Saxifraga,Saxifragaceae,411,86
+805,7456960,Ranunculus montanus Willd.,species,Ranunculus,Ranunculaceae,388,79
+806,7459480,Convallaria majalis L.,species,Convallaria,Asparagaceae,121,9
+807,7473187,Draba verna L.,species,Draba,Brassicaceae,160,18
+808,7475424,Scabiosa lucida Vill.,species,Scabiosa,Caprifoliaceae,412,23
+809,7498158,Valeriana saxatilis L.,species,Valeriana,Caprifoliaceae,485,23
+810,7509607,Thalictrum flavum L.,species,Thalictrum,Ranunculaceae,460,79
+811,7510173,Mentha longifolia (L.) L.,species,Mentha,Lamiaceae,302,51
+812,7522816,Pedicularis rostratospicata Crantz,species,Pedicularis,Orobanchaceae,343,65
+813,7558421,Symphytum officinale L.,species,Symphytum,Boraginaceae,453,17
+814,7578787,Rosa subcanina (Christ) Dalla Torre & Sarnth.,species,Rosa,Rosaceae,399,82
+815,7591079,Euphrasia salisburgensis Funck ex Hoppe,species,Euphrasia,Orobanchaceae,185,65
+816,7601217,"Kalmia procumbens (L.) Gift, Kron & P.F.Stevens",species,Kalmia,Ericaceae,253,39
+817,7607769,Athamanta cretensis L.,species,Athamanta,Apiaceae,55,3
+818,7622278,Pimpinella saxifraga L.,species,Pimpinella,Apiaceae,355,3
+819,7639623,Noccaea perfoliata (L.) Al-Shehbaz,species,Noccaea,Brassicaceae,319,18
+820,7666664,Prunella grandiflora (L.) Turra,species,Prunella,Lamiaceae,375,51
+821,7693914,Melampyrum pratense L.,species,Melampyrum,Orobanchaceae,297,65
+822,7701037,Nasturtium officinale R.Br.,species,Nasturtium,Brassicaceae,316,18
+823,7702019,Lysimachia nemorum L.,species,Lysimachia,Primulaceae,287,78
+824,7703116,Lepidium campestre (L.) W.T.Aiton,species,Lepidium,Brassicaceae,267,18
+825,7730039,Myosotis nemorosa Besser,species,Myosotis,Boraginaceae,313,17
+826,7735944,Valeriana montana L.,species,Valeriana,Caprifoliaceae,485,23
+827,7737682,Epilobium nutans F.W.Schmidt,species,Epilobium,Onagraceae,169,61
+828,7749287,Petasites albus (L.) Gaertn.,species,Petasites,Asteraceae,345,11
+829,7750780,Orobanche gracilis Sm.,species,Orobanche,Orobanchaceae,331,65
+830,7761492,Facchinia cherlerioides subsp. cherlerioides,species,Facchinia,Caryophyllaceae,186,24
+831,7768870,Lonicera nigra L.,species,Lonicera,Caprifoliaceae,279,23
+832,7792960,Allium vineale L.,species,Allium,Amaryllidaceae,18,2
+833,7821030,Polygonum aviculare L.,species,Polygonum,Polygonaceae,365,74
+834,7826351,Ranunculus lanuginosus L.,species,Ranunculus,Ranunculaceae,388,79
+835,7845022,Gymnadenia conopsea (L.) R.Br.,species,Gymnadenia,Orchidaceae,214,64
+836,7847414,Antennaria carpatica (Wahlenb.) Bluff & Fingerh.,species,Antennaria,Asteraceae,30,11
+837,7859285,Androsace chamaejasme Wulfen,species,Androsace,Primulaceae,25,78
+838,7874883,Veronica chamaedrys L.,species,Veronica,Plantaginaceae,490,71
+839,7887000,Saxifraga granulata L.,species,Saxifraga,Saxifragaceae,411,86
+840,7903057,Brassica rapa L.,species,Brassica,Brassicaceae,75,18
+841,7904069,Dryopteris remota (A.Braun ex Döll) Druce,species,Dryopteris,Dryopteridaceae,163,36
+842,7914926,Rosa abietina Gren.,species,Rosa,Rosaceae,399,82
+843,7916436,Cotoneaster tomentosus (Aiton) Lindl.,species,Cotoneaster,Rosaceae,128,82
+844,7921919,Hypericum hirsutum L.,species,Hypericum,Hypericaceae,242,46
+845,7923515,Soldanella alpina L.,species,Soldanella,Primulaceae,438,78
+846,7924597,Equisetum arvense L.,species,Equisetum,Equisetaceae,172,38
+847,7925535,Bistorta officinalis subsp. officinalis,species,Bistorta,Polygonaceae,69,74
+848,7931979,Primula farinosa subsp. farinosa,species,Primula,Primulaceae,374,78
+849,7932677,Oreojuncus trifidus (L.) Záv.Drábk. & Kirschner,species,Oreojuncus,Juncaceae,328,49
+850,7934161,Rosa tomentosa Sm.,species,Rosa,Rosaceae,399,82
+851,7952995,Sagina saginoides (L.) Karst.,species,Sagina,Caryophyllaceae,403,24
+852,7958783,Pulmonaria mollis Wulfen ex Hornem.,species,Pulmonaria,Boraginaceae,382,17
+853,7960717,Bupleurum longifolium L.,species,Bupleurum,Apiaceae,80,3
+854,7960979,Urtica dioica L.,species,Urtica,Urticaceae,482,100
+855,7963890,Juniperus sabina L.,species,Juniperus,Cupressaceae,252,31
+856,7972010,Cardamine pratensis L.,species,Cardamine,Brassicaceae,88,18
+857,7974503,Primula auricula L.,species,Primula,Primulaceae,374,78
+858,7989064,Euphrasia minima Jacq. ex DC.,species,Euphrasia,Orobanchaceae,185,65
+859,8001549,Androsace lactea L.,species,Androsace,Primulaceae,25,78
+860,8002952,Ambrosia artemisiifolia L.,species,Ambrosia,Asteraceae,22,11
+861,8005654,Thesium alpinum L.,species,Thesium,Thesiaceae,462,95
+862,8008282,Gentiana punctata L.,species,Gentiana,Gentianaceae,203,43
+863,8012439,Symphoricarpos albus (L.) K.Koch,species,Symphoricarpos,Caprifoliaceae,452,23
+864,8022456,Legousia speculum-veneris (L.) Chaix,species,Legousia,Campanulaceae,263,21
+865,8044896,Blitum bonus-henricus (L.) Rchb.,species,Blitum,Amaranthaceae,70,1
+866,8051275,Orobanche alba Steph. ex Willd.,species,Orobanche,Orobanchaceae,331,65
+867,8063871,Valeriana sambucifolia J.C.Mikan,species,Valeriana,Caprifoliaceae,485,23
+868,8068542,Cherleria sedoides L.,species,Cherleria,Caryophyllaceae,109,24
+869,8073364,Vaccinium uliginosum L.,species,Vaccinium,Ericaceae,484,39
+870,8074997,Sabulina verna subsp. verna,species,Sabulina,Caryophyllaceae,402,24
+871,8083357,Plantago atrata Hoppe,species,Plantago,Plantaginaceae,358,71
+872,8087525,Centaurea scabiosa L.,species,Centaurea,Asteraceae,96,11
+873,8089871,Arenaria serpyllifolia L.,species,Arenaria,Caryophyllaceae,41,24
+874,8089998,Androsace hausmannii Leyb.,species,Androsace,Primulaceae,25,78
+875,8090449,Aconitum variegatum L.,species,Aconitum,Ranunculaceae,4,79
+876,8092175,Cerastium uniflorum Clairv.,species,Cerastium,Caryophyllaceae,99,24
+877,8105693,Melittis melissophyllum L.,species,Melittis,Lamiaceae,301,51
+878,8106874,Euphrasia officinalis subsp. pratensis (Fr.) Schübl. & G.Martens,species,Euphrasia,Orobanchaceae,185,65
+879,8108066,Asplenium trichomanes L.,species,Asplenium,Aspleniaceae,50,10
+880,8109831,Soldanella minima Hoppe,species,Soldanella,Primulaceae,438,78
+881,8111397,Euphrasia picta Wimm.,species,Euphrasia,Orobanchaceae,185,65
+882,8119241,Salix retusa L.,species,Salix,Salicaceae,404,84
+883,8133114,Aster amellus subsp. amellus,species,Aster,Asteraceae,51,11
+884,8134008,Anthriscus nitida (Wahlenb.) Hazsl.,species,Anthriscus,Apiaceae,33,3
+885,8144117,Sedum atratum L.,species,Sedum,Crassulaceae,422,30
+886,8152305,Linum alpinum subsp. alpinum,species,Linum,Linaceae,274,54
+887,8165236,Saxifraga aizoides L.,species,Saxifraga,Saxifragaceae,411,86
+888,8174785,Rosa rubiginosa L.,species,Rosa,Rosaceae,399,82
+889,8179794,Dactylorhiza maculata (L.) Soó,species,Dactylorhiza,Orchidaceae,145,64
+890,8181004,Heracleum austriacum L.,species,Heracleum,Apiaceae,226,3
+891,8182596,Potentilla verna L.,species,Potentilla,Rosaceae,371,82
+892,8184903,Lysimachia arvensis subsp. arvensis,species,Lysimachia,Primulaceae,287,78
+893,8190643,Huperzia selago (L.) Bernh.,species,Huperzia,Lycopodiaceae,240,55
+894,8193111,Melilotus officinalis (L.) Lam.,species,Melilotus,Fabaceae,299,41
+895,8195144,Rumex crispus L.,species,Rumex,Polygonaceae,401,74
+896,8200663,"Cymbalaria muralis G.Gaertn., B.Mey. & Scherb.",species,Cymbalaria,Plantaginaceae,135,71
+897,8207089,Polygala alpestris Rchb.,species,Polygala,Polygalaceae,362,73
+898,8208358,Plantago lanceolata L.,species,Plantago,Plantaginaceae,358,71
+899,8211958,Oxalis acetosella L.,species,Oxalis,Oxalidaceae,333,66
+900,8228544,Sonchus oleraceus L.,species,Sonchus,Asteraceae,440,11
+901,8232412,Gentiana verna subsp. pontica (Soltok.) Hayek,species,Gentiana,Gentianaceae,203,43
+902,8242995,Veronica urticifolia Jacq.,species,Veronica,Plantaginaceae,490,71
+903,8248593,Dactylorhiza incarnata (L.) Soó,species,Dactylorhiza,Orchidaceae,145,64
+904,8252683,Crataegus laevigata (Poir.) DC.,species,Crataegus,Rosaceae,129,82
+905,8262702,Pastinaca sativa L.,species,Pastinaca,Apiaceae,342,3
+906,8273130,"Lipandra polysperma (L.) S.Fuentes, Uotila & Borsch",species,Lipandra,Amaranthaceae,275,1
+907,8280232,Ranunculus hybridus Biria,species,Ranunculus,Ranunculaceae,388,79
+908,8295887,Aconitum degenii subsp. degenii,species,Aconitum,Ranunculaceae,4,79
+909,8298495,Galinsoga quadriradiata Ruiz & Pav.,species,Galinsoga,Asteraceae,200,11
+910,8306577,Willemetia stipitata subsp. stipitata,species,Willemetia,Asteraceae,497,11
+911,8317978,Arctostaphylos alpinus (L.) Spreng.,species,Arctostaphylos,Ericaceae,40,39
+912,8322056,Cirsium spinosissimum (L.) Scop.,species,Cirsium,Asteraceae,114,11
+913,8324121,Trifolium pratense L.,species,Trifolium,Fabaceae,474,41
+914,8328247,Veronica montana L.,species,Veronica,Plantaginaceae,490,71
+915,8350369,Fragaria moschata Duchesne,species,Fragaria,Rosaceae,192,82
+916,8351737,Hedera helix L.,species,Hedera,Araliaceae,218,7
+917,8352976,Gentiana utriculosa L.,species,Gentiana,Gentianaceae,203,43
+918,8353146,Saxifraga oppositifolia L.,species,Saxifraga,Saxifragaceae,411,86
+919,8370958,Matricaria chamomilla L.,species,Matricaria,Asteraceae,294,11
+920,8377689,Primula veris L.,species,Primula,Primulaceae,374,78
+921,8400876,Dianthus carthusianorum L.,species,Dianthus,Caryophyllaceae,152,24
+922,8429926,Ajuga pyramidalis L.,species,Ajuga,Lamiaceae,13,51
+923,8435025,Dipsacus fullonum L.,species,Dipsacus,Caprifoliaceae,158,23
+924,8659049,Orobanche flava subsp. flava,species,Orobanche,Orobanchaceae,331,65
+925,8730023,Orobanche salviae F.W.Schultz,species,Orobanche,Orobanchaceae,331,65
+926,8848598,Leucanthemum vulgare Lam.,species,Leucanthemum,Asteraceae,268,11
+927,8870733,Anemonastrum narcissiflorum subsp. narcissiflorum,species,Anemonastrum,Ranunculaceae,26,79
+928,8890062,Helianthemum nummularium (L.) Mill.,species,Helianthemum,Cistaceae,220,26
+929,8915858,Dryopteris affinis (Lowe) Fraser-Jenk.,species,Dryopteris,Dryopteridaceae,163,36
+930,8925249,Empetrum nigrum L.,species,Empetrum,Ericaceae,168,39
+931,8956987,Alnus alnobetula (Ehrh.) K.Koch,species,Alnus,Betulaceae,19,15
+932,8971475,Odontites vernus (Bellardi) Dumort.,species,Odontites,Orobanchaceae,320,65
+933,8992984,Saxifraga burseriana L.,species,Saxifraga,Saxifragaceae,411,86
+934,8994150,Oenothera parviflora L.,species,Oenothera,Onagraceae,321,61
+935,8998684,Epipactis helleborine (L.) Crantz,species,Epipactis,Orchidaceae,170,64
+936,9014945,Phleum pratense L.,species,Phleum,Poaceae,350,72
+937,9023462,Centaurea montana L.,species,Centaurea,Asteraceae,96,11
+938,9063248,Galium verum L.,species,Galium,Rubiaceae,201,83
+939,9094061,Ficaria verna Huds.,species,Ficaria,Ranunculaceae,190,79
+940,9118014,Betula pubescens Ehrh.,species,Betula,Betulaceae,66,15
+941,9121716,Galium pumilum Murray,species,Galium,Rubiaceae,201,83
+942,9148577,Alnus incana (L.) Moench,species,Alnus,Betulaceae,19,15
+943,9148812,Salix repens L.,species,Salix,Salicaceae,404,84
+944,9150405,Solanum nigrum L.,species,Solanum,Solanaceae,437,90
+945,9151957,Medicago sativa L.,species,Medicago,Fabaceae,296,41
+946,9153437,Salix daphnoides Vill.,species,Salix,Salicaceae,404,84
+947,9172281,Silene vulgaris (Moench) Garcke,species,Silene,Caryophyllaceae,432,24
+948,9188840,Epilobium ciliatum Raf.,species,Epilobium,Onagraceae,169,61
+949,9202524,Arabis hirsuta subsp. hirsuta,species,Arabis,Brassicaceae,38,18
+950,9213153,Platanthera bifolia (L.) Rich.,species,Platanthera,Orchidaceae,359,64
+951,9220780,Crataegus monogyna Jacq.,species,Crataegus,Rosaceae,129,82
+952,9350627,Cystopteris montana (Lam.) Bernh.,species,Cystopteris,Cystopteridaceae,142,33
+953,9413479,Atadinus pumilus subsp. pumilus,species,Atadinus,Rhamnaceae,54,81
+954,9485490,Erodium cicutarium (L.) L'Hér.,species,Erodium,Geraniaceae,178,44
+955,9490132,"Petasites hybridus (L.) G.Gaertn., B.Mey. & Scherb.",species,Petasites,Asteraceae,345,11
+956,9823072,Oxalis stricta L.,species,Oxalis,Oxalidaceae,333,66
+957,10944522,Mummenhoffia alliacea (L.) Esmailbegi & Al-Shehbaz,species,Mummenhoffia,Brassicaceae,310,18
+958,11071158,Rabelera holostea (L.) M.T.Sharples & E.A.Tripp,species,Rabelera,Caryophyllaceae,387,24
+959,12171609,"Lophiolepis eriophora (L.) Del Guacchio, Bures, Iamonico & P.Caputo",species,Lophiolepis,Asteraceae,280,11
+960,12193726,Myricaria germanica Qaiser,species,Myricaria,Tamaricaceae,314,92
+961,12205752,Rosa villosa (Nyár.) Ciocarlan,species,Rosa,Rosaceae,399,82
+962,12223594,Cynanchica neilreichii (Beck) P.Caputo & Del Guacchio,species,Cynanchica,Rubiaceae,136,83
+963,12225742,Cynanchica pyrenaica subsp. cynanchica (L.) P.Caputo & Del Guacchio,species,Cynanchica,Rubiaceae,136,83
+964,genus_Agrostis,Agrostis,genus,Agrostis,Poaceae,12,72
+965,genus_Alchemilla,Alchemilla,genus,Alchemilla,Rosaceae,14,82
+966,genus_Alopecurus,Alopecurus,genus,Alopecurus,Poaceae,20,72
+967,genus_Anthoxanthum,Anthoxanthum,genus,Anthoxanthum,Poaceae,32,72
+968,genus_Arrhenatherum,Arrhenatherum,genus,Arrhenatherum,Poaceae,45,72
+969,genus_Blysmus,Blysmus,genus,Blysmus,Cyperaceae,71,32
+970,genus_Brachypodium,Brachypodium,genus,Brachypodium,Poaceae,74,72
+971,genus_Briza,Briza,genus,Briza,Poaceae,76,72
+972,genus_Bromus,Bromus,genus,Bromus,Poaceae,77,72
+973,genus_Calamagrostis,Calamagrostis,genus,Calamagrostis,Poaceae,82,72
+974,genus_Carduus,Carduus,genus,Carduus,Asteraceae,89,11
+975,genus_Carex,Carex,genus,Carex,Cyperaceae,90,32
+976,genus_Cynosurus,Cynosurus,genus,Cynosurus,Poaceae,139,72
+977,genus_Dactylis,Dactylis,genus,Dactylis,Poaceae,144,72
+978,genus_Danthonia,Danthonia,genus,Danthonia,Poaceae,146,72
+979,genus_Deschampsia,Deschampsia,genus,Deschampsia,Poaceae,150,72
+980,genus_Eleocharis,Eleocharis,genus,Eleocharis,Cyperaceae,166,32
+981,genus_Elymus,Elymus,genus,Elymus,Poaceae,167,72
+982,genus_Eriophorum,Eriophorum,genus,Eriophorum,Cyperaceae,177,32
+983,genus_Festuca,Festuca,genus,Festuca,Poaceae,189,72
+984,genus_Glyceria,Glyceria,genus,Glyceria,Poaceae,210,72
+985,genus_Hieracium,Hieracium,genus,Hieracium,Asteraceae,229,11
+986,genus_Holcus,Holcus,genus,Holcus,Poaceae,233,72
+987,genus_Juncus,Juncus,genus,Juncus,Juncaceae,251,49
+988,genus_Luzula,Luzula,genus,Luzula,Juncaceae,283,49
+989,genus_Melica,Melica,genus,Melica,Poaceae,298,72
+990,genus_Milium,Milium,genus,Milium,Poaceae,306,72
+991,genus_Molinia,Molinia,genus,Molinia,Poaceae,308,72
+992,genus_Nardus,Nardus,genus,Nardus,Poaceae,315,72
+993,genus_Phleum,Phleum,genus,Phleum,Poaceae,350,72
+994,genus_Poa,Poa,genus,Poa,Poaceae,361,72
+995,genus_Rubus,Rubus,genus,Rubus,Rosaceae,400,82
+996,genus_Schoenus,Schoenus,genus,Schoenus,Cyperaceae,415,32
+997,genus_Scirpus,Scirpus,genus,Scirpus,Cyperaceae,417,32
+998,genus_Sesleria,Sesleria,genus,Sesleria,Poaceae,427,72
+999,genus_Sorbus,Sorbus,genus,Sorbus,Rosaceae,441,82
+1000,genus_Taraxacum,Taraxacum,genus,Taraxacum,Asteraceae,455,11
+1001,genus_Trichophorum,Trichophorum,genus,Trichophorum,Cyperaceae,473,32
+1002,genus_Trisetum,Trisetum,genus,Trisetum,Poaceae,476,72
+1003,bryophyta,"Bryophyta (aggregate) - moss, needs an expert",aggregate,"Bryophyta (aggregate) - moss, needs an expert","Bryophyta (aggregate) - moss, needs an expert",78,19

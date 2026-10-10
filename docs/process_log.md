@@ -518,3 +518,308 @@ Migration 7 is new, so this needs the full reset, not `-SkipReset`. It now runs 
   implementations. That is what turns the species dropdown into the photograph.
 - **Known holes:** Storage bucket policies are a placeholder; no Darwin Core Archive writer; the
   expert-role question above is open; session-6 Dart unanalysed.
+
+## 2026-09-13 — Session 7: app work paused on purpose; the model goes first
+
+*Written by the thesis agent. No code changed in this session — this entry exists so that whoever
+opens this repository next knows why it stopped where it did.*
+
+### The decision
+
+**App development is paused. It is not blocked, and nothing here is broken.** René asked which was
+the better next move — keep building the app, or go after the AI prediction — and the answer was
+the model, for a reason worth writing down: *the app is a known quantity and the model is not.*
+
+Everything still open in this repository is work whose outcome nobody doubts. The capture flow will
+work. Storage policies will be written. A Darwin Core Archive writer will emit an archive that
+validates. None of it can fail in a way that changes the thesis.
+
+The model can. The thesis' central claim is that an offline on-device model, masked to a park's
+species checklist, gets close enough to an online service to be worth shipping — and that the
+checklist mask itself buys measurable accuracy (proposition P2, ≥ 3 pp). Nobody has measured that
+yet. If it turns out to be false, the thesis needs to know now, while there is still time to make
+the negative result the finding rather than the failure.
+
+So: find out whether the model works, then come back and perfect the app around what it actually
+does.
+
+### Why this repository is at a good stopping point
+
+The app already does the one thing the thesis genuinely needs from it: **it writes real,
+org-scoped, append-only field records against a schema verified by execution.** That is the
+measuring instrument. 7 migrations, 10 tables, 6 views, 7 functions, 4 test suites, 39 assertions,
+0 failures. `identifications` cannot be edited by any client, so the offline guess, the online guess
+and the human determination survive independently — which is precisely what makes P1 and P2
+measurable from ordinary production records rather than from a laboratory harness.
+
+`model_versions` and `identifications` are already the landing site for whatever the model work
+produces. **Nothing in the ML pipeline is waiting on this repository.**
+
+### Where the thesis side actually is
+
+Task 0 — the GBIF coverage check across all 1,050 species-level classes — has been run. The
+headline is good: 91 % of species clear 100 field photographs, median 7,235, and the Austrian
+held-out test pool is viable. Coverage is not the constraint anyone feared.
+
+The class list was the last blocker and it is **frozen as of 2026-09-13 at 1,025 classes** (thesis
+decision D-033): 979 vascular species classes, 45 genus classes, and one aggregate class meaning
+*"this is a moss, and it needs an expert"*. Seventy-eight park-list names that GBIF could not settle
+mechanically were decided by a stated rule — 31 recovered, 24 merged, 20 excluded with reasons.
+
+**One thing from that work is worth knowing here, because the same trap exists in this app.** The
+first version of the name-resolution rule picked whichever candidate had the most Austrian
+photographs. It produced *Festuca pratensis* -> *Bromus erectus* and *Ranunculus nemorosus* ->
+*Anemone nemorosa*: confident, plausible, and wrong. A count measures how common a taxon is, not how
+likely a mapping is. When this repository eventually maps model output onto `taxa` rows, do not
+resolve names by popularity — `identifications.scientific_name` is a text snapshot precisely so a
+wrong mapping cannot silently rewrite history, but a wrong mapping is still wrong.
+
+None of it touches this repository's code.
+
+### What to do when app work resumes
+
+In this order, and the reasons are in `docs/AGENT_ROLES.md`:
+
+1. **Storage bucket policies.** `observation_media` *rows* are RLS-protected; the photo *objects*
+   they point at are not. Until that is closed the data-sovereignty claim has a real hole, and it is
+   a hole in the thesis' Chapter 5, not only in the app. Highest-value work outstanding.
+2. **The capture flow** — camera → Storage upload → the two `IdentificationService` implementations.
+   This is what turns the species dropdown into a photograph, which is what René asked for after
+   testing session 6. It is also where the model's output will arrive, so it is worth building once
+   the model's output shape is known rather than guessing it now.
+3. **`flutter analyze`** on sessions 4–6 Dart — never run in an agent session, no SDK reachable.
+4. **The expert-determination question** (`architecture.md`, ADR 008 and the open question in
+   session 6). Still open on purpose: a new `expert` role, or gate only which determinations may be
+   written `verified` rather than `unverified`. The second maps onto a Darwin Core term
+   (`dwc:identificationVerificationStatus`) instead of inventing a permission here — but decide it
+   by asking a park, not by reasoning about it.
+5. **The Darwin Core Archive writer** (O8). `dwc_occurrence_export` is the contract; the writer is
+   the missing half. Validate an archive, do not publish one (D-030).
+
+### Rules that do not change while this is paused
+
+The six non-negotiables in `docs/AGENT_ROLES.md` hold regardless of who touches the repo next.
+The two most easily broken by an innocent refactor:
+
+- **`identifications` has no UPDATE grant, for anyone.** That absence *is* the append-only
+  guarantee. Adding a grant to "fix" an edit button silently destroys the thesis' ability to measure
+  its central claim, and nothing would fail loudly.
+- **A `SECURITY DEFINER` function must re-state its org check.** It bypasses RLS, so the rule RLS was
+  enforcing has to be written out by hand. This is the bug that broke saving in session 6.
+
+### State
+
+Unchanged from session 6. Working tree uncommitted — René commits himself.
+
+---
+
+## 2026-10-09, 19:49 CEST — Session 8: the thesis model comes to the app (measurement round)
+
+*App agent. Resumes app work after the pause of session 7: the VPS handed over the trained Arm 2
+model (`ml-pipeline/arm2_export/README_for_app_agent.md`) for a correctness check and the phone
+measurements O3a–O3c. Not the final integration — temperature and per-species thresholds come later.*
+
+### What was built
+- **Assets:** the shipped file `large075_plain_int8_weight_only.tflite` (4,425,408 bytes) +
+  `labels.csv` (1,004 rows) + the thesis fixtures `phone_reference.json`, `ref_01..05.jpg` —
+  copied from the thesis folder (read-only) and verified byte-for-byte against the hashes in
+  `phone_reference.json`.
+- **`lib/ml/`** — the domain-agnostic engine: bit-exact Pillow resample port, reference
+  preprocessing, labels parser, `TfliteClassifier` (tflite_flutter 0.12.1 / LiteRT 1.4.0, 1 thread,
+  loaded once, kept alive), FFI probes (CPU pinning, `/proc` memory), memory sampler isolate, and
+  the measurement protocol.
+- **`OfflineModelIdentificationService`** — first real implementation of the seam (uncalibrated
+  softmax, no threshold, first photograph only).
+- **`LiteRtJavaBench.kt`** — LiteRT Java API with XNNPACK explicitly off, the guaranteed
+  no-delegate reference (MethodChannel).
+- **Identify tab** (`model_lab_screen.dart`) replacing Notes in the bar; also reachable from the
+  login screen, since the model needs no backend. `MODEL_LAB_AUTORUN` dart-define makes it the
+  home screen and runs the protocol by itself.
+- **`tools/measure_model.ps1`** — the whole round in one command (see ADR 009, architecture §6).
+- Unit tests `test/ml/` pinning the Dart port to Pillow-computed hashes.
+
+### Dead end documented before it happened — the desk study
+Before writing any Dart, the reference pipeline was reproduced on the desktop from the handover
+files (exact: means Δ 0.00000, logits Δ ≤ 0.0001), which made it possible to *test the obvious
+implementation first*. **Naive bilinear resizing — what a Flutter developer reaches for — fails the
+handover:** it passes the channel-mean criterion with room to spare but misses the logit tolerance
+by up to 64× and loses top-5 agreement, while top-1 stays right on these confident photographs. A
+check built only on means and top-1 would have passed a silently skewed pipeline. Hence the
+bit-exact port (ADR 009). A second finding: decoder-sized pixel noise (±1 level on 10 % of pixels)
+already costs 0.127 logits — the ±0.1 tolerance implicitly demands a bit-identical JPEG decoder,
+so the correctness check now hashes every stage against Pillow to say *where* a mismatch comes from.
+Reproducible: `tools/model_check/desk_study.py`, output in `docs/measurements/2026-10-09_desk_study/`.
+
+### The delegate question
+`tflite_flutter` has no switch to remove a runtime-default delegate, and whether its LiteRT build
+applies XNNPACK by default is undocumented (the desktop runtime does: 3× faster than plain kernels
+on x86). Rather than assume, one run answers it three ways: the once-per-process XNNPACK log line
+attributed to the first interpreter (C1), the Java-API no-XNNPACK reference (C3), and — if XNNPACK
+turns out to be the default — Google's TFLite Benchmark Tool with `--use_xnnpack=false` under
+`taskset` (René chose "both" for this fallback).
+
+### Verification status — honest
+- Python transliterations of the Dart resize logic were checked bit-exact against Pillow (RGB and
+  RGBA strides, up/downscale, identity, 13.4× downscale of a 12 MP image).
+- **The Dart, Kotlin and PowerShell have NOT been compiled or run by the agent** — the agent's
+  sandbox has no Flutter SDK and cannot reach René's machine. `tools/measure_model.ps1` runs
+  `flutter analyze` and `flutter test test/ml` before building and stops with the output if
+  anything fails. Expect possibly one round trip for compile errors.
+- Build risk named in ADR 009: the app uses AGP 9.0.1; tflite_flutter 0.12.1's Gradle file targets
+  AGP 8.6. Fallback: `flutter_litert` (source-compatible).
+
+### Noticed, not changed (for later)
+- `supabase/seed.sql` seeds `model_versions` with `class_count 1089, temperature 1.42`. The shipped
+  model has 1,004 classes and the thesis' fitted temperature is 1.91 (thesis Project_State,
+  2026-10-09). Seed data, but it looks like real numbers; align when calibration is integrated.
+- The desktop latency in `arm2_export_large075_plain.json` (9.03 ms) was taken with the default
+  resolver, which applies XNNPACK — it is not a "no delegate" figure (hint written for the thesis
+  agent in `MasterThesis/app_agent_hints/`).
+
+### Pre-flight review — four failures caught before they reached the phone
+Because nothing could be compiled here, an independent reviewer agent read every new file against the
+verified APIs before handover. It found four defects that would each have cost a full round trip on
+René's machine — documented because, in DSR terms, a caught failure is a result:
+- **The report could never have arrived.** Flutter logs Dart `print` through `__android_log_print`,
+  which formats into liblog's 1024-byte buffer: every logcat message is cut at 1023 bytes. The report
+  was chunked at 3,000 characters, so its checksum would have failed on every run. Now 900.
+- **The script would not even have parsed on Windows PowerShell 5.1.** It was UTF-8 without BOM and
+  contained em dashes; 5.1 reads such files as cp1252, where the dash's last byte becomes U+201D — a
+  typographic quote PowerShell treats as a real one, ending double-quoted strings early. Now ASCII.
+- **Undefined behaviour in the XNNPACK configuration.** tflite_flutter's `XNNPackDelegateOptions`
+  binding struct predates LiteRT 1.4.0's larger `TfLiteXNNPackDelegateOptions`; the runtime would read
+  past the allocation (weight-cache path/descriptor fields). C2 now passes no options (LiteRT defaults,
+  single-threaded) — which also makes it the same configuration a runtime-default XNNPACK would be.
+- **A likely release-build failure:** R8 "Missing class org.tensorflow.lite.gpu.GpuDelegateFactory$Options"
+  (litert-gpu packaging; upstream issues open). `android/app/proguard-rules.pro` added.
+Also fixed: the Benchmark Tool's warm-up statistics line would have been parsed instead of the timed
+one; XNNPACK log lines from other processes could have faked the attribution (now filtered by the app's
+PID); a crash of any process aborted the run (now only the app's own); a failing phase now still emits a
+partial report; the full device log (other apps' messages) no longer lands in the results folder
+(`tools/.cache/`, git-ignored); the build is a universal APK, because `--split-per-abi` raises the
+versionCode and the next `flutter run` would have uninstalled the app and its login.
+
+### State
+Code complete for the round, unmeasured. **Next: René runs `tools\measure_model.bat` with the S22 on
+USB** (no Supabase needed); the agent then writes the measurement report from the raw files.
+Working tree uncommitted — René commits himself.
+
+---
+
+## 2026-10-10, 10:52 CEST — Session 8, continued: first run on René's machine
+
+**What ran** (`tools/measure_model.ps1`, logs in
+`docs/measurements/2026-10-10_arm2_phone/raw/2026-10-10_103514/`, run started 10:35):
+- `flutter pub get`: OK (tflite_flutter 0.12.1, quiver added; crypto and ffi became direct).
+- `flutter analyze`: **0 errors, 0 warnings**, 11 infos — the first time the Dart written without an
+  SDK (2026-10-09) met a real analyzer. Five infos were in the new code (three redundant
+  `dart:typed_data` imports, a constructor style); the other six are pre-existing in screens from
+  2026-09 (deprecated `Radio` API, underscores, a null-aware element).
+- `flutter test test/ml`: **28/28 passed.** This is the first execution of the Dart Pillow-resample
+  port on a real Dart VM: hash-exact against Pillow 12.3.0 on six image sizes, in RGB and RGBA
+  stride, plus Python-style rounding and the labels contract.
+- `flutter build apk --release`: **FAILED** after 2 min 33 s, in a third-party module:
+
+      Execution failed for task ':tflite_flutter:compileReleaseKotlin'.
+      Inconsistent JVM-target compatibility detected for tasks
+      'compileReleaseJavaWithJavac' (11) and 'compileReleaseKotlin' (21).
+
+**Cause.** `android/gradle.properties` sets `android.builtInKotlin=false` (Flutter template). Under AGP 9
+that makes Flutter apply the Kotlin Gradle Plugin to every plugin module. tflite_flutter 0.12.1 pins its
+Java target to 11 but never sets a Kotlin target, so Kotlin falls back to the build JDK (21), and
+Kotlin's target-consistency check stops the build. The existing plugins never hit this (they set both
+targets); tflite_flutter is the first that does not. Same failure class as flutter_stripe issue #2486
+(AGP 9.1.1, JDK 21, identical message). This is the risk ADR 009 named in advance ("tflite_flutter's
+Gradle file targets AGP 8.6 … under AGP 9.0.1") — it materialised as a JVM-target mismatch, not as a
+Gradle API break.
+
+**Fix** (`android/build.gradle.kts`): for the `tflite_flutter` module only, set the Kotlin compile
+tasks' `jvmTarget` to 11 — the module's own Java target, as read from the error. Rejected: turning
+the check off globally (`kotlin.jvm.target.validation.mode`) — it would hide the same defect in any
+future plugin; switching to `flutter_litert` — a larger change with more bundled runtimes, not
+warranted by a one-line build-configuration problem.
+
+**Also fixed, all visible in this run's output:** the failure message did not say where the logs were
+(René could not find them); `Tee-Object` wrote the logs as UTF-16 with
+"System.Management.Automation.RemoteException" for every empty stderr line; and the build output only
+appeared after the build had finished. The script now prints the log folder at start and on any
+failure, streams the build output live, and writes UTF-8 logs. The five lint infos in the new code are
+cleaned up.
+
+**Not yet verified:** that the fix makes the release build pass, and everything after it (R8 rules,
+install, the protocol on the phone). Next: René reruns `tools\measure_model.bat`.
+
+---
+
+## 2026-10-10, ~12:00 CEST — Session 8, continued: second run — the first inference fails; a runtime defect, not a model defect
+
+*App agent, this time on René's machine (Flutter SDK, NDK and the build available — the code was compiled
+and the APK inspected here; the phone run itself was not repeated).*
+
+**What ran** (run `docs/measurements/2026-10-10_arm2_phone/raw/2026-10-10_105927/`): `flutter pub get`,
+`analyze` (0 errors, 0 warnings, 5 pre-existing infos), `test/ml` 28/28, **the release build passed** — the
+Kotlin JVM-target fix of the morning works — install, autorun. O3a was read from the APK (the model entry is
+the thesis file, `e0e182a8…`, 4,425,408 bytes, stored uncompressed), the interpreter (C1) was created in
+13.7 ms, the M0/M1 memory snapshots were taken. Then the **first `invoke()`** of the correctness check failed:
+the app reported `Bad state: failed precondition`; logcat had `E tflite : Input tensor 87 lacks data`.
+Nothing after it was measured (correctness, O3b, O3c, 12 MP image, XNNPACK question).
+
+**How the cause was found — each step with its evidence:**
+1. *What is tensor 87?* No TFLite runtime on the laptop, so the FlatBuffer was read directly
+   (now `tools/model_check/inspect_buffers.py`): INT8 weights `[64,1,1,16]`, input of `DEQUANTIZE` (op 13), and
+   its buffer has **no inline data but `offset 2,562,976 / size 1,024`** — stored after the FlatBuffer. 78 of
+   149 buffers are stored this way; tensor 87 is the first in execution order; the 11 inline constants before
+   it loaded fine. So: the runtime reads inline weights and drops offset-stored ones.
+2. *Why does the file look like that?* Every INT8 file of the thesis pipeline (spike and Arm 2) has the
+   layout, every FP32 file has none: it is written by **ai-edge-quantizer**, which switches to external
+   buffers once the packed weights exceed 256 KB (`model_modifier.py`; no option). The file still declares
+   `min_runtime_version 1.15.0`.
+3. *Why does the phone drop them when the desk study did not?* TF v2.20.0 source: `InterpreterBuilder`
+   resolves an offset only `if (offset > 1 && allocation_)`, silently; the **C API** (`c_api.cc`, what
+   tflite_flutter binds) builds it from the bare `Model*` **without the allocation**; Java (JNI) and Python
+   build it from the `FlatBufferModel`, which carries it. The desk study ran Python — it could not see this.
+4. *Is it fixed anywhere?* LiteRT commit `d17fd00` (2025-11-05) passes the allocation — one week after
+   tflite_flutter 0.12.1 shipped with LiteRT 1.4.0. Checked in the **machine code** of
+   `TfLiteInterpreterCreate` (`llvm-objdump`, NDK 28.2), register `x5` = allocation: the APK's library and
+   LiteRT 1.4.0 and 1.4.1 `mov x5, xzr` (nullptr); **1.4.2 `ldr x5, [x8, #0x10]`** (the fix).
+
+**Dead ends and rejected routes** (details in ADR 010): `Interpreter.fromFile` (same C-API builder);
+LiteRT 2.x (ships `libLiteRt.so`, not the `libtensorflowlite_jni.so` tflite_flutter opens);
+`flutter_litert`, ADR 009's fallback (meanwhile 3.9.x on LiteRT Next, a different API); the Java API as main
+binding (rejected in ADR 009).
+
+**The decision path — documented because it reversed the agent's first recommendation.** The agent first
+recommended re-serializing the model with inline weights (TF's `flatbuffer_utils`; lossless in principle,
+loads on every runtime). René approved it *on condition* that it fits the thesis, and asked for the check.
+The check against `MasterThesis/` turned it around: the thesis ties every Arm 2 result to this file's SHA-256
+(all test-set figures are LiteRT logits of `e0e182a8…`; `verify_numbers.py` block ARM2S asserts that the
+scored file is the exported one; the handover asks to "confirm it is what the app ships"), invariant 14
+forbids any model change after the single test scoring, and the proof that an inline copy computes the same
+model needs the pinned training-pool photographs and the checkpoint — 0 of 318 photographs and no checkpoint
+are on the laptop, they exist only on the VPS. Meanwhile the runtime fix had been verified in the binary.
+**René's decision:** fix the instrument (the runtime), not the measured object; and hand the inline step to
+the thesis pipeline **for future exports** (iOS: tflite_flutter 0.12.1 uses TensorFlow Lite 2.12 there, which
+cannot read offset-stored weights at all).
+
+**Changed:**
+- `android/app/build.gradle.kts`: `litert` **and** `litert-gpu` 1.4.2 (`litert-gpu` 1.4.0's POM pins
+  `litert-api` to exactly 1.4.0, so both must move).
+- `lib/ml/measurement_protocol.dart`: `kLiteRtArtifact` → 1.4.2 (the report would otherwise misstate the
+  runtime); `pubspec.yaml` comment.
+- `tools/measure_model.ps1` 1.1: prints the runtime's own `E tflite` lines (app's process only) live, again
+  in the summary, and records them as `runtime_errors_logcat` in `measurement.json`. Replayed against the
+  failed run's logcat: it catches exactly "Input tensor 87 lacks data" and nothing else.
+- New `tools/model_check/inspect_buffers.py`; ADR 010; ADR 009 status amended; `architecture.md` §2, §6.
+- Thesis hint (new file): `MasterThesis/app_agent_hints/2026-10-10_arm2_phone_run_runtime_defect.md`.
+
+**Verified here, before the phone:** analyze 0 errors / 0 warnings; `test/ml` 28/28; release build passes
+(R8, Kotlin bench against `litert-api` 1.4.2); Gradle resolves the plugin's `litert:1.4.0 -> 1.4.2` and
+`litert-gpu:1.4.0 -> 1.4.2`; the new APK's runtime reports `2.22.0-dev0+selfbuilt` and passes the allocation
+(`ldr x5, [x8, #0x10]`); the model entry is unchanged. The script is pure ASCII and parses in PowerShell 5.1.
+
+**Not verified:** the phone run. The correctness check against `phone_reference.json` is the test of the
+whole chain; until it passes, "fixed" means "the known defect is gone from the binary".
+
+### State
+Ready for the third run of `tools\measure_model.bat` (phone on USB). The run of 10:59 stays in
+`docs/measurements/` as the record of the failure. Working tree uncommitted — René commits himself.

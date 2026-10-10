@@ -1,0 +1,31 @@
+﻿00:00 +0: loading C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart
+00:00 +0: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: parseCsv quoted field with a comma and an escaped quote
+00:00 +1: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: pythonRound matches Python 3 round() 0.5 -> 0
+00:00 +2: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: parseCsv CRLF and a last line without newline
+00:00 +3: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: pythonRound matches Python 3 round() 1.5 -> 2
+00:00 +4: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: pythonRound matches Python 3 round() 2.5 -> 2
+00:00 +5: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +6: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +7: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +8: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +9: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +10: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +11: C:/Users/renes/repos/conservation_app/test/ml/labels_and_math_test.dart: the bundled labels.csv (setUpAll)
+00:00 +11: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +12: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +13: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +14: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +15: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +16: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250 -> 269x224 is bit-exact with Pillow
+00:00 +17: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 300x250: reading RGBA in place gives the same bytes
+00:00 +18: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 1000x700 -> 320x224 is bit-exact with Pillow
+00:00 +19: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 1000x700: reading RGBA in place gives the same bytes
+00:00 +20: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 61x45 -> 304x224 is bit-exact with Pillow
+00:00 +21: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 61x45: reading RGBA in place gives the same bytes
+00:00 +22: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 224x400 -> 224x400 is bit-exact with Pillow
+00:00 +23: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 224x400: reading RGBA in place gives the same bytes
+00:00 +24: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 600x800 -> 224x299 is bit-exact with Pillow
+00:00 +25: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 600x800: reading RGBA in place gives the same bytes
+00:00 +26: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 533x800 -> 224x336 is bit-exact with Pillow
+00:00 +27: C:/Users/renes/repos/conservation_app/test/ml/pillow_resize_test.dart: 533x800: reading RGBA in place gives the same bytes
+00:00 +28: All tests passed!

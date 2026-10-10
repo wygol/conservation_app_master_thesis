@@ -1,0 +1,273 @@
+{
+ "what": "Reference answers of the shipped Arm 2 model (INT8 weight-only) for the on-phone check",
+ "generated_utc": "2026-10-08T15:43:42+00:00",
+ "script": {
+  "path": "arm2_phone_reference.py",
+  "sha256": "636eca772cf94871c5f3d2c9f48f72333774151fdb8200527d72bc254ac7646e",
+  "bytes": 3802
+ },
+ "model": {
+  "path": "arm2_export/large075_plain/large075_plain_int8_weight_only.tflite",
+  "sha256": "e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d",
+  "bytes": 4425408
+ },
+ "labels": {
+  "path": "arm2_runs/large075/labels.csv",
+  "sha256": "a215ae1b81c7bd902159c586c5801dd0d37a4097d72b1bab2bdf2ce64b12e48e",
+  "bytes": 74430
+ },
+ "how_to_check": [
+  "Feed each ref_NN.jpg through the app's own preprocessing (shorter side to 224, bilinear; centre crop 224 x 224; RGB / 255; NHWC float32) and the model file.",
+  "Preprocessing is right if the per-channel means match to about +-0.01 (resampling code differs slightly between libraries).",
+  "The model call is right if the top-1 index is identical and at least 4 of the top-5 indices agree; logits should agree to about +-0.1.",
+  "The grey image needs no file: build a 224 x 224 x 3 array of 0.5."
+ ],
+ "cases": [
+  {
+   "image": "ref_01.jpg",
+   "file": {
+    "path": "arm2_export/phone_reference/ref_01.jpg",
+    "sha256": "fbddcb10158b4ec123fe0fbf888be9c50f3491ba17c6899b52bd041eaf01231d",
+    "bytes": 91253
+   },
+   "source_in_training_pool": "arm2_trial/trainset_arm2/genus_Carduus/5109508670.jpg",
+   "preprocessed_channel_means_rgb": [
+    0.38061,
+    0.56404,
+    0.31885
+   ],
+   "top5": [
+    {
+     "index": 974,
+     "class": "Carduus",
+     "logit": 24.4232
+    },
+    {
+     "index": 361,
+     "class": "Carduus defloratus L.",
+     "logit": 22.6823
+    },
+    {
+     "index": 358,
+     "class": "Cirsium rivulare (Jacq.) All.",
+     "logit": 19.8616
+    },
+    {
+     "index": 356,
+     "class": "Cirsium palustre (L.) Scop.",
+     "logit": 17.3834
+    },
+    {
+     "index": 360,
+     "class": "Cirsium heterophyllum (L.) Hill",
+     "logit": 17.3225
+    }
+   ]
+  },
+  {
+   "image": "ref_02.jpg",
+   "file": {
+    "path": "arm2_export/phone_reference/ref_02.jpg",
+    "sha256": "2c1eaded91ce14d1296dd2adc1eaac0d90b7ee4f0f3229b4c539f51d1fd7af2c",
+    "bytes": 125534
+   },
+   "source_in_training_pool": "arm2_trial/trainset_arm2/2849427/5109220311.jpg",
+   "preprocessed_channel_means_rgb": [
+    0.47147,
+    0.46443,
+    0.27917
+   ],
+   "top5": [
+    {
+     "index": 86,
+     "class": "Orchis mascula (L.) L.",
+     "logit": 29.0628
+    },
+    {
+     "index": 835,
+     "class": "Gymnadenia conopsea (L.) R.Br.",
+     "logit": 21.6485
+    },
+    {
+     "index": 706,
+     "class": "Corydalis cava (L.) Schweigg. & Körte",
+     "logit": 20.5122
+    },
+    {
+     "index": 87,
+     "class": "Orchis spitzelii Saut. ex W.D.J.Koch",
+     "logit": 19.7482
+    },
+    {
+     "index": 74,
+     "class": "Dactylorhiza majalis subsp. lapponica (Laest. ex Hartm.) H.Sund.",
+     "logit": 19.7441
+    }
+   ]
+  },
+  {
+   "image": "ref_03.jpg",
+   "file": {
+    "path": "arm2_export/phone_reference/ref_03.jpg",
+    "sha256": "b6bcf988e956fb99472ca38543ea24bc1c2d5e3a5c5f4c2caeb40bb53e5bf67c",
+    "bytes": 245828
+   },
+   "source_in_training_pool": "arm2_trial/trainset_arm2/2849427/3949463431.jpg",
+   "preprocessed_channel_means_rgb": [
+    0.35215,
+    0.34893,
+    0.30747
+   ],
+   "top5": [
+    {
+     "index": 86,
+     "class": "Orchis mascula (L.) L.",
+     "logit": 33.786
+    },
+    {
+     "index": 87,
+     "class": "Orchis spitzelii Saut. ex W.D.J.Koch",
+     "logit": 24.5394
+    },
+    {
+     "index": 835,
+     "class": "Gymnadenia conopsea (L.) R.Br.",
+     "logit": 21.2142
+    },
+    {
+     "index": 719,
+     "class": "Horminum pyrenaicum L.",
+     "logit": 19.7574
+    },
+    {
+     "index": 820,
+     "class": "Prunella grandiflora (L.) Turra",
+     "logit": 18.1992
+    }
+   ]
+  },
+  {
+   "image": "ref_04.jpg",
+   "file": {
+    "path": "arm2_export/phone_reference/ref_04.jpg",
+    "sha256": "08d9fd35c343f42d90f199a33d68d0f59ea39661794ab0694c0a93d7035812fb",
+    "bytes": 108785
+   },
+   "source_in_training_pool": "arm2_trial/trainset_arm2/2650133/3949792972.jpg",
+   "preprocessed_channel_means_rgb": [
+    0.56984,
+    0.64025,
+    0.043
+   ],
+   "top5": [
+    {
+     "index": 0,
+     "class": "Ophioglossum vulgatum L.",
+     "logit": 32.93
+    },
+    {
+     "index": 73,
+     "class": "Malaxis monophyllos (L.) Sw.",
+     "logit": 18.6793
+    },
+    {
+     "index": 71,
+     "class": "Platanthera chlorantha (Custer) Rchb.",
+     "logit": 18.5457
+    },
+    {
+     "index": 950,
+     "class": "Platanthera bifolia (L.) Rich.",
+     "logit": 16.126
+    },
+    {
+     "index": 79,
+     "class": "Neottia ovata (L.) Bluff & Fingerh.",
+     "logit": 14.962
+    }
+   ]
+  },
+  {
+   "image": "ref_05.jpg",
+   "file": {
+    "path": "arm2_export/phone_reference/ref_05.jpg",
+    "sha256": "2d52877d91c88202ea43df804ed554cc5beaae27a9baad77195383bf2bb7e0de",
+    "bytes": 101431
+   },
+   "source_in_training_pool": "arm2_trial/trainset_arm2/2650133/2645163394.jpg",
+   "preprocessed_channel_means_rgb": [
+    0.42366,
+    0.43674,
+    0.2532
+   ],
+   "top5": [
+    {
+     "index": 0,
+     "class": "Ophioglossum vulgatum L.",
+     "logit": 22.683
+    },
+    {
+     "index": 73,
+     "class": "Malaxis monophyllos (L.) Sw.",
+     "logit": 19.6138
+    },
+    {
+     "index": 99,
+     "class": "Alisma plantago-aquatica L.",
+     "logit": 17.6575
+    },
+    {
+     "index": 50,
+     "class": "Colchicum autumnale L.",
+     "logit": 14.5158
+    },
+    {
+     "index": 757,
+     "class": "Gentiana clusii E.P.Perrier & Songeon",
+     "logit": 14.492
+    }
+   ]
+  },
+  {
+   "image": "grey_0.5 (no file: every input value 0.5)",
+   "file": null,
+   "source_in_training_pool": null,
+   "preprocessed_channel_means_rgb": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "top5": [
+    {
+     "index": 998,
+     "class": "Sesleria",
+     "logit": 6.6733
+    },
+    {
+     "index": 980,
+     "class": "Eleocharis",
+     "logit": 6.0304
+    },
+    {
+     "index": 481,
+     "class": "Groenlandia densa (L.) Fourr.",
+     "logit": 5.9704
+    },
+    {
+     "index": 880,
+     "class": "Soldanella minima Hoppe",
+     "logit": 5.8507
+    },
+    {
+     "index": 408,
+     "class": "Chaenorhinum minus (L.) Lange",
+     "logit": 5.7861
+    }
+   ]
+  }
+ ],
+ "environment": {
+  "python": "3.14.4",
+  "platform": "Linux-7.0.0-14-generic-x86_64-with-glibc2.43"
+ }
+}

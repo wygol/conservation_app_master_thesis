@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../services/org_context.dart';
-import 'notes_screen.dart';
+import 'model_lab_screen.dart';
 import 'observations_screen.dart';
 import 'settings_screen.dart';
 
-/// The signed-in shell. Three destinations for now; the map and the capture
-/// flow join it next.
+/// The signed-in shell. "Identify" is the on-device model — a model lab for
+/// the measurement round today, the capture flow's home later. The original
+/// Notes placeholder (screens/notes_screen.dart) left the bar on 2026-10-09;
+/// its code stays as the reference pattern of the first vertical slice.
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key, required this.orgContext});
 
@@ -23,7 +25,7 @@ class _HomeShellState extends State<HomeShell> {
   Widget build(BuildContext context) {
     final pages = [
       ObservationsScreen(orgContext: widget.orgContext),
-      const NotesScreen(title: 'Notes'), // the original placeholder domain
+      const ModelLabScreen(),
       SettingsScreen(orgContext: widget.orgContext),
     ];
 
@@ -39,9 +41,9 @@ class _HomeShellState extends State<HomeShell> {
             label: 'Records',
           ),
           NavigationDestination(
-            icon: Icon(Icons.sticky_note_2_outlined),
-            selectedIcon: Icon(Icons.sticky_note_2),
-            label: 'Notes',
+            icon: Icon(Icons.center_focus_weak_outlined),
+            selectedIcon: Icon(Icons.center_focus_strong),
+            label: 'Identify',
           ),
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),

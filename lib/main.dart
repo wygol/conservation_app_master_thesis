@@ -3,10 +3,16 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'screens/home_shell.dart';
 import 'screens/login_screen.dart';
+import 'screens/model_lab_screen.dart';
 import 'screens/set_password_screen.dart';
 import 'services/org_context.dart';
 import 'theme.dart';
 import 'util.dart';
+
+/// Set by tools/measure_model.ps1 (`--dart-define=MODEL_LAB_AUTORUN=true`):
+/// the app opens straight into the model lab and runs the on-device
+/// measurement protocol in a fresh process — no login, no backend (ADR 009).
+const bool kModelLabAutorun = bool.fromEnvironment('MODEL_LAB_AUTORUN');
 
 Future<void> main() async {
   // Boot Flutter's engine bindings before any async work prior to runApp().
@@ -18,6 +24,9 @@ Future<void> main() async {
   await Supabase.initialize(
     url: 'http://127.0.0.1:54321',
     publishableKey: 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH',
+    // During a measurement run no background token refresh may touch the
+    // network while latencies are being timed.
+    authOptions: const FlutterAuthClientOptions(autoRefreshToken: !kModelLabAutorun),
   );
 
   runApp(const MyApp());
@@ -58,7 +67,9 @@ class _MyAppState extends State<MyApp> {
       theme: theme.light(), // used in light mode
       darkTheme: theme.dark(), // used in dark mode
       themeMode: ThemeMode.system, // follow the phone's light/dark setting
-      home: AuthGate(orgContext: _orgContext),
+      home: kModelLabAutorun
+          ? const ModelLabScreen(autorun: true)
+          : AuthGate(orgContext: _orgContext),
     );
   }
 }

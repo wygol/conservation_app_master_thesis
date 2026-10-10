@@ -2,6 +2,11 @@
 
 *Written 2026-09-08 by the thesis agent, handing the app back.*
 
+> **Current posture, 2026-09-13: app development is paused on purpose, not blocked.** The model work
+> goes first, because the app's remaining tasks cannot fail in a way that changes the thesis and the
+> model can. Full reasoning and the resume order are in the session-7 entry of `process_log.md`.
+> Nothing in the ML pipeline is waiting on this repository.
+
 ---
 
 ## The split

@@ -148,6 +148,11 @@ readable at all.
 - Be **honest and critical**: flag risks, push back on bad ideas, surface trade-offs. Don't just agree.
 - I do the architecture and lean on AI for implementation — so prioritise clear structure and clean seams I can reason about.
 - Prefer small, verifiable steps over big drops.
+- **I make all git commits myself.** Agents never commit (nor push, tag or rewrite history) — leave the
+  working tree uncommitted and suggest a commit message instead.
+- **The thesis folder (`…/AGI/MasterThesis`) is read-only for the app agent.** Read and use it freely,
+  never change anything in it. The single exception: notes for the thesis agent go into the subfolder
+  `MasterThesis/app_agent_hints/` (new files only).
 
 ---
 
@@ -178,11 +183,24 @@ readable at all.
   environment with no Flutter/Dart SDK. `flutter analyze` first.
 - ⚠️ **Supabase Storage bucket policies are not written.** Photo *rows* are RLS-protected; photo
   *objects* are not. The one real hole in the sovereignty claim.
-- 📄 Docs live: `docs/architecture.md` (as-built, rewritten 2026-09-06), `docs/decisions/001–007`,
-  `docs/process_log.md` (sessions 1–4).
+- ✅ **On-device model integrated for the measurement round (2026-10-09, ADR 009)** — thesis
+  Arm 2 file in `assets/model/`, bit-exact Pillow preprocessing (`lib/ml/`), offline
+  `IdentificationService` (uncalibrated, no threshold), Identify tab, Kotlin Java-API reference,
+  `tools/measure_model.ps1`. Run 1 (2026-10-10, 10:35): `flutter analyze` 0 errors, **unit tests
+  28/28** (Pillow port verified on a real Dart VM); release build failed on a tflite_flutter Kotlin
+  JVM-target mismatch under AGP 9 — fixed in `android/build.gradle.kts` (confirmed by run 2).
+  Run 2 (10:59): build, install and O3a fine, then the **first inference failed** ("Input tensor 87
+  lacks data"): LiteRT 1.4.0's C API loads the model's offset-stored weights as empty tensors.
+  **Fixed by raising the runtime to LiteRT 1.4.2 (ADR 010); the model file is unchanged.** Verified
+  on René's machine (analyze, tests, release build, fix present in the APK's machine code);
+  ⚠️ **the phone run with the fix is pending — nothing measured yet beyond O3a.** Details: process
+  log, session 8.
+- 📄 Docs live: `docs/architecture.md` (as-built, updated 2026-10-10), `docs/decisions/001–010`,
+  `docs/process_log.md` (sessions 1–8).
 - ⏭️ **Next:** see §10.
-- **Not built:** capture flow (map/GPS/camera/photo/offline queue/sync), any `IdentificationService`
-  implementation, Darwin Core Archive writer, GeoServer/OGC, Stripe, member removal, iOS build.
+- **Not built:** capture flow (map/GPS/camera/photo/offline queue/sync), online (Pl@ntNet)
+  `IdentificationService`, calibration/thresholds in the app, Darwin Core Archive writer,
+  GeoServer/OGC, Stripe, iOS build.
 - Numbering trap: the repo's "Milestone 1" (sovereignty slice) is **not** M1 in the thesis vault
   (requirements).
 
@@ -193,8 +211,18 @@ kept only as the reference pattern in `screens/notes_screen.dart`.)*
 
 **Right now, in order:**
 
+0. **The phone measurement round of the thesis model (2026-10-09; run 2 on 2026-10-10 hit a
+   runtime defect, fixed by ADR 010 — run 3 is next).** Phone on USB, then
+   `.\tools\measure_model.bat` — no Supabase needed. It analyzes, unit-tests, builds the release
+   APK, measures O3a in the APK, runs the protocol on the phone (correctness vs the thesis'
+   `phone_reference.json`, O3b memory, O3c latency C1/C2/C3 on the X2 and an A710 core, 12 MP
+   memory reading) and writes raw results to `docs/measurements/<date>_arm2_phone/raw/`. The agent
+   then writes the report (TBD for anything not measured; never estimated) — copy for the thesis in
+   `MasterThesis/app_agent_hints/` (the only place the app agent writes in the thesis folder).
+   Afterwards a normal `flutter run` puts the usual app back on the phone.
 1. **`flutter analyze`.** The 2026-09-06 Dart was written in an environment with no Flutter or Dart
    SDK, so it has never been analysed, built or launched. Treat it as unreviewed until this is green.
+   (Step 0's script runs it too.)
 2. **`.\tools\apply_and_verify.ps1`** — one command: `db reset`, all three SQL suites, PASS/FAIL
    count, then a look at testPark_A. Expect **39 assertions passed, 0 failed** and a number of
    *expected* database errors: roughly a third of the assertions are negative tests where the

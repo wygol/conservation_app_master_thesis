@@ -1,0 +1,32 @@
+# Output of tools/model_check/inline_feasibility.py — recorded 2026-10-10T09:55:13Z on René's laptop (Windows 11, x86-64, no phone)
+# script sha256: e90c8f395917af547c9f930c97d204e39564e2224cc2236174f8e44ec60b4c0c (imports tools/model_check/inspect_buffers.py, sha256 506ee50b37ed57917bbc86efa1e198b9d1bc3db2c43c1d99f8f746aedc0c41d4)
+# command: python -I tools/model_check/inline_feasibility.py assets/model/large075_plain_int8_weight_only.tflite assets/model_check <scratch>/large075_plain_int8_weight_only_INLINE_TEST.tflite
+# venv: py -3.14 -m venv; pip install ai-edge-litert==2.3.0 pillow==12.3.0 (numpy, flatbuffers as resolved; versions below)
+# The inline file was a TEST ARTIFACT, written to a scratch directory and not kept; the app ships the unchanged source file (ADR 010).
+
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+environment: {'python': '3.14.3', 'ai_edge_litert': '2.3.0', 'flatbuffers': '25.12.19', 'numpy': '2.5.3', 'pillow': '12.3.0', 'platform': 'Windows-11-10.0.26200-SP0'}
+
+1. re-serialized
+  source    4425408 bytes  sha256 e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d
+  inline    4424504 bytes  sha256 77b41bdec8bf5d8e1d2f89920b8741781385549af35bac6c5948516dc82883bd
+
+2a. structure, this repo's raw reader
+  offset-stored buffers: source 78, inline 0
+  tensors 356 vs 356; differing (name/type/shape/quantization/constant bytes): none
+  constant bytes compared: 4039532 vs 4039532
+  operators 209 vs 209; differing (code, version, inputs, outputs): none
+  graph inputs/outputs equal: True
+
+2b. structure, official object API (all fields; buffer indices compared through their content)
+  differing fields: none
+  tensors whose constant bytes differ: none; metadata differing: none
+  deprecated Model.metadata_buffer: source None, inline None
+
+3. behaviour: 72 inputs (6 phone-reference cases, 64 seeded random, zeros, ones)
+  default resolver      bit-identical logits: 72/72   max |difference| 0.0
+  no default delegates  bit-identical logits: 72/72   max |difference| 0.0
+
+4. phone_reference.json reproduced (no-default-delegate runs; inline = source by 3.): 6/6 cases pass
+
+RESULT: structure (raw reader) IDENTICAL; structure (object API) IDENTICAL; behaviour BIT-IDENTICAL; offset-stored buffers left: 0

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'model_lab_screen.dart';
+
 /// Sign-in only — there is deliberately NO self-service sign-up.
 /// Accounts are provisioned by the operator / org admins (ADR 004:
 /// sales-led onboarding). GoTrue signup is also disabled server-side
@@ -111,6 +113,17 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton(
               onPressed: _busy ? null : _showAccessInfo,
               child: const Text('Need access? Ask your admin'),
+            ),
+            // The bundled model needs no account and no network (sovereignty
+            // tier 3), so it is reachable before signing in.
+            TextButton.icon(
+              onPressed: _busy
+                  ? null
+                  : () => Navigator.of(context).push(MaterialPageRoute<void>(
+                        builder: (_) => const ModelLabScreen(),
+                      )),
+              icon: const Icon(Icons.center_focus_weak_outlined),
+              label: const Text('On-device model (works offline)'),
             ),
           ],
         ),

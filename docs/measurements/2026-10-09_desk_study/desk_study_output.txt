@@ -1,0 +1,47 @@
+# Output of tools/model_check/desk_study.py — run 2026-10-09T17:45:46Z in the app agent's sandbox (x86 Linux, no phone)
+# script sha256: 301046220d519864bafe4795a303f4954fcdff4fad464928b99e3c1920e94c43
+
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+environment: {'python': '3.10.12', 'numpy': '2.2.6', 'pillow': '12.3.0', 'libjpeg_turbo': '3.1.4.1', 'ai_edge_litert': '2.3.0', 'platform': 'Linux-6.8.0-138-generic-x86_64-with-glibc2.35'}
+
+A. reference pipeline vs phone_reference.json (1 thread)
+  ref_01.jpg   default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0001 -> PASS
+  ref_02.jpg   default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+  ref_03.jpg   default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+  ref_04.jpg   default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0001 -> PASS
+  ref_05.jpg   default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0001 -> PASS
+  grey_0.5 (no default resolver:  dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0000 -> PASS
+               no default deleg.: dmean=0.00000 top1=same top5_overlap=5/5 max|dlogit|=0.0001 -> PASS
+
+B. C-faithful Pillow resample vs Pillow itself
+  ref_01.jpg 600x800 -> 224x299: bit-exact=True
+  ref_02.jpg 600x800 -> 224x299: bit-exact=True
+  ref_03.jpg 600x800 -> 224x299: bit-exact=True
+  ref_04.jpg 533x800 -> 224x336: bit-exact=True
+  ref_05.jpg 800x450 -> 398x224: bit-exact=True
+
+C. naive (non-antialiased) bilinear instead of Pillow's
+  ref_01.jpg half-pixel centres: dmean=0.00001 top1=same top5_overlap=4/5 max|dlogit|=4.9466 -> FAIL
+  ref_02.jpg half-pixel centres: dmean=0.00002 top1=same top5_overlap=3/5 max|dlogit|=6.3922 -> FAIL
+  ref_03.jpg half-pixel centres: dmean=0.00007 top1=same top5_overlap=5/5 max|dlogit|=2.1975 -> FAIL
+  ref_04.jpg half-pixel centres: dmean=0.00001 top1=same top5_overlap=4/5 max|dlogit|=3.0472 -> FAIL
+  ref_05.jpg half-pixel centres: dmean=0.00001 top1=same top5_overlap=4/5 max|dlogit|=1.0519 -> FAIL
+  ref_01.jpg top-left aligned  : dmean=0.00016 top1=same top5_overlap=4/5 max|dlogit|=5.7675 -> FAIL
+  ref_02.jpg top-left aligned  : dmean=0.00049 top1=same top5_overlap=4/5 max|dlogit|=4.7156 -> FAIL
+  ref_03.jpg top-left aligned  : dmean=0.00008 top1=same top5_overlap=4/5 max|dlogit|=1.4210 -> FAIL
+  ref_04.jpg top-left aligned  : dmean=0.00014 top1=same top5_overlap=4/5 max|dlogit|=3.1425 -> FAIL
+  ref_05.jpg top-left aligned  : dmean=0.00011 top1=same top5_overlap=3/5 max|dlogit|=1.8071 -> FAIL
+
+D. decoder-sized pixel differences before the reference resize (seed 0)
+  +-1 on 10% of pixels   worst max|dlogit| = 0.127; top-1 same 5/5; top-5 overlap [5, 5, 5, 5, 5]
+  +-1 on 50% of pixels   worst max|dlogit| = 0.343; top-1 same 5/5; top-5 overlap [5, 5, 5, 5, 5]
+  +-2 on 20% of pixels   worst max|dlogit| = 0.264; top-1 same 5/5; top-5 overlap [5, 5, 5, 5, 4]
+
+E. desktop latency, 1 thread, 20 warm-up + 100 timed (x86 — NOT a phone number)
+  default resolver (applies XNNPACK)   median 5.79 ms, p90 6.35 ms
+  without default delegates            median 18.15 ms, p90 21.04 ms
