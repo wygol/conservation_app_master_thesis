@@ -823,3 +823,76 @@ whole chain; until it passes, "fixed" means "the known defect is gone from the b
 ### State
 Ready for the third run of `tools\measure_model.bat` (phone on USB). The run of 10:59 stays in
 `docs/measurements/` as the record of the failure. Working tree uncommitted — René commits himself.
+
+---
+
+## 2026-10-10, ~12:40 CEST — Session 8, continued: run 3 — the model is correct on the phone; two defects in the measurement tooling
+
+**What ran** (`docs/measurements/2026-10-10_arm2_phone/raw/2026-10-10_120250/`, LiteRT 1.4.2): build,
+install and the whole protocol (53 s) without an app error.
+- **Correctness: 6/6 PASS.** Max |Δlogit| 0.00006 against the ±0.1 tolerance, top-5 overlap 5/5, channel
+  means within 0.000004; decode, resize and crop **bit-identical to Pillow** for all five photographs and the
+  synthetic 12 MP image. The runtime reports `2.22.0-dev0+selfbuilt` (LiteRT 1.4.2). ADR 010's fix is thereby
+  verified on the device.
+- **The XNNPACK question is answered:** C1 created no XNNPACK delegate (logcat verdict `not_default`; the first
+  "Created TensorFlow Lite XNNPACK delegate" line came from the explicit C2, which delegated 208 of 209
+  nodes). C1 is the "no delegate" configuration Howard et al.'s protocol asks for.
+
+**Defect 1 — the script hung while writing `measurement.json`** (René saw no output for minutes; the process
+grew to 7 GB of RAM). Windows PowerShell 5.1 attaches file metadata (`PSPath`, `PSDrive`, `PSProvider`, …)
+to every line read with `Get-Content`; the XNNPACK attribution stored such a line, and `ConvertTo-Json -Depth
+14` serialized the drive/provider object graph — about 18× larger per nesting level (one 61-character line:
+496 → 1,843 → 32,594 characters at depth 1 → 2 → 3). Earlier runs never stored such a line: run 2 aborted
+before C2 existed. Fix: `[string]` cast (script 1.2), verified on this run's own log — 8 lines, 50 ms, 2,983
+characters. Lost with the hang: `measurement.json` (device facts, the APK/O3a record, the dumpsys samples
+taken during classification). Kept: `report_app.json`, `logcat_app.txt`, `dumpsys_snapshots.txt`, build logs.
+
+**Defect 2 — the X2 was never pinned.** Every pin to cpu 7 returned EINVAL. Qualcomm core control pauses
+big cores while the phone idles (read on the device: X2 `active_cpus=0` at idle, `offline_delay_ms=100`),
+and the protocol idles 2 s before each configuration. A second bug compounded it: the affinity was
+"restored" from `sched_getaffinity`, which omits paused cores, so the main thread stayed locked to
+`[0..5]` — C2's 100 "prime" runs all ran on an A710. An adb-shell experiment confirmed the remedy before any
+code changed: a busy loop wakes the X2 within ~20 ms, after which pinning holds. René chose
+**wake-then-pin**; details and rejected alternatives in ADR 009, amendment 2026-10-10.
+
+**Changed:** `lib/ml/native_probe.dart` (`CpuAffinity.pinWaking`, `CpuTopology.possibleCpus`, a warning on
+`get`); `lib/ml/measurement_protocol.dart` (C1/C2/C3 pin by `pinWaking`, a configuration that cannot be
+pinned is reported as not measured, affinity reset to every possible CPU, `pin_*` fields in the report);
+`tools/measure_model.ps1` 1.2 (the JSON fix; the summary prints NOT MEASURED, turns red when any run left
+its core, and shows how long each pin took to hold); ADR 009 amendment.
+
+**Verified here:** `flutter analyze` 0 errors / 0 warnings; `test/ml` 28/28; the script is ASCII and parses
+in PowerShell 5.1; the JSON fix on the real log. **Not verified:** the release build with these changes (the
+script builds first and stops on any failure) and `pinWaking` inside the app on the phone — the adb
+experiment shows the mechanism, the next run's `pin_*` fields and per-run CPU records will show the app.
+
+### State
+Next: run 4 of `tools\measure_model.bat` for a complete record; then the measurement report, with a copy
+for the thesis in `MasterThesis/app_agent_hints/`. No new model (ADR 010).
+
+---
+
+## 2026-10-10, ~12:50 CEST — Session 8, continued: run 4 — the measurement round is complete
+
+**Run `2026-10-10_122950`** (script 1.2, LiteRT 1.4.2): complete — `measurement.json`, `report_app.json`
+(checksum verified), all logs; no app error, no runtime error, `flutter analyze` and `test/ml` green.
+- **Correctness 6/6 PASS** in C1, and in C2 and C3 as well; preprocessing bit-identical to Pillow.
+- **Pinning works:** in all three X2 configurations the first pin was refused (core parked) and held after
+  110–120 ms of waking; in all three A710 configurations it held at once; **100/100 timed runs on the pinned
+  core in every configuration.** The wake-then-pin amendment is thereby verified on the device.
+- **O3a** 4.43 MB · **O3b** 257,693 kB peak (dumpsys TOTAL PSS) · **O3c** C1 12.17 ms (X2) / 20.95 ms
+  (A710) — all met. XNNPACK (C2) 8.55 / 15.77 ms at identical correctness.
+- **Finding:** a 12 MP photograph decoded at full resolution peaks at 473,089 kB — above the O3b budget. The
+  capture flow needs a reduction step before `app_load` (a train/serve question for the thesis).
+- **Repeatability** against run 3: A710 C1/C2 within 1 %; on the X2 run 3 began in a faster transient
+  state and settled at the same ~12.2 ms (CPU frequency not recorded).
+
+**Report:** `docs/measurements/2026-10-10_arm2_phone/report.md`, copy for the thesis in
+`MasterThesis/app_agent_hints/2026-10-10_arm2_phone_measurement_report.md` (new file; the earlier hint files
+are unchanged).
+
+### State
+The measurement round of ADR 009 is complete. Open for the capture flow: the CPU configuration (C1 or
+XNNPACK), the reduction of camera photographs and EXIF orientation (thesis call), calibration (temperature
+and thresholds from the thesis), and dropping the measurement fixtures from release builds. Working tree
+uncommitted — René commits.

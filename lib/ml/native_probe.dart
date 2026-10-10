@@ -43,6 +43,9 @@ class CpuAffinity {
   static int currentTid() => _getTid();
 
   /// CPUs [tid] may run on (0 = calling thread); empty if the call failed.
+  /// The kernel reports only cores that are active right now: a core paused by
+  /// core control (see [pinWaking]) is missing, so the result must never be
+  /// used to *restore* an affinity — restore to [CpuTopology.possibleCpus].
   static List<int> get(int tid) {
     final mask = calloc<Uint8>(_maskBytes);
     try {
@@ -74,6 +77,39 @@ class CpuAffinity {
       calloc.free(mask);
     }
   }
+
+  static const int _einval = 22;
+
+  /// [set] to the single [cpu], robust against core control (ADR 009,
+  /// amendment 2026-10-10). Qualcomm's core control pauses big cores while the
+  /// phone is idle (on the S22: the X2 and one A710; `offline_delay_ms` 100).
+  /// Pinning to a paused core fails with EINVAL; load wakes it within about
+  /// 20 ms. So on EINVAL the CALLING thread spins for [slice] and retries, for
+  /// at most [timeout]. Whatever is measured must start right after this
+  /// returns, before the core has been idle for `offline_delay_ms` again.
+  static ({int errno, int firstErrno, int attempts, int waitMs}) pinWaking(
+      int tid, int cpu,
+      {Duration timeout = const Duration(seconds: 3),
+      Duration slice = const Duration(milliseconds: 10)}) {
+    final watch = Stopwatch()..start();
+    var attempts = 0;
+    var firstErrno = 0;
+    while (true) {
+      attempts++;
+      final err = set(tid, [cpu]);
+      if (attempts == 1) firstErrno = err;
+      if (err != _einval || watch.elapsed >= timeout) {
+        return (
+          errno: err,
+          firstErrno: firstErrno,
+          attempts: attempts,
+          waitMs: watch.elapsedMilliseconds,
+        );
+      }
+      final spin = Stopwatch()..start();
+      while (spin.elapsed < slice) {} // busy on purpose: the load wakes the core
+    }
+  }
 }
 
 /// CPU topology from sysfs and /proc/cpuinfo.
@@ -83,7 +119,7 @@ class CpuTopology {
   /// One entry per CPU: id, max frequency (kHz) and ARM part number.
   static List<Map<String, Object?>> read() {
     final parts = _cpuParts();
-    final ids = _possibleCpus();
+    final ids = possibleCpus();
     return [
       for (final cpu in ids)
         {
@@ -122,7 +158,10 @@ class CpuTopology {
     return (prime: top.last, big: big);
   }
 
-  static List<int> _possibleCpus() {
+  /// Every CPU the system has (`/sys/devices/system/cpu/possible`), paused or
+  /// not — the affinity to restore after pinning (the kernel still applies the
+  /// app's cpuset on top).
+  static List<int> possibleCpus() {
     try {
       final text =
           File('/sys/devices/system/cpu/possible').readAsStringSync().trim();

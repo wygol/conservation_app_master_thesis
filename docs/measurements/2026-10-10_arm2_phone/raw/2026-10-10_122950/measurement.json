@@ -1,0 +1,706 @@
+{
+    "what":  "On-device measurement round of the Arm 2 offline model (ADR 009); raw record for the report",
+    "script":  {
+                   "path":  "tools/measure_model.ps1",
+                   "version":  "1.2 (2026-10-10)",
+                   "sha256":  "8c940f3cad68c9e3a30266bc1bb1f1714f989d26ce2267c1aae1f699a309d40a"
+               },
+    "output_dir":  "docs\\measurements\\2026-10-10_arm2_phone\\raw\\2026-10-10_122950",
+    "device":  {
+                   "serial":  "R5CT514VFMY",
+                   "getprop":  {
+                                   "ro.product.manufacturer":  "samsung",
+                                   "ro.product.model":  "SM-S901U1",
+                                   "ro.product.device":  "r0q",
+                                   "ro.product.name":  "r0quew",
+                                   "ro.build.version.release":  "16",
+                                   "ro.build.version.sdk":  "36",
+                                   "ro.build.display.id":  "BP2A.250605.031.A3.S901U1UESAGZH3",
+                                   "ro.build.version.security_patch":  "2026-08-05",
+                                   "ro.soc.manufacturer":  "QTI",
+                                   "ro.soc.model":  "SM8450",
+                                   "ro.board.platform":  "taro",
+                                   "ro.hardware":  "qcom",
+                                   "ro.product.cpu.abi":  "arm64-v8a"
+                               },
+                   "cpu_max_freq_khz":  {
+                                            "cpu0":  1785600,
+                                            "cpu1":  1785600,
+                                            "cpu2":  1785600,
+                                            "cpu3":  1785600,
+                                            "cpu4":  2496000,
+                                            "cpu5":  2496000,
+                                            "cpu6":  2496000,
+                                            "cpu7":  2995200
+                                        },
+                   "proc_cpuinfo":  "processor\t: 0\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd46\nCPU revision\t: 2\n\nprocessor\t: 1\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd46\nCPU revision\t: 2\n\nprocessor\t: 2\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd46\nCPU revision\t: 2\n\nprocessor\t: 3\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x0\nCPU part\t: 0xd46\nCPU revision\t: 2\n\nprocessor\t: 4\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x2\nCPU part\t: 0xd47\nCPU revision\t: 0\n\nprocessor\t: 5\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x2\nCPU part\t: 0xd47\nCPU revision\t: 0\n\nprocessor\t: 6\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x2\nCPU part\t: 0xd47\nCPU revision\t: 0\n\nprocessor\t: 7\nBogoMIPS\t: 38.40\nFeatures\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 bti\nCPU implementer\t: 0x41\nCPU architecture: 8\nCPU variant\t: 0x2\nCPU part\t: 0xd48\nCPU revision\t: 0\n",
+                   "battery_at_start":  "Current Battery Service state:\n  AC powered: false\n  USB powered: true\n  Wireless powered: false\n  Dock powered: false\n  Max charging current: 0\n Time when the latest updated value of the Max charging current was sent via battery changed broadcast: 0\n  Max charging voltage: 0\n  Charge counter: 3350000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4359\n Time when the latest updated value of the voltage was sent via battery changed broadcast: 0\n The last voltage value sent via the battery changed broadcast: 4360\n  temperature: 307\n  technology: Li-ion\n  Charging state: 0\n  Charging policy: 0\n  Capacity level: -1\n  batteryMiscEvent: 65536\n  batteryCurrentEvent: 0\n  mSecPlugTypeSummary: 2\n  LED Charging: true\n  LED Low Battery: true\n  current now: -300\n  charge counter: 3350000\n  Adaptive Fast Charging Settings: true\n  Super Fast Charging Settings: true\nFEATURE_WIRELESS_FAST_CHARGER_CONTROL: true\n  mWasUsedWirelessFastChargerPreviously: true\n  mWirelessFastChargingSettingsEnable: true\nLLB CAL: \nLLB MAN: 20220516\nLLB CURRENT: YEAR2026M9D13\nLLB DIFF: 225\nSEC_FEATURE_BATTERY_FULL_CAPACITY: true\n  mFullCapacityEnable: false\nFEATURE_HICCUP_CONTROL: true\nFEATURE_SUPPORTED_DAILY_BOARD: false\nSEC_FEATURE_BATTERY_LIFE_EXTENDER: false\nSEC_FEATURE_USE_WIRELESS_POWER_SHARING: true\n mProtectBatteryMode: 0\n mProtectionThreshold: 80\n mMaximumProtectionThreshold: 80\n mLtcHighThreshold: 95\n mLtcHighSocDuration: 10080\n mLtcReleaseThreshold: 75\n[Not Battery Adaptive Protect Mode]\n  FEATURE_SAVE_BATTERY_CYCLE: true\n  FEATURE_FULL_BATTERY_CYCLE: false\n  battery IcAuthenticationResults: [false]\n  battery FirstUseDate: [20230219]\n  mSavedBatteryAsoc: [90]\n  mSavedBatteryUsage: [34002]\n  mSavedFullStatusDuration: unsupported\n\n[EventLogBuffer]\n10-01 05:31:23.583  android.intent.action.ACTION_POWER_DISCONNECTED\n10-01 21:09:57.698  android.intent.action.ACTION_POWER_CONNECTED\n10-02 08:45:54.891  android.intent.action.ACTION_POWER_DISCONNECTED\n10-02 23:23:02.633  android.intent.action.ACTION_POWER_CONNECTED\n10-03 07:44:48.786  android.intent.action.ACTION_POWER_DISCONNECTED\n10-04 21:50:21.849  android.intent.action.ACTION_POWER_CONNECTED\n10-05 05:31:42.427  android.intent.action.ACTION_POWER_DISCONNECTED\n10-05 21:29:50.416  android.intent.action.ACTION_POWER_CONNECTED\n10-06 05:30:20.740  android.intent.action.ACTION_POWER_DISCONNECTED\n10-06 21:25:31.283  android.intent.action.ACTION_POWER_CONNECTED\n10-07 05:30:10.358  android.intent.action.ACTION_POWER_DISCONNECTED\n10-07 21:17:21.109  android.intent.action.ACTION_POWER_CONNECTED\n10-08 05:30:13.855  android.intent.action.ACTION_POWER_DISCONNECTED\n10-08 21:20:03.837  android.intent.action.ACTION_POWER_CONNECTED\n10-09 05:30:10.715  android.intent.action.ACTION_POWER_DISCONNECTED\n10-09 13:56:46.736  android.intent.action.ACTION_POWER_CONNECTED\n10-09 14:35:57.534  android.intent.action.ACTION_POWER_DISCONNECTED\n10-09 22:25:51.824  android.intent.action.ACTION_POWER_CONNECTED\n10-10 08:15:20.917  android.intent.action.ACTION_POWER_DISCONNECTED\n10-10 10:31:09.806  android.intent.action.ACTION_POWER_CONNECTED\n\n[SleepChargingLogBuffer]\n\n[BattInfoLogBuffer]\n09-13 12:47:24.105  mBatteryType:0 ,mBatteryCount:1\n09-13 12:47:27.108  Final IcAuthenticationResults:[false]\n09-13 12:47:27.114  [SS][BattInfo]QrData efsValue:GH43-05091A+AA1T216DS+10443K    \n09-13 12:47:27.117  [SS][BattInfo]FirstUseDateData efsValue:20230219    \n09-13 12:47:27.118  [SS][BattInfo]AsocData efsValue:90    \n09-13 12:47:27.260  [SS][BattInfo]AsocData efsValue:90    \n09-13 12:47:27.262  [SS][BattInfo]DischargeLevelData efsValue:32482    \n\n[BattActionChangedLogBuffer]\n10-10 11:45:08.959  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4375, temperature:302, online:4, charging_status:0, cycle_count:0, current_avg:-196, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:45:39.453  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4251, temperature:307, online:4, charging_status:0, cycle_count:0, current_avg:21, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:45:59.874  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4383, temperature:312, online:4, charging_status:0, cycle_count:0, current_avg:-75, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:47:41.896  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4389, temperature:300, online:4, charging_status:0, cycle_count:0, current_avg:232, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:51:40.434  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4169, temperature:295, online:4, charging_status:0, cycle_count:0, current_avg:-42, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:51:50.633  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4280, temperature:302, online:4, charging_status:0, cycle_count:0, current_avg:-507, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:52:21.156  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4320, temperature:315, online:4, charging_status:0, cycle_count:0, current_avg:-271, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:53:42.604  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4314, temperature:328, online:4, charging_status:0, cycle_count:0, current_avg:-174, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:55:44.741  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4336, temperature:340, online:4, charging_status:0, cycle_count:0, current_avg:-105, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:58:17.347  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4287, temperature:352, online:4, charging_status:0, cycle_count:0, current_avg:-366, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:58:27.541  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4378, temperature:355, online:4, charging_status:0, cycle_count:0, current_avg:7, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:59:18.511  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4391, temperature:343, online:4, charging_status:0, cycle_count:0, current_avg:324, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:01:31.118  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4388, temperature:331, online:4, charging_status:0, cycle_count:0, current_avg:245, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:02:52.243  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4232, temperature:327, online:4, charging_status:0, cycle_count:0, current_avg:158, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:03:02.438  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4383, temperature:330, online:4, charging_status:0, cycle_count:0, current_avg:14, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:05:25.064  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4288, temperature:333, online:4, charging_status:0, cycle_count:0, current_avg:117, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:05:45.382  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4377, temperature:339, online:4, charging_status:0, cycle_count:0, current_avg:-80, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:07:47.693  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4388, temperature:327, online:4, charging_status:0, cycle_count:0, current_avg:189, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:10:51.287  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:0, charger_type:0, voltage:4388, temperature:320, online:4, charging_status:0, cycle_count:0, current_avg:173, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:23:25.846  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:0, charger_type:0, voltage:4360, temperature:308, online:4, charging_status:0, cycle_count:0, current_avg:2, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n\nmBatteryChangedConditionCounts:[92, 17, 1, 3065, 66, 5751, 2561, 0, 0, 198, 118, 0, 8, 0, 0, 1, 475, 198, 0, 0, 0, 1]\nBatteryInfoBackUp\n  mSavedBatteryMaxTemp: 589\n  mSavedBatteryMaxCurrent: 5210\n  mSavedBatteryBsoh: 88",
+                   "thermal_at_start":  "IsStatusOverride: false\nThermalEventListeners:\n\tcallbacks: 3\n\tkilled: false\n\tbroadcasts count: -1\nThermalStatusListeners:\n\tcallbacks: 7\n\tkilled: false\n\tbroadcasts count: -1\nThermal Status: 0\nCached temperatures:\n\tTemperature{mValue=0.0, mType=2, mName=SUBBAT, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBATRAW, mStatus=0}\n\tTemperature{mValue=31.5, mType=0, mName=AP, mStatus=0}\n\tTemperature{mValue=30.9, mType=2, mName=BAT, mStatus=0}\n\tTemperature{mValue=30.2, mType=4, mName=USB, mStatus=0}\n\tTemperature{mValue=31.3, mType=3, mName=SKIN, mStatus=0}\n\tTemperature{mValue=33.6, mType=5, mName=PATHM, mStatus=0}\nHAL Ready: true\nHAL connection:\n\tThermalHAL 2.0 connected: yes\nCurrent temperatures from HAL:\n\tTemperature{mValue=31.5, mType=0, mName=AP, mStatus=0}\n\tTemperature{mValue=30.9, mType=2, mName=BAT, mStatus=0}\n\tTemperature{mValue=33.6, mType=5, mName=PATHM, mStatus=0}\n\tTemperature{mValue=31.3, mType=3, mName=SKIN, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBAT, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBATRAW, mStatus=0}\n\tTemperature{mValue=30.2, mType=4, mName=USB, mStatus=0}\nCurrent cooling devices from HAL:\nTemperature static thresholds from HAL:\nTemperature headroom thresholds:\n[NaN, 0.8666667, 0.93333334, 1.0, 1.1333333, 1.4333333, 2.4333334]",
+                   "uptime_at_start":  " 12:29:53 up 26 days, 23:44,  0 users,  load average: 3.08, 2.79, 2.95",
+                   "recorded_local":  "2026-10-10T12:29:53.3089255+02:00",
+                   "battery_at_end":  "Current Battery Service state:\n  AC powered: false\n  USB powered: true\n  Wireless powered: false\n  Dock powered: false\n  Max charging current: 0\n Time when the latest updated value of the Max charging current was sent via battery changed broadcast: 0\n  Max charging voltage: 0\n  Charge counter: 3350000\n  status: 5\n  health: 2\n  present: true\n  level: 100\n  scale: 100\n  voltage: 4340\n Time when the latest updated value of the voltage was sent via battery changed broadcast: 0\n The last voltage value sent via the battery changed broadcast: 4302\n  temperature: 317\n  technology: Li-ion\n  Charging state: 0\n  Charging policy: 0\n  Capacity level: -1\n  batteryMiscEvent: 65536\n  batteryCurrentEvent: 0\n  mSecPlugTypeSummary: 2\n  LED Charging: true\n  LED Low Battery: true\n  current now: -46\n  charge counter: 3350000\n  Adaptive Fast Charging Settings: true\n  Super Fast Charging Settings: true\nFEATURE_WIRELESS_FAST_CHARGER_CONTROL: true\n  mWasUsedWirelessFastChargerPreviously: true\n  mWirelessFastChargingSettingsEnable: true\nLLB CAL: \nLLB MAN: 20220516\nLLB CURRENT: YEAR2026M9D13\nLLB DIFF: 225\nSEC_FEATURE_BATTERY_FULL_CAPACITY: true\n  mFullCapacityEnable: false\nFEATURE_HICCUP_CONTROL: true\nFEATURE_SUPPORTED_DAILY_BOARD: false\nSEC_FEATURE_BATTERY_LIFE_EXTENDER: false\nSEC_FEATURE_USE_WIRELESS_POWER_SHARING: true\n mProtectBatteryMode: 0\n mProtectionThreshold: 80\n mMaximumProtectionThreshold: 80\n mLtcHighThreshold: 95\n mLtcHighSocDuration: 10080\n mLtcReleaseThreshold: 75\n[Not Battery Adaptive Protect Mode]\n  FEATURE_SAVE_BATTERY_CYCLE: true\n  FEATURE_FULL_BATTERY_CYCLE: false\n  battery IcAuthenticationResults: [false]\n  battery FirstUseDate: [20230219]\n  mSavedBatteryAsoc: [90]\n  mSavedBatteryUsage: [34002]\n  mSavedFullStatusDuration: unsupported\n\n[EventLogBuffer]\n10-01 05:31:23.583  android.intent.action.ACTION_POWER_DISCONNECTED\n10-01 21:09:57.698  android.intent.action.ACTION_POWER_CONNECTED\n10-02 08:45:54.891  android.intent.action.ACTION_POWER_DISCONNECTED\n10-02 23:23:02.633  android.intent.action.ACTION_POWER_CONNECTED\n10-03 07:44:48.786  android.intent.action.ACTION_POWER_DISCONNECTED\n10-04 21:50:21.849  android.intent.action.ACTION_POWER_CONNECTED\n10-05 05:31:42.427  android.intent.action.ACTION_POWER_DISCONNECTED\n10-05 21:29:50.416  android.intent.action.ACTION_POWER_CONNECTED\n10-06 05:30:20.740  android.intent.action.ACTION_POWER_DISCONNECTED\n10-06 21:25:31.283  android.intent.action.ACTION_POWER_CONNECTED\n10-07 05:30:10.358  android.intent.action.ACTION_POWER_DISCONNECTED\n10-07 21:17:21.109  android.intent.action.ACTION_POWER_CONNECTED\n10-08 05:30:13.855  android.intent.action.ACTION_POWER_DISCONNECTED\n10-08 21:20:03.837  android.intent.action.ACTION_POWER_CONNECTED\n10-09 05:30:10.715  android.intent.action.ACTION_POWER_DISCONNECTED\n10-09 13:56:46.736  android.intent.action.ACTION_POWER_CONNECTED\n10-09 14:35:57.534  android.intent.action.ACTION_POWER_DISCONNECTED\n10-09 22:25:51.824  android.intent.action.ACTION_POWER_CONNECTED\n10-10 08:15:20.917  android.intent.action.ACTION_POWER_DISCONNECTED\n10-10 10:31:09.806  android.intent.action.ACTION_POWER_CONNECTED\n\n[SleepChargingLogBuffer]\n\n[BattInfoLogBuffer]\n09-13 12:47:24.105  mBatteryType:0 ,mBatteryCount:1\n09-13 12:47:27.108  Final IcAuthenticationResults:[false]\n09-13 12:47:27.114  [SS][BattInfo]QrData efsValue:GH43-05091A+AA1T216DS+10443K    \n09-13 12:47:27.117  [SS][BattInfo]FirstUseDateData efsValue:20230219    \n09-13 12:47:27.118  [SS][BattInfo]AsocData efsValue:90    \n09-13 12:47:27.260  [SS][BattInfo]AsocData efsValue:90    \n09-13 12:47:27.262  [SS][BattInfo]DischargeLevelData efsValue:32482    \n\n[BattActionChangedLogBuffer]\n10-10 11:51:40.434  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4169, temperature:295, online:4, charging_status:0, cycle_count:0, current_avg:-42, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:51:50.633  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4280, temperature:302, online:4, charging_status:0, cycle_count:0, current_avg:-507, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:52:21.156  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4320, temperature:315, online:4, charging_status:0, cycle_count:0, current_avg:-271, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:53:42.604  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4314, temperature:328, online:4, charging_status:0, cycle_count:0, current_avg:-174, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:55:44.741  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4336, temperature:340, online:4, charging_status:0, cycle_count:0, current_avg:-105, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:58:17.347  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4287, temperature:352, online:4, charging_status:0, cycle_count:0, current_avg:-366, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:58:27.541  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4378, temperature:355, online:4, charging_status:0, cycle_count:0, current_avg:7, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 11:59:18.511  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4391, temperature:343, online:4, charging_status:0, cycle_count:0, current_avg:324, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:01:31.118  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4388, temperature:331, online:4, charging_status:0, cycle_count:0, current_avg:245, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:02:52.243  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4232, temperature:327, online:4, charging_status:0, cycle_count:0, current_avg:158, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:03:02.438  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4383, temperature:330, online:4, charging_status:0, cycle_count:0, current_avg:14, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:05:25.064  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4288, temperature:333, online:4, charging_status:0, cycle_count:0, current_avg:117, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:05:45.382  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4377, temperature:339, online:4, charging_status:0, cycle_count:0, current_avg:-80, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:07:47.693  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4388, temperature:327, online:4, charging_status:0, cycle_count:0, current_avg:189, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:10:51.287  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:0, charger_type:0, voltage:4388, temperature:320, online:4, charging_status:0, cycle_count:0, current_avg:173, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:23:25.846  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:0, charger_type:0, voltage:4360, temperature:308, online:4, charging_status:0, cycle_count:0, current_avg:2, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:29:53.995  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4224, temperature:308, online:4, charging_status:0, cycle_count:0, current_avg:-89, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:30:04.191  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4388, temperature:311, online:4, charging_status:0, cycle_count:0, current_avg:-85, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:32:26.784  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:0, charger_type:0, voltage:4389, temperature:308, online:4, charging_status:0, cycle_count:0, current_avg:178, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n10-10 12:34:27.443  Sending ACTION_BATTERY_CHANGED: level:100, status:5, health:2, remain:0, ac:false, usb:true, wireless:false, pogo:false, misc:0x10000, charge_type:1, charger_type:0, voltage:4302, temperature:316, online:4, charging_status:0, cycle_count:0, current_avg:-90, ps:false, hvc:false, current_event:0x0, mcc:0, mcv:0, cc:3350000, present:true, scale:100, technology:Li-ion, protection:0\n\nmBatteryChangedConditionCounts:[92, 17, 1, 3065, 66, 5754, 2561, 0, 0, 198, 121, 0, 8, 0, 0, 1, 475, 198, 0, 0, 0, 1]\nBatteryInfoBackUp\n  mSavedBatteryMaxTemp: 589\n  mSavedBatteryMaxCurrent: 5210\n  mSavedBatteryBsoh: 88",
+                   "thermal_at_end":  "IsStatusOverride: false\nThermalEventListeners:\n\tcallbacks: 3\n\tkilled: false\n\tbroadcasts count: -1\nThermalStatusListeners:\n\tcallbacks: 4\n\tkilled: false\n\tbroadcasts count: -1\nThermal Status: 0\nCached temperatures:\n\tTemperature{mValue=0.0, mType=2, mName=SUBBAT, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBATRAW, mStatus=0}\n\tTemperature{mValue=37.6, mType=0, mName=AP, mStatus=0}\n\tTemperature{mValue=31.7, mType=2, mName=BAT, mStatus=0}\n\tTemperature{mValue=30.5, mType=4, mName=USB, mStatus=0}\n\tTemperature{mValue=32.6, mType=3, mName=SKIN, mStatus=0}\n\tTemperature{mValue=36.2, mType=5, mName=PATHM, mStatus=0}\nHAL Ready: true\nHAL connection:\n\tThermalHAL 2.0 connected: yes\nCurrent temperatures from HAL:\n\tTemperature{mValue=37.6, mType=0, mName=AP, mStatus=0}\n\tTemperature{mValue=31.7, mType=2, mName=BAT, mStatus=0}\n\tTemperature{mValue=36.2, mType=5, mName=PATHM, mStatus=0}\n\tTemperature{mValue=32.6, mType=3, mName=SKIN, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBAT, mStatus=0}\n\tTemperature{mValue=0.0, mType=2, mName=SUBBATRAW, mStatus=0}\n\tTemperature{mValue=30.5, mType=4, mName=USB, mStatus=0}\nCurrent cooling devices from HAL:\nTemperature static thresholds from HAL:\nTemperature headroom thresholds:\n[NaN, 0.8666667, 0.93333334, 1.0, 1.1333333, 1.4333333, 2.4333334]"
+               },
+    "toolchain":  {
+                      "analyze":  {
+                                      "errors":  0,
+                                      "warnings":  0,
+                                      "infos":  5
+                                  },
+                      "unit_tests":  "passed",
+                      "flutter_version":  "Flutter 3.44.1 ÔÇó channel stable ÔÇó https://github.com/flutter/flutter.git\nFramework ÔÇó revision 924134a44c (4 months ago) ÔÇó 2026-05-29 12:13:22 -0400\nEngine ÔÇó hash 39b1f7043775b9578bbb26a1676e79c4e31c8b5e (revision c416acfeb8) (4 months ago) ÔÇó 2026-05-27 20:19:31.000Z\nTools ÔÇó Dart 3.12.1 ÔÇó DevTools 2.57.0"
+                  },
+    "o3a_apk":  {
+                    "apk":  "build/app/outputs/flutter-apk/app-release.apk (universal: all ABIs; the phone uses lib/arm64-v8a)",
+                    "apk_bytes":  87632079,
+                    "apk_sha256":  "ca0ba8f6340ee47ee472577405752ad09d6b5d5c91f00f9055ac1d97e96cc5b7",
+                    "model_entry":  {
+                                        "name":  "assets/flutter_assets/assets/model/large075_plain_int8_weight_only.tflite",
+                                        "uncompressed_bytes":  4425408,
+                                        "stored_bytes":  4425408,
+                                        "stored_without_compression":  true,
+                                        "sha256":  "e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d"
+                                    },
+                    "model_sha256_matches":  true,
+                    "model_file_in_repo_bytes":  4425408,
+                    "entries":  [
+                                    {
+                                        "name":  "lib/arm64-v8a/libapp.so",
+                                        "uncompressed_bytes":  7865232,
+                                        "stored_bytes":  7865232,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "lib/arm64-v8a/libdartjni.so",
+                                        "uncompressed_bytes":  124744,
+                                        "stored_bytes":  124744,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "lib/arm64-v8a/libdatastore_shared_counter.so",
+                                        "uncompressed_bytes":  7112,
+                                        "stored_bytes":  7112,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "lib/arm64-v8a/libflutter.so",
+                                        "uncompressed_bytes":  11579920,
+                                        "stored_bytes":  11579920,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "lib/arm64-v8a/libtensorflowlite_gpu_jni.so",
+                                        "uncompressed_bytes":  2585168,
+                                        "stored_bytes":  2585168,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "lib/arm64-v8a/libtensorflowlite_jni.so",
+                                        "uncompressed_bytes":  4475248,
+                                        "stored_bytes":  4475248,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model/labels.csv",
+                                        "uncompressed_bytes":  74430,
+                                        "stored_bytes":  23540,
+                                        "stored_without_compression":  false
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model/large075_plain_int8_weight_only.tflite",
+                                        "uncompressed_bytes":  4425408,
+                                        "stored_bytes":  4425408,
+                                        "stored_without_compression":  true,
+                                        "sha256":  "e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d"
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/phone_reference.json",
+                                        "uncompressed_bytes":  6427,
+                                        "stored_bytes":  2139,
+                                        "stored_without_compression":  false
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/ref_01.jpg",
+                                        "uncompressed_bytes":  91253,
+                                        "stored_bytes":  91253,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/ref_02.jpg",
+                                        "uncompressed_bytes":  125534,
+                                        "stored_bytes":  125534,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/ref_03.jpg",
+                                        "uncompressed_bytes":  245828,
+                                        "stored_bytes":  245828,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/ref_04.jpg",
+                                        "uncompressed_bytes":  108785,
+                                        "stored_bytes":  108785,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/ref_05.jpg",
+                                        "uncompressed_bytes":  101431,
+                                        "stored_bytes":  101431,
+                                        "stored_without_compression":  true
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/stage_expectations.json",
+                                        "uncompressed_bytes":  11279,
+                                        "stored_bytes":  3058,
+                                        "stored_without_compression":  false
+                                    },
+                                    {
+                                        "name":  "assets/flutter_assets/assets/model_check/synthetic_12mp.jpg",
+                                        "uncompressed_bytes":  3179121,
+                                        "stored_bytes":  3179121,
+                                        "stored_without_compression":  true
+                                    }
+                                ],
+                    "note":  "stored_without_compression is inferred from equal stored and uncompressed sizes"
+                },
+    "dumpsys_meminfo":  {
+                            "method":  "adb shell dumpsys meminfo com.example.conservation_app (App Summary TOTAL PSS / TOTAL RSS); sampled back-to-back while the app classifies, plus one reading per snapshot marker. Never sampled during latency runs.",
+                            "snapshots":  [
+                                              {
+                                                  "t":  "2026-10-10T12:33:48.8762613+02:00",
+                                                  "total_pss_kb":  167382,
+                                                  "total_rss_kb":  243396,
+                                                  "graphics_kb":  84292,
+                                                  "native_heap_kb":  24200,
+                                                  "java_heap_kb":  2068,
+                                                  "name":  "M0_idle_before_model_load"
+                                              },
+                                              {
+                                                  "t":  "2026-10-10T12:33:51.2196856+02:00",
+                                                  "total_pss_kb":  201999,
+                                                  "total_rss_kb":  283396,
+                                                  "graphics_kb":  104348,
+                                                  "native_heap_kb":  26432,
+                                                  "java_heap_kb":  3464,
+                                                  "name":  "M1_after_model_load"
+                                              },
+                                              {
+                                                  "t":  "2026-10-10T12:33:53.9860019+02:00",
+                                                  "total_pss_kb":  236822,
+                                                  "total_rss_kb":  318324,
+                                                  "graphics_kb":  103340,
+                                                  "native_heap_kb":  55808,
+                                                  "java_heap_kb":  3456,
+                                                  "name":  "M2_after_correctness"
+                                              },
+                                              {
+                                                  "t":  "2026-10-10T12:34:33.5594063+02:00",
+                                                  "total_pss_kb":  260795,
+                                                  "total_rss_kb":  342092,
+                                                  "graphics_kb":  104396,
+                                                  "native_heap_kb":  75516,
+                                                  "java_heap_kb":  9476,
+                                                  "name":  "B0_before_large_image"
+                                              },
+                                              {
+                                                  "t":  "2026-10-10T12:34:41.0223258+02:00",
+                                                  "total_pss_kb":  270668,
+                                                  "total_rss_kb":  351784,
+                                                  "graphics_kb":  114036,
+                                                  "native_heap_kb":  77696,
+                                                  "java_heap_kb":  3556,
+                                                  "name":  "B1_after_large_image"
+                                              }
+                                          ],
+                            "samples":  [
+                                            {
+                                                "t":  "2026-10-10T12:33:56.5465260+02:00",
+                                                "total_pss_kb":  238997,
+                                                "total_rss_kb":  320500,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54204,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:56.6942784+02:00",
+                                                "total_pss_kb":  237509,
+                                                "total_rss_kb":  319012,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55924,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:56.8333252+02:00",
+                                                "total_pss_kb":  241045,
+                                                "total_rss_kb":  322548,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  56000,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:56.9757164+02:00",
+                                                "total_pss_kb":  241249,
+                                                "total_rss_kb":  322752,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55944,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.1079431+02:00",
+                                                "total_pss_kb":  243765,
+                                                "total_rss_kb":  325268,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55964,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.2492206+02:00",
+                                                "total_pss_kb":  240465,
+                                                "total_rss_kb":  321968,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55972,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.3990529+02:00",
+                                                "total_pss_kb":  241821,
+                                                "total_rss_kb":  323324,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55972,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.5433442+02:00",
+                                                "total_pss_kb":  239569,
+                                                "total_rss_kb":  321072,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55972,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.6693481+02:00",
+                                                "total_pss_kb":  240701,
+                                                "total_rss_kb":  322204,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55960,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.7881805+02:00",
+                                                "total_pss_kb":  240086,
+                                                "total_rss_kb":  321588,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54096,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:57.9247468+02:00",
+                                                "total_pss_kb":  240765,
+                                                "total_rss_kb":  322268,
+                                                "graphics_kb":  105612,
+                                                "native_heap_kb":  55972,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.0506398+02:00",
+                                                "total_pss_kb":  242673,
+                                                "total_rss_kb":  324176,
+                                                "graphics_kb":  106280,
+                                                "native_heap_kb":  55972,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.2123025+02:00",
+                                                "total_pss_kb":  237373,
+                                                "total_rss_kb":  318876,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55980,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.3459191+02:00",
+                                                "total_pss_kb":  239890,
+                                                "total_rss_kb":  321392,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  56108,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.4631277+02:00",
+                                                "total_pss_kb":  241161,
+                                                "total_rss_kb":  322664,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  56148,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.5846148+02:00",
+                                                "total_pss_kb":  238809,
+                                                "total_rss_kb":  320320,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  56148,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.7139827+02:00",
+                                                "total_pss_kb":  240050,
+                                                "total_rss_kb":  321560,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  56148,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.8265659+02:00",
+                                                "total_pss_kb":  257693,
+                                                "total_rss_kb":  339208,
+                                                "graphics_kb":  106280,
+                                                "native_heap_kb":  56148,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:58.9552684+02:00",
+                                                "total_pss_kb":  235776,
+                                                "total_rss_kb":  317292,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.0861116+02:00",
+                                                "total_pss_kb":  238405,
+                                                "total_rss_kb":  319920,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.2178165+02:00",
+                                                "total_pss_kb":  241028,
+                                                "total_rss_kb":  322544,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.3400027+02:00",
+                                                "total_pss_kb":  237493,
+                                                "total_rss_kb":  319008,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.4786149+02:00",
+                                                "total_pss_kb":  239876,
+                                                "total_rss_kb":  321392,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.6063204+02:00",
+                                                "total_pss_kb":  239944,
+                                                "total_rss_kb":  321460,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54272,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.7303789+02:00",
+                                                "total_pss_kb":  238900,
+                                                "total_rss_kb":  320416,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  54232,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.8702665+02:00",
+                                                "total_pss_kb":  242564,
+                                                "total_rss_kb":  324080,
+                                                "graphics_kb":  106280,
+                                                "native_heap_kb":  55040,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:33:59.9911627+02:00",
+                                                "total_pss_kb":  237953,
+                                                "total_rss_kb":  319468,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55052,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:00.1116917+02:00",
+                                                "total_pss_kb":  240632,
+                                                "total_rss_kb":  322148,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55016,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:00.2339649+02:00",
+                                                "total_pss_kb":  236264,
+                                                "total_rss_kb":  317780,
+                                                "graphics_kb":  103496,
+                                                "native_heap_kb":  55024,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:00.3740127+02:00",
+                                                "total_pss_kb":  239540,
+                                                "total_rss_kb":  321056,
+                                                "graphics_kb":  103792,
+                                                "native_heap_kb":  55044,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:00.4990622+02:00",
+                                                "total_pss_kb":  240052,
+                                                "total_rss_kb":  321568,
+                                                "graphics_kb":  103792,
+                                                "native_heap_kb":  55044,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:00.6435351+02:00",
+                                                "total_pss_kb":  240181,
+                                                "total_rss_kb":  321696,
+                                                "graphics_kb":  103804,
+                                                "native_heap_kb":  55116,
+                                                "java_heap_kb":  3440,
+                                                "phase":  "O3B_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.1119282+02:00",
+                                                "total_pss_kb":  417232,
+                                                "total_rss_kb":  498520,
+                                                "graphics_kb":  215084,
+                                                "native_heap_kb":  97916,
+                                                "java_heap_kb":  3560,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.2577508+02:00",
+                                                "total_pss_kb":  309291,
+                                                "total_rss_kb":  390576,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  123424,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.3714673+02:00",
+                                                "total_pss_kb":  310852,
+                                                "total_rss_kb":  392136,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  123432,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.5000752+02:00",
+                                                "total_pss_kb":  310867,
+                                                "total_rss_kb":  392152,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  123432,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.6275489+02:00",
+                                                "total_pss_kb":  310947,
+                                                "total_rss_kb":  392232,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  123496,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.7603573+02:00",
+                                                "total_pss_kb":  311476,
+                                                "total_rss_kb":  392760,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  124008,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:36.8823933+02:00",
+                                                "total_pss_kb":  311764,
+                                                "total_rss_kb":  393048,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  124264,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.0108322+02:00",
+                                                "total_pss_kb":  374059,
+                                                "total_rss_kb":  455344,
+                                                "graphics_kb":  151272,
+                                                "native_heap_kb":  124556,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.1279820+02:00",
+                                                "total_pss_kb":  473089,
+                                                "total_rss_kb":  554368,
+                                                "graphics_kb":  215084,
+                                                "native_heap_kb":  124812,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.2566825+02:00",
+                                                "total_pss_kb":  309082,
+                                                "total_rss_kb":  390280,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  124544,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.3861454+02:00",
+                                                "total_pss_kb":  365474,
+                                                "total_rss_kb":  446664,
+                                                "graphics_kb":  151272,
+                                                "native_heap_kb":  124564,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.5087685+02:00",
+                                                "total_pss_kb":  469025,
+                                                "total_rss_kb":  550216,
+                                                "graphics_kb":  215084,
+                                                "native_heap_kb":  124564,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.6463681+02:00",
+                                                "total_pss_kb":  359635,
+                                                "total_rss_kb":  440752,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  171440,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            },
+                                            {
+                                                "t":  "2026-10-10T12:34:37.7739737+02:00",
+                                                "total_pss_kb":  313212,
+                                                "total_rss_kb":  394328,
+                                                "graphics_kb":  104396,
+                                                "native_heap_kb":  124564,
+                                                "java_heap_kb":  3552,
+                                                "phase":  "BIGIMG_CLASSIFY"
+                                            }
+                                        ],
+                            "peak_o3b":  {
+                                             "samples":  32,
+                                             "max_total_pss_kb":  257693
+                                         },
+                            "peak_bigimg":  {
+                                                "samples":  14,
+                                                "max_total_pss_kb":  473089
+                                            }
+                        },
+    "xnnpack_attribution":  {
+                                "verdict":  "not_default",
+                                "meaning":  "C1 created no XNNPACK delegate; the first XNNPACK instantiation was the explicit C2: C1 IS the no-delegate configuration",
+                                "c1_created_fresh_in_this_process":  true,
+                                "app_pid":  "21548",
+                                "marker_epochs":  {
+                                                      "C1_START":  1791628431.317,
+                                                      "C1_END":  1791628431.4,
+                                                      "C3_START":  1791628463.541,
+                                                      "C3_END":  1791628463.595,
+                                                      "C2_END":  1791628454.404,
+                                                      "C2_START":  1791628454.322
+                                                  },
+                                "xnnpack_lines":  [
+                                                      {
+                                                          "epoch":  1791628454.322,
+                                                          "line":  "         1791628454.322 21548 21548 I flutter : MODEL_LAB|PROGRESS|Creating C2 (XNNPACK delegate, single-threaded)"
+                                                      },
+                                                      {
+                                                          "epoch":  1791628454.323,
+                                                          "line":  "         1791628454.323 21548 21548 I tflite  : Created TensorFlow Lite XNNPACK delegate for CPU."
+                                                      },
+                                                      {
+                                                          "epoch":  1791628454.387,
+                                                          "line":  "         1791628454.387 21548 21548 I tflite  : Replacing 208 out of 209 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 3 partitions for subgraph 0."
+                                                      },
+                                                      {
+                                                          "epoch":  1791628456.466,
+                                                          "line":  "         1791628456.466 21548 21548 I flutter : MODEL_LAB|PROGRESS|O3c C2 (XNNPACK) on the prime core, cpu7"
+                                                      },
+                                                      {
+                                                          "epoch":  1791628459.618,
+                                                          "line":  "         1791628459.618 21548 21548 I flutter : MODEL_LAB|PROGRESS|O3c C2 (XNNPACK) on the big core, cpu4"
+                                                      },
+                                                      {
+                                                          "epoch":  1791628463.54,
+                                                          "line":  "         1791628463.540 21548 21548 I flutter : MODEL_LAB|PROGRESS|Creating C3 (LiteRT Java API, XNNPACK off)"
+                                                      },
+                                                      {
+                                                          "epoch":  1791628465.752,
+                                                          "line":  "         1791628465.752 21548 21548 I flutter : MODEL_LAB|PROGRESS|O3c C3 (Java API, XNNPACK off) on the prime core, cpu7"
+                                                      },
+                                                      {
+                                                          "epoch":  1791628469.394,
+                                                          "line":  "         1791628469.394 21548 21548 I flutter : MODEL_LAB|PROGRESS|O3c C3 (Java API, XNNPACK off) on the big core, cpu4"
+                                                      }
+                                                  ],
+                                "latency_based_in_app":  {
+                                                             "median_us_prime":  {
+                                                                                     "C1":  12165.0,
+                                                                                     "C2":  8547.5,
+                                                                                     "C3":  12291.5
+                                                                                 },
+                                                             "rule":  "C1 counts as matching a configuration when its median is within 10 % of it",
+                                                             "verdict":  "C1 behaves like the XNNPACK-off Java reference: no default delegate"
+                                                         }
+                            },
+    "benchmark_tool":  {
+                           "ran":  false
+                       },
+    "runtime_errors_logcat":  [
+
+                              ],
+    "app_report_file":  "report_app.json",
+    "app_report_sha256":  "9e34c964c6081dd4acd1dd1f29ee0163f9eddf86171acc7bcd6bfc4f9138ba21"
+}

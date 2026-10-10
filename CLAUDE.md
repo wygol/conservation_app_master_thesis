@@ -191,10 +191,16 @@ readable at all.
   JVM-target mismatch under AGP 9 — fixed in `android/build.gradle.kts` (confirmed by run 2).
   Run 2 (10:59): build, install and O3a fine, then the **first inference failed** ("Input tensor 87
   lacks data"): LiteRT 1.4.0's C API loads the model's offset-stored weights as empty tensors.
-  **Fixed by raising the runtime to LiteRT 1.4.2 (ADR 010); the model file is unchanged.** Verified
-  on René's machine (analyze, tests, release build, fix present in the APK's machine code);
-  ⚠️ **the phone run with the fix is pending — nothing measured yet beyond O3a.** Details: process
-  log, session 8.
+  **Fixed by raising the runtime to LiteRT 1.4.2 (ADR 010); the model file is unchanged.**
+  Run 3 (12:02): **correctness 6/6 PASS on the phone** (logits within 0.00006 of the desktop
+  reference, preprocessing bit-identical to Pillow) — the fix holds. Two tooling defects found and
+  fixed: the script hung writing `measurement.json` (PowerShell 5.1), and the X2 could not be
+  pinned because core control pauses it while idle (wake-then-pin, ADR 009 amendment).
+  ✅ **Run 4 (12:29) complete — the measurement round is done:** correctness 6/6, O3a 4.43 MB,
+  O3b 257,693 kB peak, O3c 12.17 ms (X2) / 20.95 ms (A710) — all met on the S22. Finding: a 12 MP
+  photo decoded at full resolution peaks at 473,089 kB (over budget) → the capture flow needs a
+  reduction step. Report: `docs/measurements/2026-10-10_arm2_phone/report.md` (copy in
+  `MasterThesis/app_agent_hints/`). Details: process log, session 8.
 - 📄 Docs live: `docs/architecture.md` (as-built, updated 2026-10-10), `docs/decisions/001–010`,
   `docs/process_log.md` (sessions 1–8).
 - ⏭️ **Next:** see §10.
@@ -211,8 +217,9 @@ kept only as the reference pattern in `screens/notes_screen.dart`.)*
 
 **Right now, in order:**
 
-0. **The phone measurement round of the thesis model (2026-10-09; run 2 on 2026-10-10 hit a
-   runtime defect, fixed by ADR 010 — run 3 is next).** Phone on USB, then
+0. ✅ **Done 2026-10-10 (run 4; report in `docs/measurements/2026-10-10_arm2_phone/report.md`).**
+   The phone measurement round of the thesis model — kept here as the procedure for re-runs. Phone
+   on USB, then
    `.\tools\measure_model.bat` — no Supabase needed. It analyzes, unit-tests, builds the release
    APK, measures O3a in the APK, runs the protocol on the phone (correctness vs the thesis'
    `phone_reference.json`, O3b memory, O3c latency C1/C2/C3 on the X2 and an A710 core, 12 MP

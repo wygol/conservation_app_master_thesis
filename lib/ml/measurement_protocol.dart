@@ -8,8 +8,9 @@
 ///   2. correctness check against the thesis' phone_reference.json, with
 ///      stage diagnostics (decode / resize / crop) against Pillow;
 ///   3. O3b: peak memory while classifying (full pipeline, 5 photos x N);
-///   4. O3c: latency of invoke() only, per configuration, pinned to one core,
-///      1 thread, batch 1, warm-up then timed runs — nothing else runs then;
+///   4. O3c: latency of invoke() only, per configuration, pinned to one core
+///      (woken first if core control has paused it), 1 thread, batch 1,
+///      warm-up then timed runs — nothing else runs then;
 ///   5. large-image memory reading (synthetic 12 MP JPEG), last, so its spike
 ///      cannot contaminate anything before it;
 ///   6. the report goes to logcat in checksummed chunks for
@@ -45,6 +46,12 @@ const String kTfliteFlutterVersion = '0.12.1';
 /// runtime reports itself, as an independent check of what actually loaded.
 const String kLiteRtArtifact = 'com.google.ai.edge.litert:litert:1.4.2';
 const String kReportSchema = 'conservation_app.model_measurement/1';
+
+/// How every O3c configuration is pinned (ADR 009, amendment 2026-10-10).
+const String _pinMethod = 'sched_setaffinity to the one core; on EINVAL (the core '
+    'is paused by core control while the phone idles) the calling thread spins in '
+    '10 ms slices to wake it and retries, up to 3 s; timing starts right after the '
+    'pin holds. Afterwards the affinity is reset to every possible CPU.';
 const String kModelCheckDir = 'assets/model_check';
 const String kLargeImage = 'synthetic_12mp.jpg';
 
@@ -527,15 +534,11 @@ class MeasurementProtocol {
         if (cpu == null) continue;
         await _pause();
         _progress('O3c C3 (Java API, XNNPACK off) on the $label core, cpu$cpu');
-        final pinErrno = CpuAffinity.set(tid, [cpu]);
-        labLog('PHASE|O3C_C3_$label|START');
-        final res = await bench.run(_bytesOf(timing.input),
-            warmup: warmupRuns, runs: timedRuns);
-        labLog('PHASE|O3C_C3_$label|END');
-        final nanos = (res['nativeNanos'] as List).cast<int>();
-        final micros = [for (final n in nanos) (n / 1000).round()];
-        final cpus = (res['cpus'] as List).cast<int>();
-        configs.add({
+        final inputBytes = _bytesOf(timing.input);
+        // Pins the idle bench thread while THIS thread's spinning keeps the core
+        // awake; the run starts right after, well within offline_delay_ms.
+        final pin = CpuAffinity.pinWaking(tid, cpu);
+        final c3 = <String, Object?>{
           'id': 'C3_$label',
           'binding': 'LiteRT Java API ($kLiteRtArtifact) via MethodChannel',
           'delegate': 'none — Interpreter.Options.setUseXNNPACK(false)',
@@ -543,7 +546,28 @@ class MeasurementProtocol {
           'core': label,
           'tid': tid,
           'pinned_cpu': cpu,
-          'pin_errno': pinErrno,
+          'pin_errno': pin.errno,
+          'pin_first_errno': pin.firstErrno,
+          'pin_attempts': pin.attempts,
+          'pin_wait_ms': pin.waitMs,
+          'pin_method': _pinMethod,
+        };
+        if (pin.errno != 0) {
+          final error = 'could not pin the bench thread to cpu$cpu within '
+              '${pin.waitMs} ms (errno ${pin.errno}, ${pin.attempts} attempts) '
+              '- not measured';
+          _progress('PIN FAILED: $error');
+          configs.add({...c3, 'error': error});
+          continue;
+        }
+        labLog('PHASE|O3C_C3_$label|START');
+        final res = await bench.run(inputBytes, warmup: warmupRuns, runs: timedRuns);
+        labLog('PHASE|O3C_C3_$label|END');
+        final nanos = (res['nativeNanos'] as List).cast<int>();
+        final micros = [for (final n in nanos) (n / 1000).round()];
+        final cpus = (res['cpus'] as List).cast<int>();
+        configs.add({
+          ...c3,
           'timer': 'Interpreter.getLastNativeInferenceDurationNanoseconds() '
               '(LiteRT brackets the native Invoke() only)',
           'runs_us': micros,
@@ -567,11 +591,28 @@ class MeasurementProtocol {
 
   /// Times invoke() on the calling (root-isolate) thread, pinned to [cpu].
   /// Synchronous on purpose: no other Dart code can run in between, and the
-  /// thread cannot change while the loop runs.
+  /// thread cannot change while the loop runs. A core that cannot be pinned is
+  /// not measured: the configuration then carries `error` instead of numbers.
   Map<String, Object?> _timeTflite(TfliteClassifier clf, Float32List input, int cpu) {
     final tid = CpuAffinity.currentTid();
     final before = CpuAffinity.get(0);
-    final pinErrno = CpuAffinity.set(0, [cpu]);
+    final pin = CpuAffinity.pinWaking(0, cpu);
+    final pinInfo = <String, Object?>{
+      'tid': tid,
+      'pinned_cpu': cpu,
+      'pin_errno': pin.errno,
+      'pin_first_errno': pin.firstErrno,
+      'pin_attempts': pin.attempts,
+      'pin_wait_ms': pin.waitMs,
+      'pin_method': _pinMethod,
+      'affinity_before': before,
+    };
+    if (pin.errno != 0) {
+      final error = 'could not pin to cpu$cpu within ${pin.waitMs} ms '
+          '(errno ${pin.errno}, ${pin.attempts} attempts) - not measured';
+      _progress('PIN FAILED: $error');
+      return {...pinInfo, 'error': error};
+    }
     final cpuAtStart = CpuAffinity.currentCpu();
     clf.setInput(input);
     for (var i = 0; i < warmupRuns; i++) {
@@ -583,13 +624,13 @@ class MeasurementProtocol {
       micros[i] = clf.invokeTimed();
       cpus[i] = CpuAffinity.currentCpu(); // outside the timed region
     }
-    final restoreErrno = before.isEmpty ? -1 : CpuAffinity.set(0, before);
+    // Back to every CPU, NOT to `before`: sched_getaffinity omits paused cores,
+    // so restoring `before` locked this (UI) thread out of them for the rest of
+    // the run — why C2 could not reach the X2 on 2026-10-10.
+    final restoreErrno = CpuAffinity.set(0, CpuTopology.possibleCpus());
     return {
-      'tid': tid,
-      'pinned_cpu': cpu,
-      'pin_errno': pinErrno,
+      ...pinInfo,
       'cpu_at_start': cpuAtStart,
-      'affinity_before': before,
       'restore_errno': restoreErrno,
       'timer': 'Dart Stopwatch (monotonic) around Interpreter.invoke() only',
       'runs_us': micros,

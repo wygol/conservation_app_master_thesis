@@ -37,7 +37,7 @@ param(
 )
 
 $ErrorActionPreference = 'Continue'   # native tools write normal output to stderr
-$ScriptVersion = '1.1 (2026-10-10)'
+$ScriptVersion = '1.2 (2026-10-10)'
 $Package = 'com.example.conservation_app'
 $Activity = "$Package/.MainActivity"
 $ExpectedModelSha = 'e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d'
@@ -372,7 +372,10 @@ foreach ($l in $allLines) {
     $fromApp = ($AppPid -and (PidOf $l) -eq $AppPid)
     if ($l -match 'MODEL_LAB\|IFACE_CREATE\|(C\d)\|(START|END)') { $marks["$($Matches[1])_$($Matches[2])"] = EpochOf $l }
     # Any TFLite user on the phone logs this line once per process: only the app's own count.
-    if ($fromApp -and $l -match '(?i)xnnpack') { [void]$xnnLines.Add([ordered]@{ epoch = (EpochOf $l); line = $l }) }
+    # [string]: a line from Get-Content carries PowerShell 5.1 file metadata (PSPath, PSDrive,
+    # PSProvider ...), which ConvertTo-Json -Depth 14 would serialize as a huge object graph -
+    # run 2026-10-10_120250 hung there at 5 GB of RAM before measurement.json was written.
+    if ($fromApp -and $l -match '(?i)xnnpack') { [void]$xnnLines.Add([ordered]@{ epoch = (EpochOf $l); line = [string]$l }) }
     if (($fromApp -and $l -notmatch 'MODEL_LAB\|REPORT\|\d') -or $l -match [regex]::Escape($Package)) {
         [void]$relevant.Add($l)
     }
@@ -501,7 +504,12 @@ Say ("  O3a model as shipped: {0:N2} MB (target <= 25 MB)" -f ($modelRow.uncompr
 if ($meminfo.peak_o3b) { Say ("  O3b peak TOTAL PSS while classifying (dumpsys): {0:N1} MiB (target <= 300 MB)" -f ($meminfo.peak_o3b.max_total_pss_kb / 1024)) }
 Say ("  O3b VmHWM (peak RSS since start, upper bound): {0:N1} MiB" -f ($report.o3b_memory.vm_hwm_kb_after_loop / 1024))
 foreach ($cfg in @($report.o3c_latency.configs)) {
-    if ($cfg.stats) { Say ("  O3c {0,-9} median {1,7:N1} ms   p90 {2,7:N1} ms   all runs on cpu{3}: {4}" -f $cfg.id, ($cfg.stats.median_us / 1000), ($cfg.stats.p90_us / 1000), $cfg.pinned_cpu, $cfg.all_runs_on_pinned_cpu) }
+    if ($cfg.stats) {
+        $col = 'Gray'; if ($cfg.all_runs_on_pinned_cpu -ne $true) { $col = 'Red' }
+        Say ("  O3c {0,-9} median {1,7:N1} ms   p90 {2,7:N1} ms   all runs on cpu{3}: {4} (pin held after {5} ms)" -f $cfg.id,
+            ($cfg.stats.median_us / 1000), ($cfg.stats.p90_us / 1000), $cfg.pinned_cpu, $cfg.all_runs_on_pinned_cpu, $cfg.pin_wait_ms) $col
+    }
+    elseif ($cfg.error) { Say ("  O3c {0,-9} NOT MEASURED: {1}" -f $cfg.id, $cfg.error) 'Red' }
 }
 Say "  XNNPACK by default for C1: $verdict"
 Write-Host ''
