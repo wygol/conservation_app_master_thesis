@@ -105,13 +105,21 @@ class ChecklistTaxon {
     required this.rank,
     this.vernacularName,
     this.tier,
+    this.family,
+    this.gbifTaxonKey,
   });
+
+  /// What the record screen selects through `checklist_entries`.
+  static const select =
+      'tier, taxa!inner(id, scientific_name, taxon_rank, vernacular_name_de, family, gbif_taxon_key)';
 
   final String taxonId;
   final String scientificName;
   final String rank;
   final String? vernacularName;
   final String? tier;
+  final String? family;
+  final int? gbifTaxonKey;
 
   String get label => vernacularName == null
       ? scientificName
@@ -125,6 +133,8 @@ class ChecklistTaxon {
       rank: (t['taxon_rank'] as String?) ?? 'species',
       vernacularName: t['vernacular_name_de'] as String?,
       tier: m['tier'] as String?,
+      family: t['family'] as String?,
+      gbifTaxonKey: (t['gbif_taxon_key'] as num?)?.toInt(),
     );
   }
 }

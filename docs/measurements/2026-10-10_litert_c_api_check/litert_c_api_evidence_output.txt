@@ -1,0 +1,56 @@
+# Output of tools/model_check/litert_c_api_evidence.py — recorded 2026-10-11T09:51:10Z on René's laptop
+# script sha256: 4e7ca901913efd9f34bc809982d711ea7dcd4ead3531415e0eabecc46a372817
+# AARs: downloaded from Maven (dl.google.com) on 2026-10-10; APK: build/app/outputs/flutter-apk/app-release.apk as built by measurement run 2026-10-10_122950 (sha256 checked below against measurement.json)
+
+NDK tools: C:\Users\renes\AppData\Local\Android\Sdk\ndk\28.2.13676358\toolchains\llvm\prebuilt\windows-x86_64\bin
+tflite_flutter 0.12.1 C functions: 32 referenced, 2 iOS-only (CoreML), 30 on Android
+
+== LiteRT 1.4.0 AAR: litert-1.4.0.aar  sha256 54b567572cb2d1295571c785198f87597809cbf22d6cb8acfeac23869041887d
+   native libraries (jni/arm64-v8a/): libtensorflowlite_jni.so (4,320,480 B)
+   libtensorflowlite_jni.so: 4,320,480 B, sha256 f9a6224f22f60426ae1b9d35f06ea040f2b108335932604a04c061d612f7f08f, zip date (2025, 6, 30), version string ['2.20.0-dev0+selfbuilt']
+   TfLiteInterpreterCreate, 6th argument (x5 = allocation): ['b3570:      \tmov\tx5, xzr'] -> nullptr (allocation NOT passed)
+   LOAD segment alignment: ['0x4000']
+   tflite_flutter's 30 Android C functions exported: all
+
+== LiteRT 1.4.1 AAR: litert-1.4.1.aar  sha256 815ef39f7d40f579adda1c7bcb7ce090685fb286777ffd8283f33202f67da1b4
+   native libraries (jni/arm64-v8a/): libtensorflowlite_jni.so (4,320,528 B)
+   libtensorflowlite_jni.so: 4,320,528 B, sha256 85b97f038170c1c3137ba5e2f70d1435cc2cda5a7b07570e2192a38a0b5bdda8, zip date (2025, 11, 5), version string ['2.20.0-dev0+selfbuilt']
+   TfLiteInterpreterCreate, 6th argument (x5 = allocation): ['b4230:      \tmov\tx5, xzr'] -> nullptr (allocation NOT passed)
+   LOAD segment alignment: ['0x4000']
+   tflite_flutter's 30 Android C functions exported: all
+
+== LiteRT 1.4.2 AAR: litert-1.4.2.aar  sha256 9b02cdf9db0a698b341b59e75c54ab8221d6304577cc43830d01024caf1fca74
+   native libraries (jni/arm64-v8a/): libtensorflowlite_jni.so (4,475,256 B)
+   libtensorflowlite_jni.so: 4,475,256 B, sha256 e2328caf39606382a13dc08f06ed03eb0119a490208d375e3f42b80e4dabc465, zip date (2026, 3, 12), version string ['2.22.0-dev0+selfbuilt']
+   TfLiteInterpreterCreate, 6th argument (x5 = allocation): ['bbfe8:      \tldr\tx5, [x8, #0x10]'] -> loaded from the model (allocation passed)
+   LOAD segment alignment: ['0x4000']
+   tflite_flutter's 30 Android C functions exported: all
+
+== LiteRT 2.1.0 AAR: litert-2.1.0.aar  sha256 81f45334fcad7da42c6c9fd97ebb405989c34dcad3edbb65987c85187a8621d0
+   native libraries (jni/arm64-v8a/): libLiteRtOpenClAccelerator.so (2,675,520 B), libLiteRt.so (5,104,832 B)
+   libtensorflowlite_jni.so: ABSENT — tflite_flutter 0.12.1 cannot load this runtime
+
+== APK app-release.apk: app-release.apk  sha256 ca0ba8f6340ee47ee472577405752ad09d6b5d5c91f00f9055ac1d97e96cc5b7
+   native libraries (lib/arm64-v8a/): libapp.so (7,865,232 B), libdartjni.so (124,744 B), libdatastore_shared_counter.so (7,112 B), libflutter.so (11,579,920 B), libtensorflowlite_gpu_jni.so (2,585,168 B), libtensorflowlite_jni.so (4,475,248 B)
+   libtensorflowlite_jni.so: 4,475,248 B, sha256 3ba28ce98b0e6ab7e417b9cc8d9ad0e7e1616ef86dd83cf1ea16ef109a029fa4, zip date (1981, 1, 1), version string ['2.22.0-dev0+selfbuilt']
+   TfLiteInterpreterCreate, 6th argument (x5 = allocation): ['bbfe8:      \tldr\tx5, [x8, #0x10]'] -> loaded from the model (allocation passed)
+   LOAD segment alignment: ['0x4000']
+   tflite_flutter's 30 Android C functions exported: all
+
+
+== Addendum, recorded 2026-10-11T09:51:31Z: the library from run 2026-10-10_105927's APK (the APK itself was overwritten by later builds)
+   provenance: extracted by the app agent on 2026-10-10 ~11:32 from build/app/outputs/flutter-apk/app-release.apk, then sha256 ac58a1f8... per raw/2026-10-10_105927/measurement.json; the run's own report_app.json records runtime 2.20.0-dev0+selfbuilt
+   libtensorflowlite_jni.so: 4320472 B, sha256 246a3e0f91308ff27dfd74eea8fe03622303c6bd1d54b5d722f0abe099d2bd57
+   TfLiteInterpreterCreate, x5: b3570:      	mov	x5, xzr
+
+== Addendum, recorded 2026-10-11T09:56:01Z: native libraries in every non-pre-release 2.x litert AAR on Maven (maven-metadata.xml lists: 2.0.2 2.0.3 2.1.0 2.1.1 2.1.3 2.1.4 2.1.5 2.1.6 2.2.0 2.3.0 )
+   litert 2.0.2: sha256 c751cf503c959afc...  arm64-v8a: libLiteRtOpenClAccelerator.so, libLiteRtRuntimeCApi.so, liblitert_jni.so  -> libtensorflowlite_jni.so absent
+   litert 2.0.3: sha256 078b07c701eeb77f...  arm64-v8a: libLiteRtOpenClAccelerator.so, libLiteRtRuntimeCApi.so, liblitert_jni.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.0: sha256 81f45334fcad7da4...  arm64-v8a: libLiteRt.so, libLiteRtOpenClAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.1: sha256 31837e6893a106ae...  arm64-v8a: libLiteRt.so, libLiteRtOpenClAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.3: sha256 33bb2862a1956b6f...  arm64-v8a: libLiteRt.so, libLiteRtClGlAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.4: sha256 29ce4fdc362306f3...  arm64-v8a: libLiteRt.so, libLiteRtClGlAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.5: sha256 a162d1ddbdad87c0...  arm64-v8a: libLiteRt.so, libLiteRtClGlAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.1.6: sha256 6bbbf3e1fedb7504...  arm64-v8a: libLiteRt.so, libLiteRtClGlAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.2.0: sha256 624518d72f8a2497...  arm64-v8a: libLiteRt.so, libLiteRtClGlAccelerator.so  -> libtensorflowlite_jni.so absent
+   litert 2.3.0: sha256 9508c6e9142646f0...  arm64-v8a: libLiteRt.so  -> libtensorflowlite_jni.so absent

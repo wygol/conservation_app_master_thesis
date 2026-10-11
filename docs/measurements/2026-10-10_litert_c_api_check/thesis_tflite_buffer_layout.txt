@@ -1,0 +1,45 @@
+# Buffer layout of every .tflite in MasterThesis/ml-pipeline/{arm2_export,export_spike} (read-only), via tools/model_check/inspect_buffers.py
+# recorded 2026-10-11T09:53:59Z; inspect_buffers.py sha256 506ee50b37ed57917bbc86efa1e198b9d1bc3db2c43c1d99f8f746aedc0c41d4
+
+arm2_export/large075_plain/large075_plain_fp32.tflite
+   sha256 45518b3229eaf32c2af3f4c9de4d8149741ba818abdc09169f2128113efcc880
+   metadata min_runtime_version = '1.15.0';buffers: 295, of which stored at an offset after the FlatBuffer: 0;
+arm2_export/large075_plain/large075_plain_int8_dynamic.tflite
+   sha256 f318d1eae5a4d7c41d9123668c3d69ba834650fc69236e0b26ea78d12972150d
+   metadata min_runtime_version = '1.15.0';buffers: 149, of which stored at an offset after the FlatBuffer: 78;
+arm2_export/large075_plain/large075_plain_int8_static.tflite
+   sha256 4d1c22870eff30ac290d7bed1398006b11091aed92a0a0fc51b5f9e8b1bd8db4
+   metadata min_runtime_version = '1.15.0';buffers: 149, of which stored at an offset after the FlatBuffer: 78;
+arm2_export/large075_plain/large075_plain_int8_weight_only.tflite
+   sha256 e0e182a8fbbc75fc632840bdc59bbf004d7179350f5d630691a28522748eb12d
+   metadata min_runtime_version = '1.15.0';buffers: 149, of which stored at an offset after the FlatBuffer: 78;
+export_spike/out/mobilenetv3_small_100_fp32.tflite
+   sha256 9a4746503b14190b2e3a1a247ef4b8646b8c1aedeef0f69b1044d42a2b862be7
+   metadata min_runtime_version = '1.15.0';buffers: 266, of which stored at an offset after the FlatBuffer: 0;
+export_spike/out/mobilenetv3_small_100_int8_dynamic.tflite
+   sha256 e8e04e9302a770010e62a3823813b4f4021bf459f0e18a763c1ad1b372c314db
+   metadata min_runtime_version = '1.15.0';buffers: 129, of which stored at an offset after the FlatBuffer: 59;
+export_spike/out/mobilenetv3_small_100_int8_static.tflite
+   sha256 b4c37bbbfa6dda18c91e66e9fbc88e9a026ec2beefcfe7aac7ea581f69471533
+   metadata min_runtime_version = '1.15.0';buffers: 129, of which stored at an offset after the FlatBuffer: 59;
+export_spike/out/mobilenetv3_small_100_int8_weight_only.tflite
+   sha256 77b82be2bf2ceaff92a3455e7efef6067374a6053db9f00d35ad37cd8aa7ca9c
+   metadata min_runtime_version = '1.15.0';buffers: 129, of which stored at an offset after the FlatBuffer: 59;
+export_spike/out/resnet18_fp32.tflite
+   sha256 131a460a5af1fdc1de501e088d5f2b39dd1c3a4edef96e7a87773369ad8fad6b
+   metadata min_runtime_version = '2.0.0';buffers: 99, of which stored at an offset after the FlatBuffer: 0;
+export_spike/out/resnet18_int8_dynamic.tflite
+   sha256 cb3bc6c3083f97bf8e7c1a58bdb4bd68ce2aedcdf335e1bbac5bce6627e2856e
+   metadata min_runtime_version = '2.0.0';buffers: 56, of which stored at an offset after the FlatBuffer: 33;
+export_spike/out/resnet18_int8_static.tflite
+   sha256 7fca8266d82129cf29316d9ccfa2bf64a90065213c1fefcff451aa6243d5b0e2
+   metadata min_runtime_version = '2.0.0';buffers: 56, of which stored at an offset after the FlatBuffer: 33;
+export_spike/out/resnet18_int8_weight_only.tflite
+   sha256 af664dce495209eacb58fa3c6100085d6d1c9f0e60ea7a73aca585d3e0aa6798
+   metadata min_runtime_version = '2.0.0';buffers: 56, of which stored at an offset after the FlatBuffer: 33;
+export_spike/out_realcalib/mobilenetv3_small_100_int8_static_realcalib.tflite
+   sha256 1a366544304a363f07c8025c5fdcad579f6eadcb75fd7de56ad57848c7092dd0
+   metadata min_runtime_version = '1.15.0';buffers: 129, of which stored at an offset after the FlatBuffer: 59;
+export_spike/out_realcalib/resnet18_int8_static_realcalib.tflite
+   sha256 e7988ece351de36c72d0a51fdfbce00a3d8f91451b6bade11ab236ad197bc971
+   metadata min_runtime_version = '2.0.0';buffers: 56, of which stored at an offset after the FlatBuffer: 33;

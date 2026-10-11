@@ -56,6 +56,7 @@ class OfflineModelIdentificationService implements IdentificationService {
           scientificName: model.labels[i].label,
           score: probabilities[i],
           rank: model.labels[i].rank,
+          externalId: model.labels[i].classId,
         ),
     ];
     return IdentificationResult(

@@ -45,8 +45,16 @@ LiteRT Java API (C3) is not affected. `Interpreter.fromFile` would not help: sam
 | LiteRT 1.4.1 AAR | 2025-11-05 | 2.20.0-dev0 | `mov x5, xzr` → nullptr |
 | **LiteRT 1.4.2 AAR** | 2026-03-12 | 2.22.0-dev0 | **`ldr x5, [x8, #0x10]`** → `model->impl->allocation()` |
 
-LiteRT 2.x AARs ship `libLiteRt.so` and no `libtensorflowlite_jni.so`, the library tflite_flutter 0.12.1
-opens by name.
+No released LiteRT 2.x AAR (2.0.2 to 2.3.0, all ten checked) contains `libtensorflowlite_jni.so`, the
+library tflite_flutter 0.12.1 opens by name: they ship `libLiteRt.so` (2.1.0 onward) or `liblitert_jni.so`
+and `libLiteRtRuntimeCApi.so` (2.0.x). *[Corrected 2026-10-11: this said "LiteRT 2.x AARs ship
+`libLiteRt.so`", from a check of 2.1.0 alone.]*
+
+**Stored evidence** (`docs/measurements/2026-10-10_litert_c_api_check/`): `litert_c_api_evidence_output.txt`
+(every AAR's SHA-256, the library's build date, version string, the `x5` instruction, exported C functions,
+segment alignment; the 2.x listing), `upstream_sources_output.txt` (each source line this ADR quotes, checked
+against the raw file), `gradle_litert_resolution.txt`, `thesis_tflite_buffer_layout.txt` — produced by the
+scripts of the same names in `tools/model_check/`.
 
 ## Decision
 

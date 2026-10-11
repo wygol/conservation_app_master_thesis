@@ -1,0 +1,10 @@
+﻿# Output of tools/model_check/ps51_json_probe.ps1 - recorded 2026-10-11T09:52:12Z on Rene's laptop
+# script sha256: a07a3b037fd1ee74895d42e8955fec9b3806242c2ec758ec1652b8f155ffa5fc
+
+PowerShell 5.1.26100.9444; probe line: 59 characters
+properties PowerShell attached to it: PSPath, PSParentPath, PSChildName, PSDrive, PSProvider, ReadCount
+line from Get-Content, -Depth 1 : 496 characters of JSON
+line from Get-Content, -Depth 2 : 1776 characters of JSON
+line from Get-Content, -Depth 3 : 32527 characters of JSON
+line cast to [string], -Depth 14: 80 characters of JSON
+run 2026-10-10_120250 log, app pid 16395: 8 XNNPACK lines -> 2983 characters of JSON with the fix

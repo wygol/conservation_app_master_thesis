@@ -179,10 +179,11 @@ readable at all.
 - ✅ **Flutter layer for the above**: `OrgContext`, `IdentificationService` (interface only),
   models, `SettingsScreen` with the park switcher, `SetPasswordScreen`, `ObservationsScreen`,
   `HomeShell`, `AuthGate` routing.
-- ⚠️ **The 2026-09-06 Dart has NOT been analysed, built or launched.** It was written in an
-  environment with no Flutter/Dart SDK. `flutter analyze` first.
-- ⚠️ **Supabase Storage bucket policies are not written.** Photo *rows* are RLS-protected; photo
-  *objects* are not. The one real hole in the sovereignty claim.
+- ✅ The 2026-09-06 Dart is analysed and builds (`flutter analyze` clean in measurement runs 1–4 and
+  on 2026-10-11).
+- ⚠️ **Supabase Storage bucket policies are placeholders** (path convention, not enforced). Photo *rows*
+  are RLS-protected; photo *objects* only by that convention — and since 2026-10-11 the app uploads real
+  photos (GPS removed on the device). The one real hole in the sovereignty claim.
 - ✅ **On-device model integrated for the measurement round (2026-10-09, ADR 009)** — thesis
   Arm 2 file in `assets/model/`, bit-exact Pillow preprocessing (`lib/ml/`), offline
   `IdentificationService` (uncalibrated, no threshold), Identify tab, Kotlin Java-API reference,
@@ -201,19 +202,28 @@ readable at all.
   photo decoded at full resolution peaks at 473,089 kB (over budget) → the capture flow needs a
   reduction step. Report: `docs/measurements/2026-10-10_arm2_phone/report.md` (copy in
   `MasterThesis/app_agent_hints/`). Details: process log, session 8.
-- 📄 Docs live: `docs/architecture.md` (as-built, updated 2026-10-10), `docs/decisions/001–010`,
-  `docs/process_log.md` (sessions 1–8).
+- ✅ **Capture flow MVP (2026-10-11, ADR 011) — built, analysed, unit-tested, release APK builds; NOT
+  yet run on the phone or against Supabase.** Tabs Records · Map · Settings (Notes screen deleted, model
+  lab moved into Settings). In-app camera with the model's square as the frame; photos JPEG-only with
+  the EXIF GPS removed on the device (Pillow-verified); the on-device model runs on the photo and its
+  top-5 is shown (tap) and stored as an `offline_model` row (uncalibrated, never accepted); a person
+  determines from the park checklist; best-fix GPS with device accuracy, or set on a map; map with
+  basemap.at / OSM raster tiles, markers coloured by family (Asteraceae, Poaceae, Rosaceae, other) or
+  by status. Findings for René: seed `taxa` do not share GBIF keys with `labels.csv` (only *Hieracium*
+  joins); `dwc_export_readiness` misses records whose accepted determination has no `taxa` row.
+- 📄 Docs live: `docs/architecture.md` (as-built, updated 2026-10-11), `docs/decisions/001–011`,
+  `docs/process_log.md` (sessions 1–9).
 - ⏭️ **Next:** see §10.
-- **Not built:** capture flow (map/GPS/camera/photo/offline queue/sync), online (Pl@ntNet)
-  `IdentificationService`, calibration/thresholds in the app, Darwin Core Archive writer,
-  GeoServer/OGC, Stripe, iOS build.
+- **Not built:** offline queue/sync, polygon capture, online (Pl@ntNet) `IdentificationService`,
+  calibration/thresholds in the app (thesis Q2), the photo reduction step (thesis Q1), native/neophyte
+  data, Darwin Core Archive writer, GeoServer/OGC, Stripe, iOS build.
 - Numbering trap: the repo's "Milestone 1" (sovereignty slice) is **not** M1 in the thesis vault
   (requirements).
 
 ## 10. Immediate next task
 
-*(The original §10 described the first `notes` round-trip. That was completed on 2026-06-26 and is
-kept only as the reference pattern in `screens/notes_screen.dart`.)*
+*(The original §10 described the first `notes` round-trip. That was completed on 2026-06-26; its
+screen, `screens/notes_screen.dart`, was deleted on 2026-10-11 and lives on in git history.)*
 
 **Right now, in order:**
 
@@ -227,9 +237,7 @@ kept only as the reference pattern in `screens/notes_screen.dart`.)*
    then writes the report (TBD for anything not measured; never estimated) — copy for the thesis in
    `MasterThesis/app_agent_hints/` (the only place the app agent writes in the thesis folder).
    Afterwards a normal `flutter run` puts the usual app back on the phone.
-1. **`flutter analyze`.** The 2026-09-06 Dart was written in an environment with no Flutter or Dart
-   SDK, so it has never been analysed, built or launched. Treat it as unreviewed until this is green.
-   (Step 0's script runs it too.)
+1. ✅ **`flutter analyze`** — green (runs 1–4, and 2026-10-11 with the capture flow).
 2. **`.\tools\apply_and_verify.ps1`** — one command: `db reset`, all three SQL suites, PASS/FAIL
    count, then a look at testPark_A. Expect **39 assertions passed, 0 failed** and a number of
    *expected* database errors: roughly a third of the assertions are negative tests where the
@@ -241,13 +249,21 @@ kept only as the reference pattern in `screens/notes_screen.dart`.)*
    phone is still signed with the same secret, so it keeps validating while pointing at a user id
    that no longer exists — signed in as nobody. The app now detects this and offers Try again /
    Sign out instead of a blank screen, but signing out is the actual fix.
-4. **Then the capture flow** — the app's reason to exist, and the missing centre of the design:
-   **photograph → on-device model proposes → online service proposes → a person confirms.** Only the
-   last step exists. The species dropdown in the record editor is explicitly the stand-in for the
-   camera. Map + current location + point capture → photo + Storage → the Pl@ntNet adapter behind
-   `IdentificationService` → offline queue and sync.
-5. **Close the Storage hole** (`docs/architecture.md` §8). Bucket policies are not written; the photo
-   objects are currently the one part of the system RLS does not protect.
+4. **Run the capture flow on the phone (built 2026-10-11, ADR 011, never run yet).** `flutter run`
+   with Supabase up and `adb reverse`; make a record with the camera outdoors. Check, in this order:
+   permission prompts (location, then camera); the frame on the live preview vs on the saved photo; the
+   suggestion card; saving (photo in Storage under `<org_id>/<observation_id>/`, one `offline_model`
+   row with five `top_k` entries, `exif_stripped` true); the record on the map; a gallery photo with
+   GPS (removed, says so); a portrait and a landscape photo (EXIF orientation, thesis Q1).
+5. **Load `taxa` and the park checklist from the label space** (tooling, not app code): until then
+   almost no suggestion can be taken over as a determination, because the seed's taxa do not share
+   GBIF keys with `labels.csv`. Decide with René how (thesis pipeline vs `tools/`).
+6. **The Pl@ntNet adapter** behind `IdentificationService` (needs the API key; image only, no
+   coordinates) — written as a second identification row on the same photo, never over the first.
+7. **When the thesis answers Q1/Q2** (photo reduction + EXIF orientation; calibration file): implement
+   exactly as specified and verify against its reference cases on the phone.
+8. **Close the Storage hole** (`docs/architecture.md` §8) — now live: the app uploads real photos.
+9. Offline queue and sync.
 
 ## 11. Documentation contract — this repo is thesis evidence
 

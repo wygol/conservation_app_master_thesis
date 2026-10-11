@@ -47,6 +47,19 @@ dependencies:
   # dart:ffi helpers for CPU pinning (sched_setaffinity) in the measurement round.
   ffi: ^2.1.0
 
+  # Capture flow (ADR 011). All official Flutter plugins or the most widely used
+  # community package of their kind, each for Android AND iOS (CLAUDE.md §5).
+  # An in-app camera rather than the system camera, because only an in-app
+  # preview can show the model's field of view as a frame.
+  camera: ^0.12.1
+  # Picking an existing photograph from the gallery (and testing at the desk).
+  image_picker: ^1.2.4
+  # GPS position with the device-reported accuracy (dwc:coordinateUncertaintyInMeters).
+  geolocator: ^14.1.1
+  # The map tab: pure Dart, raster basemaps, no API key, no tile server.
+  flutter_map: ^8.3.2
+  latlong2: ^0.10.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

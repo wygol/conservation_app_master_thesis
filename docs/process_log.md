@@ -784,7 +784,8 @@ Nothing after it was measured (correctness, O3b, O3c, 12 MP image, XNNPACK quest
    LiteRT 1.4.0 and 1.4.1 `mov x5, xzr` (nullptr); **1.4.2 `ldr x5, [x8, #0x10]`** (the fix).
 
 **Dead ends and rejected routes** (details in ADR 010): `Interpreter.fromFile` (same C-API builder);
-LiteRT 2.x (ships `libLiteRt.so`, not the `libtensorflowlite_jni.so` tflite_flutter opens);
+LiteRT 2.x (no released 2.x AAR contains the `libtensorflowlite_jni.so` tflite_flutter opens — all ten
+checked; *[corrected 2026-10-11: this said they ship `libLiteRt.so`; 2.0.x ship other libraries]*);
 `flutter_litert`, ADR 009's fallback (meanwhile 3.9.x on LiteRT Next, a different API); the Java API as main
 binding (rejected in ADR 009).
 
@@ -829,7 +830,8 @@ Ready for the third run of `tools\measure_model.bat` (phone on USB). The run of 
 ## 2026-10-10, ~12:40 CEST — Session 8, continued: run 3 — the model is correct on the phone; two defects in the measurement tooling
 
 **What ran** (`docs/measurements/2026-10-10_arm2_phone/raw/2026-10-10_120250/`, LiteRT 1.4.2): build,
-install and the whole protocol (53 s) without an app error.
+install and the whole protocol (56 s — app start to DONE, `elapsed_ms` 55,807) without an app error.
+*[Corrected 2026-10-11: this said "53 s", which only measured up to the last memory snapshot.]*
 - **Correctness: 6/6 PASS.** Max |Δlogit| 0.00006 against the ±0.1 tolerance, top-5 overlap 5/5, channel
   means within 0.000004; decode, resize and crop **bit-identical to Pillow** for all five photographs and the
   synthetic 12 MP image. The runtime reports `2.22.0-dev0+selfbuilt` (LiteRT 1.4.2). ADR 010's fix is thereby
@@ -839,13 +841,20 @@ install and the whole protocol (53 s) without an app error.
   nodes). C1 is the "no delegate" configuration Howard et al.'s protocol asks for.
 
 **Defect 1 — the script hung while writing `measurement.json`** (René saw no output for minutes; the process
-grew to 7 GB of RAM). Windows PowerShell 5.1 attaches file metadata (`PSPath`, `PSDrive`, `PSProvider`, …)
-to every line read with `Get-Content`; the XNNPACK attribution stored such a line, and `ConvertTo-Json -Depth
-14` serialized the drive/provider object graph — about 18× larger per nesting level (one 61-character line:
-496 → 1,843 → 32,594 characters at depth 1 → 2 → 3). Earlier runs never stored such a line: run 2 aborted
-before C2 existed. Fix: `[string]` cast (script 1.2), verified on this run's own log — 8 lines, 50 ms, 2,983
-characters. Lost with the hang: `measurement.json` (device facts, the APK/O3a record, the dumpsys samples
-taken during classification). Kept: `report_app.json`, `logcat_app.txt`, `dumpsys_snapshots.txt`, build logs.
+grew past 7 GB of RAM — observed with `Get-Process` during the session, not stored). Windows PowerShell 5.1
+attaches file metadata (`PSPath`, `PSDrive`, `PSProvider`, …) to every line read with `Get-Content`; the
+XNNPACK attribution stored such a line, and `ConvertTo-Json -Depth 14` serialized the drive/provider object
+graph, which grows with every nesting level: the 59-character probe line becomes 496, 1,776 and 32,527
+characters of JSON at depth 1, 2 and 3 (`docs/measurements/2026-10-10_arm2_phone/ps51_json_probe_output.txt`,
+`tools/model_check/ps51_json_probe.ps1`). Earlier runs never stored such a line: run 2 aborted before C2
+existed. Fix: `[string]` cast (script 1.2), verified on this run's own log — 8 lines, 2,983 characters of
+JSON (same probe output). Lost with the hang: `measurement.json` (device facts, the APK/O3a record, the
+dumpsys samples taken during classification). Kept: `report_app.json`, `logcat_app.txt`,
+`dumpsys_snapshots.txt`, build logs.
+*[Corrected 2026-10-11: this said "one 61-character line", "about 18× larger per nesting level",
+"1,843 → 32,594 characters" and "50 ms". The line has 59 characters; the growth was ×3.7 and then ×17.7, not
+×18 per level; the sizes came from an unstored session probe and depend on the PowerShell session's state —
+the stored probe above is the reference; the timing was not stored.]*
 
 **Defect 2 — the X2 was never pinned.** Every pin to cpu 7 returned EINVAL. Qualcomm core control pauses
 big cores while the phone idles (read on the device: X2 `active_cpus=0` at idle, `offline_delay_ms=100`),
@@ -854,6 +863,10 @@ and the protocol idles 2 s before each configuration. A second bug compounded it
 `[0..5]` — C2's 100 "prime" runs all ran on an A710. An adb-shell experiment confirmed the remedy before any
 code changed: a busy loop wakes the X2 within ~20 ms, after which pinning holds. René chose
 **wake-then-pin**; details and rejected alternatives in ADR 009, amendment 2026-10-10.
+*[Provenance, added 2026-10-11: the core-control readings and the wake timing in this paragraph come from adb
+output in the 2026-10-10 session and were not stored; `tools/model_check/core_control_check.sh` repeats the
+experiment. The stored record of run 4 (`pin_first_errno` 22, pin held after 110–120 ms, every run on cpu 7)
+confirms the mechanism independently.]*
 
 **Changed:** `lib/ml/native_probe.dart` (`CpuAffinity.pinWaking`, `CpuTopology.possibleCpus`, a warning on
 `get`); `lib/ml/measurement_protocol.dart` (C1/C2/C3 pin by `pinWaking`, a configuration that cannot be
@@ -896,3 +909,119 @@ The measurement round of ADR 009 is complete. Open for the capture flow: the CPU
 XNNPACK), the reduction of camera photographs and EXIF orientation (thesis call), calibration (temperature
 and thresholds from the thesis), and dropping the measurement fixtures from release builds. Working tree
 uncommitted — René commits.
+
+---
+
+## 2026-10-11 — Session 8, continued: every documented number checked against stored data
+
+*René asked whether all written-down measurements are correct and backed by metadata. Answered by
+re-deriving them, not by assurance.*
+
+**How it was checked.**
+- `tools/model_check/verify_report_numbers.py` re-derives every figure in the measurement report from the raw
+  files (run 122950; run 120250 for repeatability), checks the numbers in this log, ADR 010, `CLAUDE.md` and
+  the thesis hint notes against stored evidence, and proves that the thesis copy of the report plus its
+  corrigendum equals the corrected report: **127/127** (`docs/measurements/2026-10-10_arm2_phone/
+  verify_report_numbers_output.txt`). A mutation test — two numbers in the report changed by one digit —
+  made it fail on exactly those claims.
+- Evidence that so far existed only as session output is now stored, with the scripts that produce it:
+  `docs/measurements/2026-10-10_litert_c_api_check/` — the LiteRT binaries (incl. all ten released 2.x AARs),
+  25/25 upstream source facts checked against the raw files (the first reading had gone through a summarising
+  web tool), the Gradle resolution, the buffer layout of every thesis `.tflite` — and
+  `docs/measurements/2026-10-10_arm2_phone/ps51_json_probe_output.txt`.
+
+**What was wrong — no measured value, but six statements:**
+1. Report: "the Java heap is 2–9 MB" — the data say 2,068–9,476 kB (2.1–9.7 MB).
+2. Report: "run 122950 holds about 12.2 ms throughout" — its blocks of 10 runs average 12.11–12.38 ms.
+3. Report: "logits within 0.00006" — the app stores |Δ logit| rounded to 5 decimals; now "largest logit
+   difference 0.00006 (rounded to 5 decimals)".
+4. This log: run 3 took "53 s" — it took 56 s (`elapsed_ms` 55,807).
+5. This log: "one 61-character line", "about 18× per nesting level" — **the 61 was never counted; the line has
+   59 characters**; the growth was ×3.7, then ×17.7; the sizes came from an unstored session probe.
+6. ADR 010 and this log: "LiteRT 2.x ships `libLiteRt.so`" — generalised from 2.1.0 alone; 2.0.x ship other
+   libraries. The substance — no released 2.x AAR contains `libtensorflowlite_jni.so` — now holds for all ten.
+
+All corrected in place with dated markers. The thesis copy of the report sits in a new-files-only folder, so
+it got `MasterThesis/app_agent_hints/2026-10-11_corrigendum_arm2_phone_measurement_report.md`. One check
+failure was the check's own defect (run 1's build log is UTF-16) and was fixed in the script.
+
+**Still not stored — said so where it is used:** the core-control readings of the 2026-10-10 adb session (ADR
+009 amendment; `tools/model_check/core_control_check.sh` repeats them, and run 4's stored pin record confirms
+the mechanism) and the hung script's memory growth (observed with `Get-Process`).
+
+**For the method:** a number typed while explaining is a claim like any other. Figures enter a document only
+from a stored file or a re-runnable script; for the measurement figures, the verification script enforces it.
+
+## 2026-10-11 — Session 9: the capture flow MVP (ADR 011)
+
+*René: one area for data input, one for visualisation, settings; Notes removed; a record with a photo the
+model grades and a central frame while photographing; the schema's fields with good UI/UX; the most likely
+species under the photo, the top 5 with their confidence one tap away; a simple web map with the records'
+geometries and a symbology (families, perhaps native vs neophyte) — "reflect critically whether all of this
+is a good idea", and build it without Supabase running.*
+
+**The reflection, before any code.** The direction is right: the capture flow is the app's reason to exist
+(the "missing centre" of §10), and the frame is not cosmetics — the model sees only the centre square
+(ADR 009), so showing that square is accuracy for free. Four parts were deliberately *not* built as asked:
+1. **Native vs neophyte** — no table holds it, and a hand-made list would put an unsourced botanical claim
+   on the map. It needs a data decision first (e.g. `dwc:establishmentMeans` per checklist entry).
+2. **Calibrated confidence** — the app shows raw scores, labelled "not calibrated". The temperature and
+   thresholds have to arrive as a verifiable file (thesis question 2), not as a number copied from notes.
+3. **A photo reduction step** — the model runs on the photo as taken: the 12 MP path measured on
+   2026-10-10. Which reduction matches training is thesis question 1.
+4. **Martin + MapLibre** — raster tiles straight from basemap.at and OpenStreetMap need nothing to run.
+   Swapping later touches one file.
+
+"80 % without Supabase" held for the code, but nothing that talks to the database has run yet.
+
+**What was built** (details: ADR 011, `docs/architecture.md` §2):
+- Tabs **Records · Map · Settings**. The model lab moved into Settings; the Notes screen was deleted (its
+  table stays).
+- **Camera** (`camera` 0.12.1 / CameraX, maximum resolution) showing the model's square — the outside
+  dimmed — plus tap to focus, flash and gallery.
+- **The photo loses its GPS position on the device** before anything else happens to it
+  (`JpegInfo.stripGps`). The model, Storage and `sha256` all see the same bytes.
+- **Suggestion card** under the photo: the top-1, and the top-5 with scores on tap.
+- **Determination** from the park checklist, **best-fix GPS** with the device accuracy, a **map picker** as
+  the fallback.
+- Time, count and details (life stage, habitat, remarks), and sensitivity.
+- **Save in four named steps** with partial-failure messages.
+- **Map** with family / status colouring, a legend with counts and highlight, and the basemap switch.
+- **Records list** shared with the map (`RecordsStore`), with filter chips Awaiting / Suggested /
+  Confirmed.
+
+**Corrections on the way — recorded because they are results.**
+1. **`exif_stripped` was first going to be an honest flag** (`!hasGps`), because the app could not strip.
+   It became actual stripping instead. An honest flag on a photo that still carries the coordinate would
+   have sent that coordinate to Pl@ntNet the day the online path is written. Blanking the GPS directory in
+   place, rather than re-encoding, keeps the pixels — and with them ADR 009's bit-exact preprocessing.
+   Checked with Pillow 12.3.0, which shares no code with the app; the app's output is pinned in fixtures
+   (`tools/model_check/check_gps_stripping.py` → `docs/measurements/2026-10-11_gps_stripping/`).
+2. **The first "Other families" grey, `#8A8A85`, was chosen by eye — and failed the palette validator**
+   against the green slot: colour-blind ΔE 4.5 (target ≥ 8), normal vision 14.2 (floor 15). It was
+   replaced by `#5C5B57`, worst pairs 9.2 / 19.8 (`docs/measurements/2026-10-11_map_palette/`). The
+   method says to compute colour, not eyeball it; the one colour not computed was the one that failed.
+3. **A new record started GPS and the camera at the same moment.** Android answers a second permission
+   request, made while the first is on screen, as cancelled — so on the very first record one of the two
+   would have failed. They now start one after the other.
+4. **"Where am I" kept GPS on behind other tabs**, because the shell keeps the map alive. It now stops when
+   the tab is hidden.
+5. A test assumed Pillow writes the EXIF segment first; Pillow writes APP0 (JFIF) first.
+
+**Findings for René — not changed, because the seed and schema are the thesis agent's:**
+- **The seed's taxa do not share GBIF keys with `labels.csv`.** Gentiana clusii is 5343979 in the seed and
+  7270031 in the labels; the model's edelweiss class is subspecies *alpinum*. Only the genus class
+  *Hieracium* joins, so almost every suggestion is stored verbatim and cannot be taken over as a
+  determination until `taxa` and the checklist are loaded from the label space.
+- **`dwc_occurrence_export` drops a record whose accepted determination has no `taxa` row**, and
+  `dwc_export_readiness` does not list that as a blocker.
+
+**Verification.**
+- `flutter analyze`: 0 errors, 0 warnings. The 3 infos are in older files.
+- `flutter test`: **86/86**. 28 from before; 58 new — frame 5, JPEG metadata 12, payloads 12, plant
+  domain 13, prepared photo 3, record digests 8, suggestion card 5.
+- Release APK: built, 94.1 MB (`docs/measurements/2026-10-11_mvp_build/flutter_build.txt`; run 122950's was 83.6 MB, `docs/measurements/2026-10-10_arm2_phone/raw/2026-10-10_122950/flutter_build.txt` — what was added since is the camera, location, image-picker and map packages with their Android libraries, and the new app code; the 10.5 MB were not broken down further). The new plugins needed no Gradle change under AGP 9.
+- **Not run on a phone, not run against Supabase.**
+
+**State.** Next: run the flow on the phone (CLAUDE.md §10, item 4, with its list of device checks). Then
+load `taxa` from the label space, then the Pl@ntNet adapter.

@@ -1,8 +1,9 @@
 # Architecture — as built
 
-*State as of 2026-10-10 (on-device model added for the measurement round on 2026-10-09; runtime raised to
-LiteRT 1.4.2 on 2026-10-10, ADR 010; §2 and §6 updated by the app agent). This file describes what exists
-right now — not the plan (see CLAUDE.md for that).
+*State as of 2026-10-11 (capture flow MVP, ADR 011: camera with the model's frame, GPS-free photos, the
+on-device model in the flow, Records · Map · Settings; on-device model added for the measurement round on
+2026-10-09; runtime LiteRT 1.4.2, ADR 010). This file describes what exists right now — not the plan (see
+CLAUDE.md for that).
 Updated whenever the structure changes; current beats complete.*
 
 > **Provenance note.** The 2026-09-06 additions were written by the **thesis agent** at René's
@@ -20,10 +21,12 @@ flowchart TB
         AG["main.dart → AuthGate<br/>session? → password set? → HomeShell"]
         OC["services/OrgContext<br/>the ACTIVE PARK"]
         IS["services/IdentificationService<br/>offline implementation (uncalibrated, no threshold);<br/>online: not built"]
-        SC["screens/: login · set_password · home_shell<br/>observations · model_lab (Identify) · settings"]
+        SC["screens/: home_shell = Records · Map · Settings<br/>record_editor (capture flow) · capture (camera)<br/>map · location_picker · model_lab (in Settings)"]
+        RS["services/RecordsStore + ObservationRepository<br/>photo: GPS stripped on the device"]
         ML["ml/: OfflineModel (LiteRT via tflite_flutter, loaded once)<br/>Pillow-exact preprocessing · measurement protocol"]
         KT["Kotlin: LiteRtJavaBench<br/>(Java API, XNNPACK off — measurement reference)"]
         APP --- AG --- OC --- SC
+        SC --- RS
         SC -.-> IS
         IS --> ML
         SC -.-> KT
@@ -35,7 +38,7 @@ flowchart TB
             GOTRUE["GoTrue Auth<br/>(signup disabled; invites via admin API)"]
             REST["PostgREST — auto REST API"]
             PG[("Postgres 17 + PostGIS<br/>schemas public + auth<br/>RLS enforced")]
-            ST["Storage (photos)<br/>⚠️ bucket policies NOT written"]
+            ST["Storage: bucket observation-photos<br/>⚠️ placeholder policies (path convention)"]
         end
         TOOLS["tools/: dev_connect · provision_org · invite_user"]
     end
@@ -43,6 +46,8 @@ flowchart TB
     APP -- "HTTP via adb reverse 54321" --> KONG
     KONG --> GOTRUE
     KONG --> REST
+    KONG --> ST
+    APP -- "map tiles (HTTPS)" --> TILES["basemap.at · OpenStreetMap<br/>raster tiles, no key"]
     GOTRUE --> PG
     REST --> PG
     TOOLS -- "psql / GoTrue admin API" --> SUPA
@@ -62,29 +67,41 @@ flowchart TB
 | `lib/main.dart` | Bootstrap + `AuthGate`. Three states: no session → Login; session but invited and no password yet → SetPassword; otherwise bootstrap `OrgContext` once and show `HomeShell`. |
 | `lib/services/org_context.dart` | **The active park.** `ChangeNotifier`. On sign-in: claim invitations, load `my_parks`, resolve which is active (persisting a fallback if the server has none). `switchTo()` calls `set_active_org`. Also distinguishes "still loading" from "signed in but belonging to no park": a session outlives a `db reset`, so the app can be authenticated as a user id that no longer exists, and the records screen offers Try again / Sign out rather than a blank list. |
 | `lib/services/identification_service.dart` | The **core/domain seam** as code: `IdentificationService`, `IdentificationResult`, `IdentificationCandidate`. `UnconfiguredIdentificationService` (throws) remains the stand-in for the online path. |
-| `lib/services/offline_model_identification_service.dart` | **First real implementation of the seam** (source `offline_model`, provider `thesis-offline`): top-5 from the bundled model, scores an explicitly **uncalibrated** softmax (T = 1), no threshold, no decision, no checklist mask, first photograph only. Not yet wired into the record editor. |
+| `lib/services/offline_model_identification_service.dart` | **First real implementation of the seam** (source `offline_model`, provider `thesis-offline`): top-5 from the bundled model, scores an explicitly **uncalibrated** softmax (T = 1), no threshold, no decision, no checklist mask, first photograph only. Each candidate carries its `labels.csv` `class_id`. **Wired into the capture flow** (ADR 011). |
+| `lib/services/jpeg_metadata.dart` | Reads a JPEG header (size, EXIF orientation, GPS present) without decoding, and **removes the EXIF GPS directory in place** (`stripGps`: entries and values zeroed, count 0 — pixels and orientation untouched; refuses rather than half-strips). Verified independently with Pillow (`tools/model_check/check_gps_stripping.py`). |
+| `lib/services/prepared_photo.dart` | A photo made ready for a record: JPEG only, GPS removed, hashed. The model classifies, Storage stores and `observation_media.sha256` hashes **the same bytes**. |
+| `lib/services/observation_payloads.dart` | Pure builders of every row the capture flow writes (observation, `observation_media`, the `offline_model` identification with `top_k`), the taxon join (GBIF key for species classes, exact name for genus classes — no name matching), the storage path `<org_id>/<observation_id>/<sha256>.jpg`. Unit-tested column by column. |
+| `lib/services/observation_repository.dart` | The writes and the one-record read: save in order observation → photo upload → media row → model suggestion → person's determination, reporting each failed step by name (`SaveOutcome`); `record_identification()` for a person; the park checklist; detail with a signed photo URL. |
+| `lib/services/records_store.dart` | The active park's records for **both** the Records list and the map (one load, refreshed after saves and on a park switch). Reads `observations_wide` + `identifications` + primary media and joins them into `RecordDigest`s (`models/records.dart`) — the log is read directly because the views name a suggestion only through `taxa`. |
+| `lib/services/location_service.dart` | `LocationTracker`: permission at the moment of use, keeps the **best** fix while a record is open (or the latest, for the map's "where am I"); accuracy → `coordinate_uncertainty_m`, null when unknown. |
 | `lib/ml/offline_model.dart` | The bundled model (`assets/model/`, Arm 2 weight-only INT8, 1,004 classes) — loaded once per process, interpreter kept alive; verifies its SHA-256 and that outputs = rows of `labels.csv`. |
 | `lib/ml/pillow_resize.dart`, `lib/ml/preprocess.dart` | The thesis reference preprocessing re-implemented **bit-exactly**: engine decode at full resolution → Pillow `BILINEAR` resize (port of `Resample.c`, Python rounding) → centre crop → /255 (ADR 009). Stage digests for diagnostics. |
 | `lib/ml/labels.dart`, `inference_math.dart` | `labels.csv` (RFC 4180, row order enforced = output order); softmax, top-k, latency statistics. |
 | `lib/ml/tflite_classifier.dart` | One LiteRT interpreter (tflite_flutter 0.12.1 on LiteRT **1.4.2** — the app raises the plugin's 1.4.0, whose C API loads offset-stored weights as empty tensors, ADR 010): 1 thread, optional explicit XNNPACK; `invoke()` timed alone. Domain-agnostic. |
 | `lib/ml/measurement_protocol.dart` (+ `native_probe.dart`, `memory_sampler.dart`, `java_litert_bridge.dart`) | The **measurement round** (O3a–O3c): correctness vs `phone_reference.json` with stage diagnostics, memory phases, latency configurations C1/C2/C3 pinned to the X2 and an A710 core via `sched_setaffinity`, 12 MP memory reading; report to logcat in checksummed chunks. |
 | `android/.../LiteRtJavaBench.kt` | LiteRT **Java API** with `setUseXNNPACK(false)` on a dedicated thread (MethodChannel `conservation_app/litert_java_bench`) — the guaranteed no-delegate reference (ADR 009). |
-| `lib/screens/model_lab_screen.dart` | The **Identify** tab: model card (on-device hashes), correctness check, full measurement, offline identification of a reference photo. Reachable without login (from the login screen) because it needs no backend; with `--dart-define=MODEL_LAB_AUTORUN=true` it is the app's home and runs the protocol by itself. |
+| `lib/screens/model_lab_screen.dart` | The **model lab** (Settings → Model lab; the "Identify" tab until 2026-10-11): model card (on-device hashes), correctness check, full measurement, offline identification of a reference photo. Reachable without login (from the login screen) because it needs no backend; with `--dart-define=MODEL_LAB_AUTORUN=true` it is the app's home and runs the protocol by itself. |
 | `lib/models/models.dart` | `Park`, `ObservationSummary`, `SurveyEvent`, `Invitation`. Hand-written; each owns one `fromMap`, the only place a column name is a string. |
-| `lib/screens/home_shell.dart` | Three destinations: Records · Identify · Settings (Notes left the bar 2026-10-09). |
-| `lib/screens/observations_screen.dart` | The active park's records from `observations_current`, badged by which of the three determination paths produced the name. Park name always visible under the title. |
-| `lib/screens/settings_screen.dart` | **The park switcher** (ADR 005) + People + admin invite management + change password + sign out. |
-| `lib/screens/record_editor_screen.dart` | **Create and edit a record.** The species picker is **optional** and is explicitly the stand-in for the photograph — the intended workflow is photograph first, determination later. Coordinates typed in (no GPS plugin yet); the three determinations shown read-only on an existing record. |
+| `lib/models/records.dart` | `IdentificationEntry` (a row of the log, `top_k` parsed), `RecordDigest` (one record for list and map: best available name, its source, state confirmed / suggested / awaiting, score and whether it is calibrated), `buildRecordDigests` (pure, tested). |
+| `lib/screens/home_shell.dart` | Three destinations: **Records · Map · Settings**, kept alive in an `IndexedStack`, each built on first visit. Owns the `RecordsStore` and plugs the plant `RecordSymbology` into the core screens. |
+| `lib/screens/observations_screen.dart` | Records: the active park's records from the `RecordsStore`, filter chips Awaiting / Suggested / Confirmed, the status marker of each record, "New record" (opens the camera). Park name always visible under the title. |
+| `lib/screens/record_editor_screen.dart` | **The capture flow** (ADR 011). New: camera first → GPS-free photo with the model's frame → on-device suggestion (top-1, top-5 on tap, "not calibrated") → optional determination from the park checklist → position (best GPS fix with accuracy, or set on a map) → time, count, details (life stage, habitat, remarks), sensitivity → save. Existing: stored photo (signed URL), the stored answers, the accepted determination, "Change determination" (adds one, never edits), the whole log, editable observation fields. |
+| `lib/screens/capture_screen.dart` | The in-app camera (`camera`/CameraX, maximum resolution): the centre square the model sees, dimmed outside; tap to focus; flash; gallery pick. |
+| `lib/screens/map_screen.dart` | The map (`flutter_map`, raster tiles): records as markers (polygons when GeoJSON comes back), colouring **Family** or **Status**, legend with counts and highlight, basemap switch, fit to records, where am I, tap → record card → open. |
+| `lib/screens/location_picker_screen.dart` | Set a position by hand: move the map under a fixed cross. |
+| `lib/screens/settings_screen.dart` | **The park switcher** (ADR 005) + People + admin invite management + species identification (on-device model identity, calibration state, online service state, Model lab) + change password + sign out. |
+| `lib/widgets/` | `capture_frame.dart` (the model's field of view and its painter), `framed_photo.dart` (a photo with that frame, computed from the decoded size), `suggestion_card.dart`, `species_picker.dart`, `record_marker.dart` (marker + `MarkerStyle` + the `RecordSymbology` seam), `record_tile.dart`, `basemaps.dart`. |
+| `lib/domain/plants/` | **Domain layer.** `plant_families.dart` (genus → family from `labels.csv`), `plant_symbology.dart` (colours and legend; `PlantRecordSymbology` implements the core seam). |
 | `lib/screens/members_screen.dart` | Who is in the park, with each person's record count. Admins invite, change roles and remove — removal never deletes records. |
 | `lib/screens/set_password_screen.dart` | Where an invited person chooses their password; also reachable from Settings as an ordinary change. |
 | `lib/screens/login_screen.dart` | Sign-in only. No self-signup (ADR 004). |
-| `lib/screens/notes_screen.dart` | The original placeholder domain. Superseded in practice by `observations`; no longer in the navigation bar, kept because it is the working reference for the read/write pattern. |
 
-State management is plain `setState` plus one `ChangeNotifier`. Deliberate: the smallest thing that
-works, no framework lock-in.
+State management is plain `setState` plus `ChangeNotifier`s (`OrgContext`, `RecordsStore`,
+`LocationTracker`). Deliberate: the smallest thing that works, no framework lock-in.
 
-**⚠️ Not yet verified.** `flutter analyze` has not been run on the 2026-09-06 additions and the app
-has not been built or launched with them. See the process log.
+**Verification state (2026-10-11).** `flutter analyze` 0 errors, 0 warnings; `flutter test` passes; the
+release APK builds. The capture flow, camera, GPS, upload and map have **not yet run on a device or against
+Supabase** — ADR 011, "Consequences", lists the device checks still open.
 
 ## 3. Data model (Postgres, schema `public`)
 
@@ -109,8 +126,8 @@ has not been built or launched with them. See the process log.
 | `survey_events` | the Humboldt Extension layer. Eight of the 55 ratified terms. **Nullable** from `observations` — most records are opportunistic. |
 | `observations` | the `dwc:Occurrence`. `geometry(Geometry,4326)`, point or polygon. **No `scientific_name` column** — see below. |
 | `identifications` | **append-only** determination log. `source ∈ {offline_model, online_service, human}`. |
-| `observation_media` | photos; `organ` is what Pl@ntNet takes as a parameter. |
-| `notes` | the original placeholder. Left in place. |
+| `observation_media` | photos; `organ` is what Pl@ntNet takes as a parameter. The app writes one primary photo per record: path `<org_id>/<observation_id>/<sha256>.jpg`, displayed width/height, bytes, sha256, `exif_stripped` always true (GPS removed on the device). |
+| `notes` | the original placeholder. Its screen was deleted on 2026-10-11; the table is left in place. |
 
 ### Views
 
@@ -224,23 +241,37 @@ This includes the two-user/two-org isolation of 2026-07-21, now automated, exten
   - `tools/model_check/inspect_buffers.py` — reads a `.tflite` directly (no TensorFlow needed) and shows
     which constants are stored inline and which at an offset after the FlatBuffer; the evidence behind
     ADR 010.
+  - Evidence and verification scripts (2026-10-11), outputs stored under `docs/measurements/`:
+    `verify_report_numbers.py` (re-derives every figure of the measurement report from the raw files, and
+    checks the numbers in other documents against stored evidence), `litert_c_api_evidence.py` (the LiteRT
+    binaries: the allocation argument, versions, exports), `verify_upstream_sources.py` (every quoted
+    upstream source line against the raw file), `inline_feasibility.py`, `ps51_json_probe.ps1`,
+    `core_control_check.sh` (adb, phone on USB).
+  - **Capture flow (ADR 011):** `flutter test` also covers the photo header reader and GPS stripping
+    (`test/jpeg_metadata_test.dart`, output pinned to `test/fixtures/stripped_*.jpg`), the capture frame,
+    every column the flow writes (`test/observation_payloads_test.dart`), the record digests, the plant
+    families and symbology, and the suggestion card (widget test). Independent checks with stored output:
+    `tools/model_check/check_gps_stripping.py` (Pillow) → `docs/measurements/2026-10-11_gps_stripping/`;
+    the map colours through the dataviz validator → `docs/measurements/2026-10-11_map_palette/`.
   - **Runtime pin (ADR 010):** `android/app/build.gradle.kts` declares `litert` and `litert-gpu` 1.4.2,
     which Gradle also applies to tflite_flutter's own 1.4.0 declarations — one native runtime for both
     bindings. The model file is the thesis file unchanged.
 
 ## 7. What is deliberately NOT built yet
 
-- **Capture flow** — no map, no GPS, no camera, no photo upload, no offline queue, no sync.
-  Records *can* be created and edited by hand, with typed coordinates and an **optional** species.
-  **The photograph is the missing centre of this**: the design is photograph → on-device model
-  proposes → online service proposes → a person confirms, and only the last step exists.
+- **Capture flow — built 2026-10-11 (ADR 011), not yet run on a device.** Photograph → on-device model
+  proposes → a person confirms (optional) exists; **online service proposes** does not. Missing: offline
+  queue and sync (saving needs a connection), polygon capture, adding a photo to a record saved without
+  one, the EXIF capture time of gallery photos, native/neophyte symbology (needs data the schema does not
+  hold).
 - **An expert role.** `memberships.role` is `admin | member`. Whether determination should be gated
   by a third role, or instead by *which* determinations may be written `verified` rather than
   `unverified`, is an open question — see the 2026-09-08 process-log entry.
-- **Identification is half there.** The offline model runs on the device behind the seam
-  (`OfflineModelIdentificationService`) and in the Identify tab — **for measurement, not yet in the
-  capture flow**: no calibration temperature, no per-species thresholds (both come from the thesis),
-  no taxa mapping, not wired into the record editor. The Pl@ntNet (online) adapter does not exist.
+- **Identification is half there.** The offline model runs in the capture flow and is stored with its
+  top-5 — but uncalibrated, with no per-species thresholds (both come from the thesis, open question 2),
+  on the full-resolution photo (open question 1). `taxa` holds the park checklist, not the label space,
+  so almost every suggestion is stored verbatim (see ADR 011). The Pl@ntNet (online) adapter does not
+  exist.
 - **No Darwin Core Archive writer.** `dwc_occurrence_export` produces the rows; nothing yet writes
   `occurrence.tsv` + `meta.xml` + EML and zips them.
 - No GeoServer/WMS/WFS, no Stripe, no member removal or role change, no iOS build.
@@ -251,8 +282,13 @@ This includes the two-user/two-org isolation of 2026-07-21, now automated, exten
   *path convention* (`<org_id>/…`) that **nothing enforces** — a client that writes to another org's
   prefix is stopped only by the policy's own subquery, and the convention itself is not validated.
   Good enough to unblock photo upload; **not** good enough to be part of the sovereignty claim. The
-  real design must decide private-with-signed-URLs vs public-read and enforce the path.
-- **The Dart of 2026-09-06 is unverified** — `flutter analyze` not run, app not launched.
+  real design must decide private-with-signed-URLs vs public-read and enforce the path. **Since
+  2026-10-11 the app writes real photos into it** (private bucket, read through one-hour signed URLs), so
+  this hole is now live, not theoretical. The photos themselves carry no GPS (removed on the device).
+- **Export blind spot (found 2026-10-11, not changed).** `dwc_occurrence_export` drops a record whose
+  accepted determination has no `taxa` row, and `dwc_export_readiness` does not name that as a blocker.
+- **Seed taxa vs label space.** The seeded taxa do not share GBIF keys with `labels.csv` (Gentiana clusii
+  5343979 vs 7270031; the edelweiss class is a subspecies); only *Hieracium* joins.
 - **GeoServer and per-org RLS.** GeoServer connects as one fixed database user, so `security_invoker`
   gives it *that* user's row visibility, not each end user's. Per-organisation OGC layers will need
   either one store per org or a parameterised SQL view. Not a bug; a design step not yet taken.

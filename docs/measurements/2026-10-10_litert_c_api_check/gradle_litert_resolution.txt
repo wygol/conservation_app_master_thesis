@@ -1,0 +1,10 @@
+﻿# gradlew -q :app:dependencies --configuration releaseRuntimeClasspath (android/), lines mentioning litert
+# recorded 2026-10-11T09:52:58Z on Rene's laptop, JDK: Android Studio jbr, with android/app/build.gradle.kts pinning litert + litert-gpu 1.4.2 (ADR 010)
+
++--- com.google.ai.edge.litert:litert:1.4.2
+|    \--- com.google.ai.edge.litert:litert-api:1.4.2
++--- com.google.ai.edge.litert:litert-gpu:1.4.2
+|    +--- com.google.ai.edge.litert:litert-api:1.4.2
+|    \--- com.google.ai.edge.litert:litert-gpu-api:1.4.2
+|    +--- com.google.ai.edge.litert:litert:1.4.0 -> 1.4.2 (*)
+|    +--- com.google.ai.edge.litert:litert-gpu:1.4.0 -> 1.4.2 (*)

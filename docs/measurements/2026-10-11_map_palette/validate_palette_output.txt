@@ -1,0 +1,56 @@
+# Map marker palette — validator output
+# 2026-10-11T14:46:36+02:00; node v24.14.1; validator: dataviz skill scripts/validate_palette.js (bundled-skills 2.1.296)
+
+$ node validate_palette.js "#2A78D6,#EB6834,#1BAF7A" --mode light --pairs all
+
+Palette (light, surface #fcfcfb, categorical): 3 slots
+  [PASS] Lightness band         all 3 inside L 0.43–0.77
+  [PASS] Chroma floor           all 3 >= 0.1
+  [PASS] CVD separation         worst all-pairs #1BAF7A↔#EB6834 ΔE 9.2 (deutan) · tritan 9.6
+  [PASS] Normal-vision floor    worst all-pairs #1BAF7A↔#2A78D6 ΔE 24.0 (normal)
+  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [["#1BAF7A",2.74]]
+
+  → ALL CHECKS PASS  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)
+  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity.
+
+
+$ node validate_palette.js "#2A78D6,#EB6834,#1BAF7A,#8A8A85" --mode light --pairs all   (with the "Other families" grey)
+
+Palette (light, surface #fcfcfb, categorical): 4 slots
+  [PASS] Lightness band         all 4 inside L 0.43–0.77
+  [FAIL] Chroma floor           below floor (reads gray): [["#8A8A85",0.007]]
+  [FAIL] CVD separation         worst all-pairs #8A8A85↔#1BAF7A ΔE 4.5 (deutan) · tritan 9.6
+  [FAIL] Normal-vision floor    worst all-pairs #8A8A85↔#1BAF7A ΔE 14.2 (normal) — below 15, hard to tell apart even with full color vision
+  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [["#1BAF7A",2.74]]
+
+  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)
+  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity.
+
+
+# --- the fix: a darker neutral for "Other families" (shipped) ---
+$ node validate_palette.js "#2A78D6,#EB6834,#1BAF7A,#5C5B57" --mode light --pairs all
+
+Palette (light, surface #fcfcfb, categorical): 4 slots
+  [PASS] Lightness band         all 4 inside L 0.43–0.77
+  [FAIL] Chroma floor           below floor (reads gray): [["#5C5B57",0.006]]
+  [PASS] CVD separation         worst all-pairs #1BAF7A↔#EB6834 ΔE 9.2 (deutan) · tritan 9.6
+  [PASS] Normal-vision floor    worst all-pairs #5C5B57↔#2A78D6 ΔE 19.8 (normal)
+  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [["#1BAF7A",2.74]]
+
+  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)
+  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity.
+
+
+# --- status colouring (confirmed, suggested, awaiting) — each marker also carries a glyph and the legend a label ---
+$ node validate_palette.js "#0CA30C,#FAB219,#8A8A85" --mode light --pairs all
+
+Palette (light, surface #fcfcfb, categorical): 3 slots
+  [FAIL] Lightness band         outside band: [["#FAB219",0.811]]
+  [FAIL] Chroma floor           below floor (reads gray): [["#8A8A85",0.007]]
+  [PASS] CVD separation         worst all-pairs #8A8A85↔#0CA30C ΔE 10.9 (deutan) · tritan 11.5
+  [PASS] Normal-vision floor    worst all-pairs #8A8A85↔#0CA30C ΔE 20.2 (normal)
+  [WARN] Contrast vs surface    below 3:1 — relief required (visible labels or table view): [["#FAB219",1.79]]
+
+  → FAILED — fix the marked checks  (CVD in the 6–8 floor band is legal ONLY with secondary encoding: direct labels, gaps, or texture)
+  scope: categorical palettes only. For a lone status/text color check WCAG text contrast; for a sequential ramp, lightness monotonicity.
+

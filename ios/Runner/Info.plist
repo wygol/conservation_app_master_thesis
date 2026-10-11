@@ -66,5 +66,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>The camera photographs the plant you are recording.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your position becomes the location of the record you are making.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>You can attach a photo you have already taken to a record.</string>
 </dict>
 </plist>

@@ -8,7 +8,7 @@ report is in `MasterThesis/app_agent_hints/` for the thesis agent.*
 
 | Objective (thesis definition) | Measured on a Galaxy S22 | Verdict |
 |---|---|---|
-| Correctness check of the handover (5 photographs + grey image) | 6/6 pass; logits within 0.00006 of the desktop reference (tolerance 0.1); preprocessing bit-identical to Pillow | **PASS** |
+| Correctness check of the handover (5 photographs + grey image) | 6/6 pass; largest logit difference 0.00006 (stored by the app rounded to 5 decimals; tolerance 0.1); preprocessing bit-identical to Pillow | **PASS** |
 | **O3a** INT8 artefact ≤ 25 MB on disk | 4,425,408 bytes = **4.43 MB**, shipped unchanged in the APK | **met** |
 | **O3b** peak runtime memory ≤ 300 MB on a physical phone | **257,693 kB** = 263.9 MB (dumpsys TOTAL PSS, peak while classifying) | **met** |
 | **O3c** median ≤ 300 ms per image, one large core, 1 thread, batch 1, no delegate | **12.17 ms** on the Cortex-X2, **20.95 ms** on a Cortex-A710 | **met** |
@@ -67,7 +67,7 @@ indices shared, logits within 0.1 at the reference top-5 — against `phone_refe
 - **Preprocessing is bit-identical to Pillow at every stage** — the decoded, resized and cropped pixels hash
   equal to Pillow's — for all five photographs and for a synthetic 4000 × 3000 JPEG.
 - Conclusion: on this phone, the app computes what the thesis scored. The test-set figures of the shipped
-  model describe what the phone computes, up to differences of 0.00006 in the logits.
+  model describe what the phone computes; the largest logit difference is 0.00006 (rounded to 5 decimals).
 
 ## 3. O3a — model size: met
 
@@ -87,8 +87,8 @@ universal build with the native libraries for every ABI and about 3.9 MB of meas
 - **Cross-checks inside the app:** `VmHWM` (peak resident set since process start, an upper bound for RSS)
   218,856 kB; `smaps_rollup` PSS sampled every 100 ms, maximum 140,091 kB (it does not count the graphics
   memory dumpsys adds).
-- **Method caveat:** every dumpsys call triggers a garbage collection in the app; the Java heap is 2–9 MB
-  here, so the effect on these figures is negligible.
+- **Method caveat:** every dumpsys call triggers a garbage collection in the app; the Java heap is
+  2,068–9,476 kB (2.1–9.7 MB) across all 51 dumpsys readings, so the effect on these figures is negligible.
 - **12 MP photographs — beyond the handover, reported because the capture flow will meet them:** a synthetic
   4000 × 3000 JPEG (3.2 MB), decoded at full resolution as the reference pipeline does, through the same
   pipeline 3 times: **peak TOTAL PSS 473,089 kB = 484.4 MB** (14 samples), `VmHWM` 383,752 kB — **above
@@ -115,7 +115,7 @@ universal build with the native libraries for every ABI and about 3.9 MB of meas
 - **Repeatability** — run `2026-10-10_120250`, same build and model, but with the pinning defect: on the A710,
   C1 20.81 ms and C2 15.65 ms (within 1 % of the table), C3 20.86 ms (13 % above). On the X2, C1 (unpinned,
   yet every run on cpu 7) had a median of 10.33 ms: its series fell from about 10.2 ms in the first runs to
-  12.2 ms in the last, while run 122950 holds about 12.2 ms throughout. **The steady states agree; run
+  12.2 ms in the last, while in run 122950 every block of 10 runs averages 12.1–12.4 ms. **The steady states agree; run
   120250 began in a faster transient state.** CPU frequency was not recorded, so its cause is not measured.
 - **End to end per reference photograph** (decode + preprocessing + `invoke()`, C1, app thread not pinned):
   median 42.3 ms, p90 56.0 ms (n = 100). For 12 MP photographs see §4 (0.41–0.46 s each).
@@ -153,6 +153,8 @@ universal build with the native libraries for every ABI and about 3.9 MB of meas
   by the script), `logcat_app.txt`, `dumpsys_snapshots.txt`, build and test logs.
 - Script `tools/measure_model.ps1` version 1.2 (SHA-256 `8c940f3c…`); protocol `lib/ml/measurement_protocol.dart`;
   APK SHA-256 `ca0ba8f6…`; `flutter analyze` 0 errors / 0 warnings; unit tests `test/ml` passed.
+- **Verification:** every figure in this report is re-derived from the raw files by
+  `tools/model_check/verify_report_numbers.py` (output: `verify_report_numbers_output.txt` beside this report).
 - Earlier runs, kept as records: `103514` (build failed — Kotlin target), `105927` (first inference failed —
   runtime defect, ADR 010), `120250` (correctness passed; the script hung and the X2 pin failed — ADR 009
   amendment; used above for repeatability only).

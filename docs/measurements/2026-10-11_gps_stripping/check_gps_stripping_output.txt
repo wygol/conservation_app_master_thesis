@@ -1,0 +1,14 @@
+Pillow 12.3.0, Python 3.14.3
+PASS  gps_rot6_32x16.jpg: had GPS before
+PASS  gps_rot6_32x16.jpg: no GPS after
+PASS  gps_rot6_32x16.jpg: orientation unchanged
+PASS  gps_rot6_32x16.jpg: pixels identical
+PASS  gps_rot6_32x16.jpg: same file length
+      GPS before {1: 'N', 2: (47.0, 9.0, 0.0), 3: 'E', 4: (12.0, 45.0, 0.0)}; after {}; orientation 6 -> 6
+PASS  gps_24x24.jpg: had GPS before
+PASS  gps_24x24.jpg: no GPS after
+PASS  gps_24x24.jpg: orientation unchanged
+PASS  gps_24x24.jpg: pixels identical
+PASS  gps_24x24.jpg: same file length
+      GPS before {1: 'N', 2: (47.0, 9.0, 0.0), 3: 'E', 4: (12.0, 45.0, 0.0)}; after {}; orientation None -> None
+ALL PASS

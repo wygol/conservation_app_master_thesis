@@ -1,4 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Network: Supabase and the map tiles. Until 2026-10-11 only the DEBUG
+         manifest declared this, so every release build was offline. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Capture flow (ADR 011): the in-app camera and the GPS position.
+         Asked for at the moment they are needed, never at start-up. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- A phone without a camera can still install the app (gallery, map, records). -->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <application
         android:label="conservation_app"
         android:name="${applicationName}"

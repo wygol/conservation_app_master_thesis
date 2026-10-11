@@ -2,8 +2,9 @@
 /// (CLAUDE.md section 4). Swapping the use case later means writing a new
 /// implementation of this interface, not touching the capture flow.
 ///
-/// Nothing implements it against a real service yet. It exists as code rather
-/// than as intent because the `identifications` table already distinguishes
+/// Implemented by the bundled model (offline_model_identification_service.dart,
+/// since 2026-10-09); the online (Pl@ntNet) implementation is not written yet.
+/// It existed as code before either, because the `identifications` table distinguishes
 /// `offline_model` from `online_service`, and the two paths have to be
 /// separable from the first line of capture code — if the online answer is
 /// allowed to overwrite the offline one, the thesis' central comparison is
@@ -17,6 +18,7 @@ class IdentificationCandidate {
     required this.score,
     this.taxonId,
     this.rank = 'species',
+    this.externalId,
   });
 
   final String scientificName;
@@ -31,6 +33,20 @@ class IdentificationCandidate {
   /// The rank this candidate is stated at. A genus-level candidate is a valid
   /// answer, not a degraded one.
   final String rank;
+
+  /// The identifier's own key for this class, stored in `top_k` so that every
+  /// candidate can be traced back to the label space even when it has no
+  /// `taxa` row. For the on-device model: the `class_id` of labels.csv (a GBIF
+  /// taxon key for a species, `genus_<Name>` for a genus class).
+  final String? externalId;
+
+  IdentificationCandidate withTaxonId(String? id) => IdentificationCandidate(
+        scientificName: scientificName,
+        score: score,
+        taxonId: id,
+        rank: rank,
+        externalId: externalId,
+      );
 }
 
 /// What an identifier returns for one set of images.

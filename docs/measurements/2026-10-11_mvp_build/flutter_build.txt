@@ -1,0 +1,15 @@
+# flutter build apk --release — 2026-10-11T14:59:02+02:00 — capture flow MVP (ADR 011), final source of 2026-10-11
+Flutter 3.44.1 • channel stable • https://github.com/flutter/flutter.git
+Running Gradle task 'assembleRelease'...                        
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): passkeys_android, ua_client_hints
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing 
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 11028 bytes (99.3% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Running Gradle task 'assembleRelease'...                           80,1s
+√ Built build\app\outputs\flutter-apk\app-release.apk (94.1MB)
+exit=0

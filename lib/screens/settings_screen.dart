@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../ml/offline_model.dart';
 import '../models/models.dart';
 import '../services/org_context.dart';
 import 'members_screen.dart';
+import 'model_lab_screen.dart';
 import 'set_password_screen.dart';
 
 /// Settings — and, more importantly, the one place where a person who works
@@ -117,6 +119,35 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
               ],
+
+              const Divider(),
+              const _SectionHeader('Species identification'),
+              ListTile(
+                leading: const Icon(Icons.smartphone),
+                title: const Text('On-device model'),
+                subtitle: Text(
+                  '${OfflineModelAssets.name}\n'
+                  'SHA-256 ${OfflineModelAssets.expectedModelSha256.substring(0, 12)}… · '
+                  'runs on this phone; the photo never leaves it for this step.\n'
+                  'Scores are not calibrated yet — they rank the candidates but are '
+                  'not probabilities.',
+                ),
+                isThreeLine: true,
+              ),
+              const ListTile(
+                leading: Icon(Icons.cloud_off_outlined),
+                title: Text('Online service (Pl@ntNet)'),
+                subtitle: Text('Not connected yet.'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.science_outlined),
+                title: const Text('Model lab'),
+                subtitle: const Text('Measurement tools of the thesis (correctness, memory, speed)'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (_) => const ModelLabScreen()),
+                ),
+              ),
 
               const Divider(),
               const _SectionHeader('Account'),

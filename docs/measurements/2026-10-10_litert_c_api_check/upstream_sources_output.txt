@@ -1,0 +1,97 @@
+# Output of tools/model_check/verify_upstream_sources.py — recorded 2026-10-11T09:58:27Z on René's laptop (Python with ai-edge-litert 2.3.0 from PyPI installed)
+# script sha256: 1acadb9ae6c6441a54aa4e129475aff068c8b623a90960dffbbe9447fa3110d8
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.20.0/tensorflow/lite/core/interpreter_builder.cc
+  sha256 d34dcdae8f0d85c352ef1ab1f8ef1b1eb1b9a353ae76a37409319ff65801efc1, 36,452 characters
+PASS  an offset-stored buffer is resolved only when the builder has an allocation
+      TF v2.20.0 interpreter_builder.cc: '} else if (offset > 1 && allocation_) {' expected present -> line 670
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.20.0/tensorflow/lite/core/interpreter_builder.h
+  sha256 afa9745bc35d7ce969b623b7eb2adc29114973aa5c24d07c5077aa23ab17338d, 8,261 characters
+PASS  the raw-Model* constructor defaults the allocation to nullptr
+      TF v2.20.0 interpreter_builder.h: 'const Allocation* allocation = nullptr' expected present -> line 92
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.20.0/tensorflow/lite/core/c/c_api.cc
+  sha256 98832712729343d4d6b10d22ff6f9b710c255cebc037954feea0d7301dcf25f4, 23,685 characters
+PASS  the C API builds the interpreter from the bare Model*
+      TF v2.20.0 c_api.cc: 'tflite::InterpreterBuilder builder(model->impl->GetModel(), *op_resolver,' expected present -> line 573
+PASS  ... and passes no allocation
+      TF v2.20.0 c_api.cc: 'model->impl->allocation()' expected ABSENT -> absent
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.20.0/tensorflow/lite/java/src/main/native/nativeinterpreterwrapper_jni.cc
+  sha256 0d2e5b24f940ecb8d49cb9871d36c06e6cf015be8d8886ca2d9cd07a58fab1c3, 25,283 characters
+PASS  the Java API builds from the FlatBufferModel, which carries the allocation
+      TF v2.20.0 nativeinterpreterwrapper_jni.cc: 'InterpreterBuilder interpreter_builder(*model, *resolver);' expected present -> line 463
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.12.0/tensorflow/lite/core/interpreter_builder.cc
+  sha256 8f8937f4a691998ce21e840b86f0b0da5363e9dad83b286e12be05de26ae8d71, 33,114 characters
+PASS  TF 2.12 (tflite_flutter's iOS runtime) has no offset-stored buffer support
+      TF v2.12.0 interpreter_builder.cc: 'offset()' expected ABSENT -> absent
+
+https://raw.githubusercontent.com/google-ai-edge/LiteRT/main/tflite/core/c/c_api.cc
+  sha256 509448084b1fcebc169aef54e341d4d95b496bc1b0bba6a019afadd43f8d23b1, 23,442 characters
+PASS  LiteRT today passes the allocation
+      LiteRT main c_api.cc: 'model->impl->allocation()' expected present -> line 574
+
+https://api.github.com/repos/google-ai-edge/LiteRT/commits/d17fd00
+  sha d17fd00b7b180d70f1275b2ba678806b067acd74
+PASS  commit d17fd00: message 'Pass allocation info to `InterpreterBuilder` in `InterpreterCreateWithOpResolver`.', authored 2025-11-05T12:58:47Z, diff adds model->impl->allocation()
+
+https://raw.githubusercontent.com/google-ai-edge/ai-edge-quantizer/main/ai_edge_quantizer/model_modifier.py
+  sha256 d8de30b26531fd427db0ea4cfb51089ed7e1835a519fbc1af58ce0ff67154131, 13,637 characters
+PASS  the quantizer switches to offset-stored buffers from 256 KiB of packed data
+      ai-edge-quantizer main model_modifier.py: 'packed_size < 256 * 1024' expected present -> line 204
+PASS  it serializes with ai_edge_litert.tools.flatbuffer_utils
+      ai-edge-quantizer main model_modifier.py: 'from ai_edge_litert.tools import flatbuffer_utils' expected present -> line 24
+
+https://raw.githubusercontent.com/google-ai-edge/ai-edge-quantizer/main/ai_edge_quantizer/quantizer.py
+  sha256 63f9ddda80f5060223d460f8133b1e9dc11c560d5dcc9906af112536e2f97e2d, 23,481 characters
+PASS  quantize() has no parameter for the buffer layout (its last parameter, then the return type)
+      ai-edge-quantizer main quantizer.py: '      enable_progress_report: bool = True,' expected present -> line 446
+PASS  ... signature closes here
+      ai-edge-quantizer main quantizer.py: '  ) -> QuantizationResult:' expected present -> line 447
+
+https://raw.githubusercontent.com/tensorflow/tensorflow/v2.20.0/tensorflow/lite/python/interpreter_wrapper/interpreter_wrapper.cc
+  sha256 aebff31602c9f51d252f3d28a4687b1a311351f750ca092635e1efaf004639fc, 36,567 characters
+PASS  the Python interpreter also builds from the full model object
+      TF v2.20.0 python interpreter_wrapper.cc: 'InterpreterBuilder builder(*model, resolver, &options);' expected present -> line 111
+
+https://raw.githubusercontent.com/google-ai-edge/LiteRT/main/tflite/tools/flatbuffer_utils.py
+  sha256 2fd1b7688f3d5685d44f14edbc09f182c296bcf1ac1b3c55157869998e3d37d8, 17,194 characters
+PASS  read_model / write_model in the LiteRT source tree go through TF's gfile
+      LiteRT main tflite/tools/flatbuffer_utils.py: 'from tensorflow.python.platform import gfile' expected present -> line 34
+
+C:\Users\renes\AppData\Local\Temp\claude\c--Users-renes-repos-conservation-app\043990d6-b360-447e-88b6-885bc87f926e\scratchpad\venv_litert\Lib\site-packages\ai_edge_litert\tools\flatbuffer_utils.py (ai-edge-litert 2.3.0 from PyPI, as installed)
+  sha256 ce0869a5b1d0b281376923bd1adef638332abdc7f54e62fa883580aaa286b764
+PASS  read_model_from_bytearray also compacts empty buffers to buffer 0
+      ai-edge-litert flatbuffer_utils.py: '  _compact_buffers_array(model)' expected present -> line 300
+PASS  ... and replaces gfile with os
+      ai-edge-litert flatbuffer_utils.py: 'import os # import gfile' expected present -> line 32
+
+https://dl.google.com/android/maven2/com/google/ai/edge/litert/litert-gpu/1.4.0/litert-gpu-1.4.0.pom
+  sha256 024b56c10d856d6cdda88c41c7692189ab4b1c97887aab88cb4e97afc0651df8, 1,981 characters
+PASS  litert-gpu 1.4.0 pins its API artifacts to exactly 1.4.0
+      litert-gpu 1.4.0 POM: '<version>[1.4.0]</version>' expected present -> line 57
+
+https://pub.dev/packages/flutter_litert/changelog
+  sha256 4b99e4df55b24b9c8bcd1bf3832768cce1b857b976ce9a3dfd333162277fd6d9, 105,983 characters
+PASS  flutter_litert (ADR 009's fallback) is now at 3.9.x
+      pub.dev flutter_litert changelog (visible text): 'flutter_litert 3.9.3' expected present -> line 1
+PASS  ... on LiteRT Next 2.2.0
+      pub.dev flutter_litert changelog (visible text): 'updated from LiteRT Next 2.1.6 to 2.2.0' expected present -> line 1
+PASS  ... whose AAR ships libLiteRt.so (the CompiledModel runtime), not libtensorflowlite_jni.so
+      pub.dev flutter_litert changelog (visible text): 'The 2.2.0 AAR ships the same libLiteRt.so' expected present -> line 1
+
+local: C:\Users\renes\AppData\Local\Pub\Cache\hosted\pub.dev\tflite_flutter-0.12.1
+PASS  tflite_flutter 0.12.1 released 2025-10-28
+      tflite_flutter-0.12.1/CHANGELOG.md: '## 0.12.1 (October 28, 2025)' expected present -> line 1
+PASS  ... moving Android to LiteRT 1.4.0
+      tflite_flutter-0.12.1/CHANGELOG.md: 'Migrated from TensorFlow Lite 2.12.0 to Google AI Edge LiteRT 1.4.0' expected present -> line 3
+PASS  the plugin declares LiteRT 1.4.0
+      tflite_flutter-0.12.1/android/build.gradle: 'def litert_version = "1.4.0"' expected present -> line 66
+PASS  iOS uses TensorFlowLiteSwift 2.12.0
+      tflite_flutter-0.12.1/ios/tflite_flutter.podspec: "tflite_version = '2.12.0'" expected present -> line 25
+PASS  Android loads libtensorflowlite_jni.so by name
+      tflite_flutter-0.12.1/lib/src/bindings/bindings.dart: "DynamicLibrary.open('libtensorflowlite_jni.so')" expected present -> line 24
+
+25/25 source facts confirmed

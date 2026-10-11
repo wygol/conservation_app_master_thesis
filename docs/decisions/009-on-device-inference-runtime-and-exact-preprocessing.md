@@ -153,6 +153,12 @@ never restricted) ran on cpu 7. The per-run CPU record caught it, as decision 6 
 `taskset` to cpu 7 is refused; a busy loop wakes the X2 within about 20 ms; pinning then succeeds both for
 the busy process and for a sleeping one (the C3 case); 0.5 s after the load stops the X2 is paused again.
 
+*Provenance (added 2026-10-11).* The core-control readings in the context above and this experiment are adb
+output from the 2026-10-10 session; they were not stored as files. `tools/model_check/core_control_check.sh`
+repeats both. Independently of them, the **stored** record of run `2026-10-10_122950` confirms the mechanism:
+in all three X2 configurations the first pin returned EINVAL (`pin_first_errno` 22) and held after 110–120 ms
+of waking, and every timed run executed on cpu 7.
+
 **Alternatives rejected.** Reporting the A710 only — loses the fastest-core reading this ADR planned.
 Keeping X2 figures labelled "unpinned" — where a run executes is then the scheduler's choice, not the
 protocol's. Dropping the settling pause — it exists so that one configuration's heat and clock state does

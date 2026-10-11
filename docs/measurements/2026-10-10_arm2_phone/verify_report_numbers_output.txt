@@ -1,0 +1,156 @@
+# Output of tools/model_check/verify_report_numbers.py — recorded 2026-10-11T10:02:41Z on René's laptop
+# script sha256: eac62a5f3da27c94065dcc61191cb39ffd191a3f3ce947cc6dd8384fae0d7d28; report.md sha256: 18015835e38cbc00fb21623cf9ced5f792c56ded637c153103a54c5284162bfb
+# interpreter: Python 3.14.3 with Pillow 12.3.0; argument: the MasterThesis folder (read-only)
+# Mutation test, same day: changing '12.17 ms' and '257,693 kB' in the report by one digit made the script fail on exactly those claims (exit 1); the report was restored byte-identical.
+
+== The run and its integrity
+PASS  report_app.json SHA-256 equals the hash the script recorded
+PASS  report_app.json hash prefix: 'SHA-256 `9e34c964…`'
+PASS  script version and hash: 'version 1.2 (SHA-256 `8c940f3c…`)'
+PASS  tools/measure_model.ps1 on disk is still the version that ran
+PASS  APK hash prefix: 'APK SHA-256 `ca0ba8f6…`'
+PASS  analyze: 'flutter analyze` 0 errors / 0 warnings'
+PASS  unit tests passed
+PASS  no app error and no runtime error line
+
+== Summary table
+PASS  correctness count: '6/6 pass'
+PASS  max logit deviation: 'largest logit difference 0.00006 (stored by the app rounded to 5 decimals; tolerance 0.1)'  (unrounded maximum therefore < 0.000065)
+PASS  max logit deviation, §2: 'the largest logit difference is 0.00006 (rounded to 5 decimals)'
+PASS  O3a: '4,425,408 bytes = 4.43 MB'
+PASS  O3b peak: '257,693 kB = 263.9 MB'
+PASS  O3b peak equals the script's own peak_o3b
+PASS  O3c C1 medians: '12.17 ms on the Cortex-X2, 20.95 ms on a Cortex-A710'
+PASS  12 MP peak: '473,089 kB = 484.4 MB'
+PASS  XNNPACK speed-up (X2): 'about 30 % faster at identical'
+
+== Setup
+PASS  model: 'Samsung Galaxy S22 (SM-S901U1)'  (marketing name = device knowledge)
+PASS  SoC: 'Snapdragon 8 Gen 1 (SM8450'  (SM8450 = Snapdragon 8 Gen 1 is device knowledge)
+PASS  X2: '1 × Cortex-X2 at up to 2.995 GHz = cpu 7'
+PASS  A710: '3 × Cortex-A710 at up to 2.496 GHz = cpu 4–6'
+PASS  A510: '4 × Cortex-A510 at up to 1.786 GHz'
+PASS  Android: 'Android 16 (SDK 36), build `BP2A.250605.031.A3.S901U1UESAGZH3`'
+PASS  power: 'On USB power, battery 100 %'
+PASS  thermal status 0 at start and end
+PASS  temperatures: 'SoC (AP) sensor 31.5 → 37.6 °C, skin 31.3 → 32.6 °C'
+PASS  toolchain: 'Flutter 3.44.1, Dart 3.12.1'
+PASS  labels: '`labels.csv` (1,004 rows)'
+PASS  model hash checked on device, in the APK and on disk (e0e182a8…)
+PASS  binding: 'tflite_flutter 0.12.1 (dart:ffi → LiteRT C API) on LiteRT 1.4.2'
+PASS  runtime self-report: '`2.22.0-dev0+selfbuilt`'
+PASS  C1 first in a fresh process, no XNNPACK by default (verdict not_default, creation line after C2 started)
+PASS  XNNPACK partition: 'XNNPACK took 208 of the 209 operators'
+PASS  X2 pin refused at first (EINVAL = 22) in all three X2 configurations
+PASS  X2 pin wait: '(110–120 ms;'
+PASS  all 100 runs of all six configurations on the pinned core
+PASS  protocol: '20 untimed warm-up runs, then 100 timed runs'
+PASS  timing input ref_01.jpg
+
+== Correctness table (values as stored by the app: |dmean| 6 decimals, |dlogit| 5 decimals)
+PASS  row ref_01.jpg: '| ref_01.jpg | 0.000004 | 974 = 974 | 5/5 | 0.00005 | ✓ |'
+PASS  row ref_02.jpg: '| ref_02.jpg | 0.000002 | 86 = 86 | 5/5 | 0.00005 | ✓ |'
+PASS  row ref_03.jpg: '| ref_03.jpg | 0.000004 | 86 = 86 | 5/5 | 0.00003 | ✓ |'
+PASS  row ref_04.jpg: '| ref_04.jpg | 0.000003 | 0 = 0 | 5/5 | 0.00006 | ✓ |'
+PASS  row ref_05.jpg: '| ref_05.jpg | 0.000002 | 0 = 0 | 5/5 | 0.00005 | ✓ |'
+PASS  row grey (all 0.5): '| grey (all 0.5) | 0 | 998 = 998 | 5/5 | 0.00005 | ✓ |'
+PASS  c2_correctness: 6/6 pass, max |dlogit| 0.00006
+PASS  c3_correctness: 6/6 pass, max |dlogit| 0.00006
+PASS  decode/resize/crop bit-identical to Pillow for the 5 photos and the 12 MP image
+PASS  synthetic JPEG size: '4000 × 3000 JPEG (3.2 MB)'
+
+== O3a
+PASS  model entry: '4,425,408 bytes (4.43 MB)'
+PASS  model entry stored uncompressed, SHA-256 = scored file
+PASS  APK size: '87,632,079 bytes'
+PASS  fixtures: 'about 3.9 MB of measurement fixtures'  (3,869,658 bytes)
+
+== O3b
+PASS  classifications: '100 classifications'
+PASS  O3b samples: '32 samples'
+PASS  O3b peak, three units: 'Peak: 257,693 kB = 263.9 MB = 251.7 MiB'
+PASS  snapshots: '167,382 kB (graphics 84,292 kB); after loading 201,999 kB; after the correctness check 236,822 kB'
+PASS  VmHWM: '218,856 kB'
+PASS  smaps max: 'every 100 ms, maximum 140,091 kB'
+PASS  Java heap range: 'the Java heap is 2,068–9,476 kB (2.1–9.7 MB) across all 51 dumpsys readings'
+PASS  12 MP rounds: 'through the same pipeline 3 times'
+PASS  12 MP peak: 'peak TOTAL PSS 473,089 kB = 484.4 MB (14 samples)'
+PASS  12 MP peak equals the script's own peak_bigimg
+PASS  12 MP VmHWM: '`VmHWM` 383,752 kB'
+PASS  12 MP top-5 identical to the desktop reference
+PASS  12 MP stage times: 'decode 288–336 ms, preprocessing 104–121 ms, model run 11.7–12.1 ms'
+
+== O3c table (recomputed from the 100 raw values per configuration)
+PASS  C1_prime median | p90 | min | max: '12.17 ms | 12.29 ms | 11.91 ms | 14.82 ms |'
+PASS  C1_prime: recomputed median/p90 equal the app's own stats
+PASS  C1_big median | p90 | min | max: '20.95 ms | 21.71 ms | 20.72 ms | 23.70 ms |'
+PASS  C1_big: recomputed median/p90 equal the app's own stats
+PASS  C2_prime median | p90 | min | max: '8.55 ms | 8.62 ms | 8.44 ms | 13.93 ms |'
+PASS  C2_prime: recomputed median/p90 equal the app's own stats
+PASS  C2_big median | p90 | min | max: '15.77 ms | 15.84 ms | 15.63 ms | 18.49 ms |'
+PASS  C2_big: recomputed median/p90 equal the app's own stats
+PASS  C3_prime median | p90 | min | max: '12.29 ms | 12.37 ms | 11.94 ms | 17.27 ms |'
+PASS  C3_prime: recomputed median/p90 equal the app's own stats
+PASS  C3_big median | p90 | min | max: '18.45 ms | 21.16 ms | 17.63 ms | 25.22 ms |'
+PASS  C3_big: recomputed median/p90 equal the app's own stats
+PASS  C3 vs C1 on the X2: 'agrees on the X2 within about 1 %'
+PASS  O3c margin: 'met by a factor of about 25 (X2) and 14 (A710)'
+PASS  XNNPACK speed-up: 'about 30 % faster on the X2 and 25 % on the A710'
+PASS  repeatability A710 (run 3): 'C1 20.81 ms and C2 15.65 ms (within 1 % of the table), C3 20.86 ms (13 % above)'  ("within 1 %": largest deviation 0.81 % rounds to 1)
+PASS  run 3 C1 on the X2 was unpinned (errno 22) yet every run on cpu 7
+PASS  run 3 X2 median: 'had a median of 10.33 ms'
+PASS  run 3 X2 drift: 'fell from about 10.2 ms in the first runs to 12.2 ms in the last'  (means of the first and last 10 runs)
+PASS  run 4 X2 block means: 'every block of 10 runs averages 12.1–12.4 ms'  (block means 12.11–12.38 ms)
+PASS  end to end: 'median 42.3 ms, p90 56.0 ms (n = 100)'  (computed by the app from its per-image timings; the series itself is not stored)
+PASS  12 MP per photo: '(0.41–0.46 s each)'
+PASS  creation times: 'C1 10.9 ms, C2 81.8 ms'
+PASS  C3 creation: 'C3 7.2 ms'
+
+== Limits and provenance
+PASS  run length: 'one short run of 55 s'
+PASS  Benchmark Tool not run
+PASS  run 103514: the build failed on the Kotlin target
+PASS  run 105927: first inference failed ('Input tensor 87 lacks data')
+PASS  run 120250: correctness passed, no measurement.json, X2 pin errno 22
+
+== Numbers in the other documents (process log, ADR 010, CLAUDE.md) against stored evidence
+PASS  ADR 010 table, LiteRT 1.4.0: 'LiteRT 1.4.0 AAR | 2025-06-30 | 2.20.0-dev0 | `mov x5, xzr`' — in the text and backed by the data
+PASS  ADR 010 table, LiteRT 1.4.1: 'LiteRT 1.4.1 AAR | 2025-11-05 | 2.20.0-dev0 | `mov x5, xzr`' — in the text and backed by the data
+PASS  ADR 010 table, LiteRT 1.4.2: 'LiteRT 1.4.2 AAR | 2026-03-12 | 2.22.0-dev0 | `ldr x5, [x8, #0x10]`' — in the text and backed by the data
+PASS  ADR 010, 2.x: 'all ten checked' — in the text and backed by the data
+PASS  ADR 010, offset buffers: "78 of the file's 149 buffers are stored this way (59 INT8, 18 FLOAT32, 1 INT32)" — in the text and backed by the data
+PASS  ADR 010, tensor 87: 'offset 2,562,976, size 1,024' — in the text and backed by the data
+PASS  ADR 010, inline before: 'the 11 inline constants before it loaded fine' — in the text and backed by the data
+PASS  ADR 010, run 2 interpreter: 'created the interpreter (C1, 13.7 ms)' — in the text and backed by the data
+PASS  ADR 010, C functions: 'exports every one of the 30 C functions' — in the text and backed by the data
+PASS  process log, run 3 duration: '56 s — app start to DONE, `elapsed_ms` 55,807' — in the text and backed by the data
+PASS  process log, probe: 'the 59-character probe line becomes 496, 1,776 and 32,527 characters of JSON' — in the text and backed by the data
+PASS  process log, fix on the real log: '8 lines, 2,983 characters of JSON' — in the text and backed by the data
+PASS  process log, run 2 toolchain: '0 errors, 0 warnings, 5 pre-existing infos' — in the text and backed by the data
+PASS  CLAUDE.md status: 'O3b 257,693 kB peak, O3c 12.17 ms (X2) / 20.95 ms (A710)' — in the text and backed by the data
+PASS  CLAUDE.md status, 12 MP: 'peaks at 473,089 kB' — in the text and backed by the data
+
+== Thesis-side texts the report cites
+PASS  invariant 11: corpus downscaled to <= 800 px, JPEG q90
+PASS  invariant 13: <= 800 px long side, LANCZOS, JPEG q90, no rotation
+PASS  O3a/O3b/O3c targets as quoted
+PASS  thesis copy + its header note + the corrigendum's corrections = the corrected report
+PASS  the corrigendum lists all four corrected statements
+
+== Numbers in the hint notes against stored evidence
+PASS  runtime-defect note, tensor 87: 'INT8 weight tensor `[64, 1, 1, 16]` that feeds `DEQUANTIZE` (operator 13)' — in the text and backed by the data
+PASS  runtime-defect note, offset: '`offset 2,562,976, size 1,024`' — in the text and backed by the data
+PASS  runtime-defect note, buffers: "78 of the file's 149 buffers" — in the text and backed by the data
+PASS  runtime-defect note, all INT8 exports: 'Every INT8 file in `ml-pipeline/arm2_export/` and `ml-pipeline/export_spike/out*/` has it; the FP32 files (litert-torch) have none' — in the text and backed by the data  (14 files in the stored scan)
+PASS  runtime-defect note, min_runtime: 'The Arm 2 files declare `min_runtime_version 1.15.0`' — in the text and backed by the data
+PASS  runtime-defect note, versions: 'and 1.4.1 pass nullptr; 1.4.2 passes the allocation' — in the text and backed by the data
+PASS  runtime-defect note, feasibility: 'offset-stored buffers 78 → 0; file 4,425,408 → 4,424,504 bytes' — in the text and backed by the data
+PASS  runtime-defect note, feasibility structure: 'all 356 tensors (name, type, shape, quantization, 4,039,532 constant bytes) and all 209 operators identical' — in the text and backed by the data
+PASS  runtime-defect note, feasibility behaviour: 'logits bit-identical (`np.array_equal`) on 72 inputs' — in the text and backed by the data
+PASS  runtime-defect note, operators: 'All 13 operator types in the file (ADD, CONV_2D, DEPTHWISE_CONV_2D, DEQUANTIZE, FULLY_CONNECTED, GATHER_ND, HARD_SWISH, MUL, PAD, RESHAPE, SUB, SUM, TRANSPOSE) are built-ins at version 1' — in the text and backed by the data
+PASS  every upstream source fact confirmed against the raw files (stored output)
+PASS  open-questions note, calibration: 'temperature 1.9123, `global_threshold` 0.6383' — in the text and backed by the data
+PASS  open-questions note, 12 MP: 'peaks at 473,089 kB' — in the text and backed by the data
+
+127/127 checks pass
+exit code: 0
